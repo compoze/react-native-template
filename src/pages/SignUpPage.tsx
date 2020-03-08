@@ -1,10 +1,12 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, ScrollView, View } from 'react-native';
 import LoginInput from "../components/input"
 import LoginButton from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
+import { styleConstants } from '../config/constants';
+import { requiredFieldsEmpty } from '../utilities/FormValidation';
 
 interface Props {
     userStore: UserStore;
@@ -18,6 +20,18 @@ interface State {
     phoneNumber?: string;
 }
 export class SignUp extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+        };
+    }
+
     private onPressSignUpButton = (): void => {
         if (false === this.validateInputs()) {
             return;
@@ -60,46 +74,54 @@ export class SignUp extends React.Component<Props, State> {
 
         return true;
     }
+
     public render(): JSX.Element {
+        const { email, password, firstName, lastName } = this.state;
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.scroll}>
+                <Text style={styles.title}>{signUpUIStrings.SIGN_UP_TITLE}</Text>
                 <LoginInput
-                    placeholder='first name*'
+                    title='First Name*'
+                    placeholder='Enter Your First Name'
                     onChangeText={(firstName: string) => {
                         this.setState({ firstName: firstName })
                     }}
                 />
                 <LoginInput
-                    placeholder='last name*'
+                    title='Last Name*'
+                    placeholder='Enter Your Last Name'
                     onChangeText={(lastName: string) => {
                         this.setState({ lastName: lastName })
                     }}
                 />
                 <LoginInput
-                    placeholder='email*'
+                    title='Email*'
+                    placeholder='Enter Your Email'
                     onChangeText={(email: string) => {
                         this.setState({ email: email })
                     }}
                     keyboardType="email-address"
                 />
                 <LoginInput
+                    title='Password*'
                     secureTextEntry={true}
-                    placeholder='password*'
+                    placeholder='Enter Your Password'
                     onChangeText={(password: string) => {
                         this.setState({ password: password })
                     }}
                 />
                 <LoginInput
-                    placeholder='phone number'
+                    title='Phone Number'
+                    placeholder='Enter Your Phone Number'
                     onChangeText={(phoneNumber: string) => {
                         this.setState({ phoneNumber: phoneNumber })
                     }}
                     keyboardType="phone-pad"
                 />
-                <LoginButton onPress={this.onPressSignUpButton}>
-                    <Text>Sign Up</Text>
+                <LoginButton disabled={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
+                    <Text>{signUpUIStrings.SIGN_UP}</Text>
                 </LoginButton>
-            </View>
+            </ScrollView>
         )
     }
 }
@@ -112,13 +134,19 @@ const signUpUIStrings = {
     ALERT_ENTER_EMAIL: 'You must enter an email and a password',
     ALERT_ENTER_PASS: 'You must enter an email and a password',
     ALERT_ENTER_FIRST_AND_LAST: 'You must enter an first and last name',
+    SIGN_UP_TITLE: 'Sign Up For An Account',
+    SIGN_UP: 'Sign Up',
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+    scroll: {
+        backgroundColor: styleConstants.colors.APP_BACKGROUND,
+        paddingHorizontal: '7.5%',
+    },
+    title: {
+        fontSize: styleConstants.fontSize.XX_LARGE,
+        color: styleConstants.colors.TITLE_PRIMARY,
+        fontWeight: styleConstants.fontWeight.BOLD,
+        width: '100%',
     },
 });
 

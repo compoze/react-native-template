@@ -1,18 +1,16 @@
-import { FlexAlignType, KeyboardType } from 'react-native';
+import { KeyboardType } from 'react-native';
 
-type Position = 'absolute' | 'relative' | undefined;
-type Justify = 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | undefined;
-type Direction = 'row' | 'column' | 'row-reverse' | 'column-reverse' | undefined;
-type FontStyle = 'normal' | 'italic';
-type TextAlign = 'center' | 'auto' | 'left' | 'right' | undefined;
+type FontWeight = '300' | '400' | '500' | '700' | 'normal' | 'bold' | '100' | '200' | '600' | '800' | '900' | undefined;
 
 export const styleConstants = {
     colors: {
         PRIMARY: '#FE9847', // Update these to represent your app
         PRIMARY_UNDERLAY: '#FE9847BB', // This is the standard button highlight
+        TITLE_PRIMARY: '#0D215C',
         TEXT_PRIMARY: '#000',
         TRANSPARENT: 'transparent',
-        LOGIN_BUTTON: '#A8A7A7',
+        PRIMARY_BUTTON: '#0D88BC',
+        PRIMARY_BUTTON_DISABLED: '#7B8295',
         GREY_VYNE_BACKGROUND: '#252D3A',
         STATUS_BAR: '#4197D6',
         FADED_WHITE: '#FFFFFFAA',
@@ -20,39 +18,16 @@ export const styleConstants = {
         DRAWER_ACTIVE_TINT: '#F3A947',
         DRAWER_BG: '#00000000',
         DRAWER_INACTIVE_TINT: '#727272',
-        APP_BACKGROUND: '#FFF'
+        APP_BACKGROUND: '#FFF',
+        INPUT_BACKGROUND: '#F6F8FB',
+        INPUT_BACKGROUND_BORDER: '#757E99',
     },
     fontFamily: { DEFAULT: 'Montserrat' },
-    position: {
-        ABSOLUTE: 'absolute' as Position,
-        RELATIVE: 'relative' as Position
-    },
-    flexAlign: {
-        CENTER: 'center' as FlexAlignType,
-        STRETCH: 'stretch' as FlexAlignType,
-        START: 'flex-start' as FlexAlignType,
-        END: 'flex-end' as FlexAlignType
-    },
-    flexJustify: {
-        CENTER: 'center' as Justify,
-        END: 'flex-end' as Justify,
-        START: 'flex-start' as Justify,
-        SPACE_BETWEEN: 'space-between' as Justify,
-        SPACE_AROUND: 'space-around' as Justify
-    },
-    flexDirection: {
-        ROW: 'row' as Direction,
-        COLUMN: 'column' as Direction
-    },
-    fontStyle: {
-        NORMAL: 'normal' as FontStyle,
-        ITALIC: 'italic' as FontStyle
-    },
     fontWeight: {
-        LIGHT: '300',
-        NORMAL: '400',
-        SEMI_BOLD: '500',
-        BOLD: '700'
+        LIGHT: '300' as FontWeight,
+        NORMAL: '400' as FontWeight,
+        SEMI_BOLD: '500' as FontWeight,
+        BOLD: '700' as FontWeight
     },
     fontSize: {
         SMALL: 12,
@@ -62,19 +37,6 @@ export const styleConstants = {
         X_LARGE: 22,
         XX_LARGE: 24
     },
-    textAlign: {
-        AUTO: 'auto' as TextAlign,
-        LEFT: 'left' as TextAlign,
-        CENTER: 'center' as TextAlign,
-        RIGHT: 'right' as TextAlign,
-        JUSTIFY: 'justify' as TextAlign
-    },
-    textDecoration: {
-        NONE: 'none',
-        UNDERLINE: 'underline',
-        LINE_THROUGH: 'line-through',
-        UNDERLINE_LINE_THROUGH: 'underline line-through'
-    }
 };
 
 export const DefaultNavBarContainerStyle = {
