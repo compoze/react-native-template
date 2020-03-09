@@ -1,12 +1,29 @@
-export function requiredFieldsEmpty(...args: any[]): boolean {
+export interface ValidationObject {
+    fieldName: string,
+    message: string,
+}
+
+export interface ObjectToValidate {
+    key: string,
+    value: string,
+}
+
+export function requiredFieldsEmpty(...args: ObjectToValidate[]): ValidationObject[] {
+    const validationObject: ValidationObject[] = [];
     if (!args.length) {
-        return true;
+        validationObject.push({
+            fieldName: 'lenght',
+            message: 'Is Empty',
+        });
     }
-    let returnValue: boolean = false;
+
     args.forEach((arg) => {
-        if (!arg) {
-            returnValue = true;
+        if (!arg.value) {
+            validationObject.push({
+                fieldName: arg.key,
+                message: `${arg.key} cannot be empty`,
+            })
         }
     })
-    return returnValue;
+    return validationObject;
 }

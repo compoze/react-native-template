@@ -4,7 +4,7 @@ import { AccountInput } from "../components/input"
 import { UpdateAccountButton } from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { styleConstants } from '../config/constants';
-import { requiredFieldsEmpty } from '../utilities/FormValidation';
+import { requiredFieldsEmpty, ObjectToValidate, ValidationObject } from '../utilities/FormValidation';
 
 interface Props {
     userStore: UserStore;
@@ -31,41 +31,29 @@ export class AccountPage extends React.Component<Props, State> {
     }
 
     private onPressSignUpButton = (): void => {
-        if (false === this.validateInputs()) {
+        const { email, password, firstName, lastName, phoneNumber } = this.state;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'First Name', value: firstName },
+            { key: 'Last Name', value: lastName },
+            { key: 'email', value: email },
+            { key: 'password', value: password },
+        ];
+        const validationErrors: ValidationObject[] = requiredFieldsEmpty(...validationFields);
+        if (validationErrors.length !== 0) {
+            Alert.alert(validationErrors[0].message);
             return;
         }
 
-        const { email, password, firstName, lastName, phoneNumber } = this.state;
     };
-
-    private validateInputs(): boolean {
-        if (this.state == null) {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_EMAIL_AND_PASS);
-            return false;
-        }
-
-        const { email, password, firstName, lastName } = this.state;
-
-        if (email === '' || null == email) {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_EMAIL);
-            return false;
-        }
-
-        if (password === '' || null == email) {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_PASS);
-            return false;
-        }
-
-        if (!firstName || firstName === '' || !lastName || lastName === '') {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_FIRST_AND_LAST);
-            return false;
-        }
-
-        return true;
-    }
 
     public render(): JSX.Element {
         const { email, password, firstName, lastName } = this.state;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'email', value: email },
+            { key: 'password', value: password },
+            { key: 'First Name', value: firstName },
+            { key: 'Last Name', value: lastName },
+        ];
         return (
             <ImageBackground style={styles.container} source={require('../images/DefaultBackground.png')}>
                 <ScrollView style={styles.scroll}>
@@ -107,7 +95,7 @@ export class AccountPage extends React.Component<Props, State> {
                         }}
                         keyboardType="phone-pad"
                     />
-                    <UpdateAccountButton invalid={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
+                    <UpdateAccountButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
                         <Text>Hot Dog</Text>
                     </UpdateAccountButton>
                 </ScrollView>
