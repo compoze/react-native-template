@@ -1,58 +1,49 @@
-import { requiredFieldsEmpty } from "../../src/utilities/FormValidation";
+import { requiredFieldsEmpty, ObjectToValidate, ValidationObject } from "../../src/utilities/FormValidation";
 
 describe('requiredFieldsEmpty', () => {
-    it('Returns true if no arguments provided', async () => {
+    it('Returns Is Empty if no arguments provided', async () => {
         // arrange
-        const expected: boolean = true;
+        const expected: ValidationObject[] = [{
+            fieldName: 'lenght',
+            message: 'Is Empty',
+        }];
 
         // act
         const actual = requiredFieldsEmpty();
 
         // assert
-        expect(actual).toBe(expected);
+        expect(actual).toEqual(expected);
     });
 
-    it('Returns true if any arguments are empty strings', async () => {
+    it('Returns an object if any arguments are empty strings', async () => {
         // arrange
-        const expected: boolean = true;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'First Name', value: 'firstName' },
+            { key: 'Last Name', value: 'lastName' },
+            { key: 'email', value: '' },
+            { key: 'password', value: 'password' },
+        ];
 
         // act
-        const actual = requiredFieldsEmpty('test','test','');
+        const actual = requiredFieldsEmpty(...validationFields);
 
         // assert
-        expect(actual).toBe(expected);
+        expect(actual.length).toBe(1);
     });
 
-    it('Returns true if any arguments are 0', async () => {
+    it('Returns empty array if all arguments are truthy', async () => {
         // arrange
-        const expected: boolean = true;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'First Name', value: 'firstName' },
+            { key: 'Last Name', value: 'lastName' },
+            { key: 'email', value: 'email' },
+            { key: 'password', value: 'password' },
+        ];
 
         // act
-        const actual = requiredFieldsEmpty('test',1,0);
+        const actual = requiredFieldsEmpty(...validationFields);
 
         // assert
-        expect(actual).toBe(expected);
-    });
-
-    it('Returns true if any arguments are false', async () => {
-        // arrange
-        const expected: boolean = true;
-
-        // act
-        const actual = requiredFieldsEmpty('test',1,false);
-
-        // assert
-        expect(actual).toBe(expected);
-    });
-
-    it('Returns fales if all arguments are truthy', async () => {
-        // arrange
-        const expected: boolean = false;
-
-        // act
-        const actual = requiredFieldsEmpty('test',1,true);
-
-        // assert
-        expect(actual).toBe(expected);
+        expect(actual.length).toBe(0);
     });
 });
