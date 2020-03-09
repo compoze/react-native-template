@@ -85,7 +85,7 @@ export class Login extends React.Component<Props, State> {
                         this.setState({ password: password })
                     }}
                 />
-                <LoginButton disabled={requiredFieldsEmpty(email, password)} onPress={this.onPressLoginButton}>
+                <LoginButton invalid={requiredFieldsEmpty(email, password)} onPress={this.onPressLoginButton}>
                     <Text >Login</Text>
                 </LoginButton>
             </View>

@@ -36,9 +36,6 @@ export class AccountPage extends React.Component<Props, State> {
         }
 
         const { email, password, firstName, lastName, phoneNumber } = this.state;
-        const displayName: string = `${firstName} ${lastName}`;
-        const userStore: UserStore = new UserStore()
-
     };
 
     private validateInputs(): boolean {
@@ -110,7 +107,7 @@ export class AccountPage extends React.Component<Props, State> {
                         }}
                         keyboardType="phone-pad"
                     />
-                    <UpdateAccountButton disabled={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
+                    <UpdateAccountButton invalid={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
                         <Text>Hot Dog</Text>
                     </UpdateAccountButton>
                 </ScrollView>

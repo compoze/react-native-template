@@ -4,13 +4,13 @@ import { styleConstants } from '../../config/constants';
 
 export interface ButtonProps extends TouchableOpacityProperties {
     contentContainerStyle?: ViewStyle;
-    disabled: boolean;
+    invalid: boolean;
 }
 
 const LoginButton: React.SFC<ButtonProps> = ({ style, contentContainerStyle, children, ...props }) => {
     const buttonStyles: StyleProp<ViewStyle>[] = [styles.button];
-    if(props.disabled) {
-        buttonStyles.push(styles.disabled);
+    if(props.invalid) {
+        buttonStyles.push(styles.invalid);
     }
     return (
         <TouchableOpacity {...props} style={[...buttonStyles, style]}>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOpacity: 0.14
     },
-    disabled: {
+    invalid: {
         backgroundColor: styleConstants.colors.PRIMARY_BUTTON_DISABLED,
     }
 });

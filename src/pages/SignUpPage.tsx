@@ -118,7 +118,7 @@ export class SignUp extends React.Component<Props, State> {
                     }}
                     keyboardType="phone-pad"
                 />
-                <LoginButton disabled={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
+                <LoginButton invalid={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
                     <Text>{signUpUIStrings.SIGN_UP}</Text>
                 </LoginButton>
             </ScrollView>
