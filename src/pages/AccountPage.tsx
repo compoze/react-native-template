@@ -96,7 +96,7 @@ export class AccountPage extends React.Component<Props, State> {
                         keyboardType="phone-pad"
                     />
                     <UpdateAccountButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
-                        <Text>Hot Dog</Text>
+                        <Text>Update</Text>
                     </UpdateAccountButton>
                 </ScrollView>
             </ImageBackground>
