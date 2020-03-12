@@ -1,13 +1,17 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { Image } from 'react-native';
+import { Header } from 'react-native-elements';
+import { styleConstants } from '../../config/constants';
 
-export class Header extends React.Component {
+
+export class AppHeader extends React.Component {
 
     public render(): JSX.Element {
         return (
-            <View>
-                <Image source={require('../../images/DefaultHeaderLogo.png')} />
-            </View>
+            <Header leftComponent={{ icon: 'menu' }}
+                containerStyle={{ backgroundColor: styleConstants.colors.FADED_WHITE, }}
+                centerComponent={<Image source={require('../../images/DefaultHeaderLogo.png')} />}>
+            </Header>
         );
     }
 }

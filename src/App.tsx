@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Login } from './pages/LoginPage'
-import { Header } from './components/header/Header';
+import { AppHeader } from './components/header/Header';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{ headerTitle: props => <Header {...props} /> }}
+          options={{ header: props => <AppHeader {...props} /> }}
         />
       </Stack.Navigator>
     </NavigationContainer>
