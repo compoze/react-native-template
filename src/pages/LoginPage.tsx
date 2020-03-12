@@ -1,12 +1,12 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
-import LoginInput from "../components/input"
-import LoginButton from "../components/button"
+import { LoginInput } from "../components/input"
+import { LoginButton } from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
-import { requiredFieldsEmpty } from '../utilities/FormValidation';
+import { requiredFieldsEmpty, ObjectToValidate, ValidationObject } from '../utilities/FormValidation';
 
 interface Props {
     userStore: UserStore;
@@ -27,11 +27,17 @@ export class Login extends React.Component<Props, State> {
     }
 
     private onPressLoginButton = (): void => {
-        if (false === this.validateInputs()) {
+        const { email, password } = this.state;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'email', value: email },
+            { key: 'password', value: password },
+        ];
+        const validationErrors: ValidationObject[] = requiredFieldsEmpty(...validationFields);
+        if (validationErrors.length !== 0) {
+            Alert.alert(validationErrors[0].message);
             return;
         }
 
-        const { email, password } = this.state;
         //TODO: Hack this just to make progress on automation
         const userStore: UserStore = new UserStore()
         userStore.login(email!, password!).catch(error => {
@@ -43,29 +49,12 @@ export class Login extends React.Component<Props, State> {
             });
     };
 
-    private validateInputs(): boolean {
-        if (this.state == null) {
-            Alert.alert(loginUIStrings.ALERT_ENTER_EMAIL_AND_PASS);
-            return false;
-        }
-
-        const { email, password } = this.state;
-
-        if (email === '' || null == email) {
-            Alert.alert(loginUIStrings.ALERT_ENTER_EMAIL);
-            return false;
-        }
-
-        if (password === '' || null == email) {
-            Alert.alert(loginUIStrings.ALERT_ENTER_PASS);
-            return false;
-        }
-
-        return true;
-    }
-
     public render(): JSX.Element {
         const { email, password } = this.state;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'email', value: email },
+            { key: 'password', value: password },
+        ];
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{loginUIStrings.LOGIN_TITLE}</Text>
@@ -85,7 +74,7 @@ export class Login extends React.Component<Props, State> {
                         this.setState({ password: password })
                     }}
                 />
-                <LoginButton disabled={requiredFieldsEmpty(email, password)} onPress={this.onPressLoginButton}>
+                <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressLoginButton}>
                     <Text >Login</Text>
                 </LoginButton>
             </View>

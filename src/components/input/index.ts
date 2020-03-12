@@ -1,4 +1,7 @@
 import LoginInput from './LoginInput';
+import AccountInput from './AccountInput';
 
-
-export default LoginInput;
+export {
+    LoginInput,
+    AccountInput
+}

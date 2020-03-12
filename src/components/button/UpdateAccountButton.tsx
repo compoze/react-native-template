@@ -7,7 +7,7 @@ export interface ButtonProps extends TouchableOpacityProperties {
     invalid: boolean;
 }
 
-const LoginButton: React.SFC<ButtonProps> = ({ style, contentContainerStyle, children, ...props }) => {
+const UpdateAccountButton: React.SFC<ButtonProps> = ({ style, contentContainerStyle, children, ...props }) => {
     const buttonStyles: StyleProp<ViewStyle>[] = [styles.button];
     if(props.invalid) {
         buttonStyles.push(styles.invalid);
@@ -19,17 +19,20 @@ const LoginButton: React.SFC<ButtonProps> = ({ style, contentContainerStyle, chi
     );
 };
 
-export default LoginButton;
+export default UpdateAccountButton;
 
 const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: styleConstants.colors.PRIMARY_BUTTON,
+        backgroundColor: styleConstants.colors.FADED_WHITE,
+        color: styleConstants.colors.PRIMARY,
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 50,
-        borderRadius: 2,
+        borderColor: styleConstants.colors.PRIMARY,
+        borderRadius: 15,
+        borderWidth: 1,
         shadowOffset: { width: 0, height: 2 },
         shadowColor: 'black',
         shadowOpacity: 0.14

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ScrollView, View } from 'react-native';
-import LoginInput from "../components/input"
-import LoginButton from "../components/button"
+import { LoginInput } from "../components/input"
+import { LoginButton } from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
-import { requiredFieldsEmpty } from '../utilities/FormValidation';
+import { requiredFieldsEmpty, ValidationObject, ObjectToValidate } from '../utilities/FormValidation';
 
 interface Props {
     userStore: UserStore;
@@ -33,11 +33,18 @@ export class SignUp extends React.Component<Props, State> {
     }
 
     private onPressSignUpButton = (): void => {
-        if (false === this.validateInputs()) {
-            return;
+        const { email, password, firstName, lastName, phoneNumber } = this.state;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'First Name', value: firstName },
+            { key: 'Last Name', value: lastName },
+            { key: 'email', value: email },
+            { key: 'password', value: password },
+        ];
+        const validationErrors: ValidationObject[] = requiredFieldsEmpty(...validationFields);
+        if (validationErrors.length !== 0) {
+            Alert.alert(validationErrors[0].message); return;
         }
 
-        const { email, password, firstName, lastName, phoneNumber } = this.state;
         const displayName: string = `${firstName} ${lastName}`;
         const userStore: UserStore = new UserStore()
         userStore.signUp(email!, password!, displayName, phoneNumber).catch(error => {
@@ -49,34 +56,14 @@ export class SignUp extends React.Component<Props, State> {
             });
     };
 
-    private validateInputs(): boolean {
-        if (this.state == null) {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_EMAIL_AND_PASS);
-            return false;
-        }
-
-        const { email, password, firstName, lastName } = this.state;
-
-        if (email === '' || null == email) {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_EMAIL);
-            return false;
-        }
-
-        if (password === '' || null == email) {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_PASS);
-            return false;
-        }
-
-        if (!firstName || firstName === '' || !lastName || lastName === '') {
-            Alert.alert(signUpUIStrings.ALERT_ENTER_FIRST_AND_LAST);
-            return false;
-        }
-
-        return true;
-    }
-
     public render(): JSX.Element {
         const { email, password, firstName, lastName } = this.state;
+        const validationFields: ObjectToValidate[] = [
+            { key: 'email', value: email },
+            { key: 'password', value: password },
+            { key: 'First Name', value: firstName },
+            { key: 'Last Name', value: lastName },
+        ];
         return (
             <ScrollView style={styles.scroll}>
                 <Text style={styles.title}>{signUpUIStrings.SIGN_UP_TITLE}</Text>
@@ -118,7 +105,7 @@ export class SignUp extends React.Component<Props, State> {
                     }}
                     keyboardType="phone-pad"
                 />
-                <LoginButton disabled={requiredFieldsEmpty(email, password, firstName, lastName)} onPress={this.onPressSignUpButton}>
+                <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
                     <Text>{signUpUIStrings.SIGN_UP}</Text>
                 </LoginButton>
             </ScrollView>

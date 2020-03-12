@@ -1,3 +1,7 @@
 import LoginButton from './LoginButton';
+import UpdateAccountButton from './UpdateAccountButton';
 
-export default LoginButton;
+export {
+    LoginButton,
+    UpdateAccountButton,
+}
