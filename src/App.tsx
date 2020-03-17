@@ -1,32 +1,47 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Login } from './pages/LoginPage'
-const Stack = createStackNavigator();
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ title: 'Welcome' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { UserStore } from './stores/UserStore';
+import Menu from './components/menu/Menu';
+import AppNavigator from './navigation/AppNavigator';
+
+interface Props {
+  navigation: any;
 }
 
+interface State {
+  stackNavigation: any;
+}
 
+const userStore: UserStore = new UserStore();
+const Drawer = createDrawerNavigator();
+export default class App extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
 
+    this.state = {
+      stackNavigation: '',
+    };
+  }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  setStackNavigator = (stackNavigation: any) => {
+    if (this.state.stackNavigation === '') {
+      this.setState({ stackNavigation });
+    }
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Home"
+          drawerContent={props => <Menu userStore={userStore} {...props} stackNavigation={this.state.stackNavigation} />}>
+          <Drawer.Screen
+            name="Home"
+            component={props => <AppNavigator setStackNavigation={this.setStackNavigator} {...props} />}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    );
+  }
+}

@@ -54,5 +54,7 @@ target 'myapp' do
   # Automatically detect installed unimodules
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 end
 use_native_modules!

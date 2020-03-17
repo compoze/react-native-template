@@ -4,13 +4,8 @@ export const Firebase = firebase;
 export const Auth = firebase.auth();
 
 export class UserStore {
-    private _user: User | null;
-    public constructor() {
-        this._user = null;
-    }
-
     public get isAuthenticated(): boolean {
-        return null != this._user;
+        return null !== Auth.currentUser;
     }
 
     public logout(): Promise<void> {
