@@ -20,9 +20,9 @@ export default class AppNavigator extends React.Component<Props> {
             <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen
                     name="Login"
-                    component={props => <Login setStackNavigation={this.props.setStackNavigation} {...props} />}
-                    options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
-                />
+                    options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}>
+                    {props => <Login userStore={this.props.userStore} setStackNavigation={this.props.setStackNavigation} {...props} />}
+                </Stack.Screen>
                 <Stack.Screen
                     name="SignUp"
                     component={SignUp}
