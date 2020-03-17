@@ -11,6 +11,7 @@ import { requiredFieldsEmpty, ObjectToValidate, ValidationObject } from '../util
 interface Props {
     userStore: UserStore;
     navigation: any;
+    setStackNavigation(stackNavigation: any): void;
 }
 
 interface State {
@@ -25,6 +26,10 @@ export class Login extends React.Component<Props, State> {
             email: '',
             password: '',
         };
+    }
+
+    componentDidMount = () => {
+        this.props.setStackNavigation(this.props.navigation);
     }
 
     private navigateToSignUp = (): void => {
@@ -82,7 +87,7 @@ export class Login extends React.Component<Props, State> {
                 <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressLoginButton}>
                     <Text >Login</Text>
                 </LoginButton>
-                <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.navigateToSignUp}>
+                <LoginButton invalid={false} onPress={this.navigateToSignUp}>
                     <Text >Sign Up</Text>
                 </LoginButton>
             </View>

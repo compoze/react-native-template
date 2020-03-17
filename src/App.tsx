@@ -1,73 +1,47 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Login } from './pages/LoginPage';
-import { SignUp } from './pages/SignUpPage';
-import { AccountPage } from './pages/AccountPage';
-import { AppHeader } from './components/header/Header';
-import Menu from './components/menu/Menu';
-import SideMenu from 'react-native-side-menu';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { UserStore } from './stores/UserStore';
+import Menu from './components/menu/Menu';
+import AppNavigator from './navigation/AppNavigator';
 
 interface Props {
   navigation: any;
 }
 
 interface State {
-  sideMenuOpen: boolean;
+  stackNavigation: any;
 }
 
 const userStore: UserStore = new UserStore();
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 export default class App extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
-      sideMenuOpen: false,
+      stackNavigation: '',
     };
   }
 
-  toggleMenu = () => {
-    this.setState({
-      sideMenuOpen: !this.state.sideMenuOpen,
-    });
-  }
-
-  updateMenuState = (sideMenuOpen: boolean): void => {
-    this.setState({ sideMenuOpen });
+  setStackNavigator = (stackNavigation: any) => {
+    if (this.state.stackNavigation === '') {
+      this.setState({ stackNavigation });
+    }
   }
 
   render() {
     return (
       <NavigationContainer>
-        <SideMenu
-          menu={<Menu userStore={userStore} {...this.props} />}
-          isOpen={this.state.sideMenuOpen}
-          onChange={this.updateMenuState}>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ header: props => <AppHeader {...props} toggleSideMenu={this.toggleMenu} /> }}
-              initialParams={{ userStore: userStore }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{ header: props => <AppHeader {...props} toggleSideMenu={this.toggleMenu} /> }}
-              initialParams={{ userStore: userStore }}
-            />
-            <Stack.Screen
-              name="AccountPage"
-              component={AccountPage}
-              options={{ header: props => <AppHeader {...props} toggleSideMenu={this.toggleMenu} /> }}
-              initialParams={{ userStore: userStore }}
-            />
-          </Stack.Navigator>
-        </SideMenu>
-      </NavigationContainer >
+        <Drawer.Navigator initialRouteName="Home"
+          drawerContent={props => <Menu userStore={userStore} {...props} stackNavigation={this.state.stackNavigation} />}>
+          <Drawer.Screen
+            name="Home"
+            component={props => <AppNavigator setStackNavigation={this.setStackNavigator} {...props} />}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
     );
   }
 }

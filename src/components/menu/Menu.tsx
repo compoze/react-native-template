@@ -6,20 +6,26 @@ import { UserStore } from '../../stores/UserStore';
 interface Props {
     userStore: UserStore;
     navigation: any;
+    stackNavigation: any;
 }
 
 export default class Menu extends React.Component<Props> {
 
+    onLogout = () => {
+        const { userStore, stackNavigation } = this.props;
+        userStore.logout();
+        stackNavigation.navigate('Login');
+    }
+
     render() {
         const { userStore } = this.props;
-        console.log(userStore.isAuthenticated);
         return (
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container}>
-                    <View>
+                    {userStore.isAuthenticated && <View>
                         <View style={styles.profilePhoto} />
 
-                    </View>
+                    </View>}
                     <View style={styles.menuOptions}>
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Invite Friends</Text>
@@ -39,9 +45,14 @@ export default class Menu extends React.Component<Props> {
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Need Help?</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.menuOption}>Logout</Text>
-                        </TouchableOpacity>
+                        {userStore.isAuthenticated ?
+                            <TouchableOpacity onPress={this.onLogout}>
+                                <Text style={styles.menuOption}>Logout</Text>
+                            </TouchableOpacity> :
+                            <TouchableOpacity>
+                                <Text style={styles.menuOption}>Login</Text>
+                            </TouchableOpacity>
+                        }
                     </View>
                 </View>
             </SafeAreaView>
