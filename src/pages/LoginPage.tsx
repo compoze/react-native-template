@@ -31,13 +31,16 @@ export class Login extends React.Component<Props, State> {
 
     componentDidMount = () => {
         this.props.setStackNavigation(this.props.navigation);
+        if (this.props.userStore.isAuthenticated) {
+            this.props.navigation.navigate('Landing');
+        }
     }
 
     private navigateToSignUp = (): void => {
         this.props.navigation.navigate('SignUp');
     }
 
-    private onPressLoginButton = (): void => {
+    private onPressLoginButton = async (): Promise<void> => {
         const { email, password } = this.state;
         const validationFields: ObjectToValidate[] = [
             { key: 'email', value: email },
@@ -51,13 +54,16 @@ export class Login extends React.Component<Props, State> {
 
         //TODO: Hack this just to make progress on automation
         const userStore: UserStore = new UserStore()
-        userStore.login(email!, password!).catch(error => {
+        await userStore.login(email!, password!).catch(error => {
             const alertString = getUIConstantFromFirebaseError(error);
             Alert.alert(alertString);
         })
             .then((user: RNFirebase.UserCredential) => {
                 Alert.alert('User logged in successfully')
             });
+        if (this.props.userStore.isAuthenticated) {
+            this.props.navigation.navigate('Landing');
+        }
     };
 
     public render(): JSX.Element {

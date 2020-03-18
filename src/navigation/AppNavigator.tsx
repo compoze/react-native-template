@@ -7,6 +7,7 @@ import { AccountPage } from '../pages/AccountPage';
 import { AboutPage } from '../pages/AboutPage';
 import { AppHeader } from '../components/header/Header';
 import { UserStore } from '../stores/UserStore';
+import { Landing } from '../pages/Landing';
 
 interface Props {
     navigation: any;
@@ -37,6 +38,11 @@ export default class AppNavigator extends React.Component<Props> {
                 <Stack.Screen
                     name="AboutPage"
                     component={AboutPage}
+                    options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
+                />
+                <Stack.Screen
+                    name="Landing"
+                    component={Landing}
                     options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
                 />
             </Stack.Navigator>
