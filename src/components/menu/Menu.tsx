@@ -17,6 +17,11 @@ export default class Menu extends React.Component<Props> {
         stackNavigation.navigate('Login');
     }
 
+    navigateToRoute = (routeName: string) => {
+        const { stackNavigation } = this.props;
+        stackNavigation.navigate(routeName);
+    }
+
     render() {
         const { userStore } = this.props;
         const user = userStore.getAuthUser();
@@ -36,12 +41,12 @@ export default class Menu extends React.Component<Props> {
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Invite Friends</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        {userStore.isAuthenticated && <TouchableOpacity onPress={() => this.navigateToRoute('AccountPage')}>
                             <Text style={styles.menuOption}>Account Settings</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
+                        </TouchableOpacity>}
+                        {userStore.isAuthenticated && <TouchableOpacity>
                             <Text style={styles.menuOption}>Account History</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Get Social</Text>
                         </TouchableOpacity>
@@ -55,7 +60,7 @@ export default class Menu extends React.Component<Props> {
                             <TouchableOpacity onPress={this.onLogout}>
                                 <Text style={styles.menuOption}>Logout</Text>
                             </TouchableOpacity> :
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.navigateToRoute('Login')}>
                                 <Text style={styles.menuOption}>Login</Text>
                             </TouchableOpacity>
                         }
