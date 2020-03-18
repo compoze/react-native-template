@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, View, ImageBackground, Text } from 'react-native';
 import { styleConstants } from '../config/constants';
+import { copy } from '../config/static.copy';
 
 export class AboutPage extends React.Component {
 
@@ -9,18 +10,13 @@ export class AboutPage extends React.Component {
             <ImageBackground style={styles.container} source={require('../images/DefaultBackground.png')}>
                 <View style={styles.box}>
                     <Image source={require('../images/AlternateLogo.png')} />
-                    <Text style={styles.text}>{aboutUiString.ABOUT_TEXT}</Text>
-                    <Text style={styles.text}>{aboutUiString.CONTACT}</Text>
+                    <Text style={styles.text}>{copy.aboutPage.ABOUT_TEXT}</Text>
+                    <Text style={styles.text}>{copy.aboutPage.CONTACT}</Text>
                 </View>
             </ImageBackground>
         );
     }
 }
-
-const aboutUiString = {
-    ABOUT_TEXT: 'We are a group of enterprise developers with decades of combined experience in the custom software development industry. We banded together after seeing the lack of software development solutions available to the tech community. Your ideas are good ones—we are here to help make them a reality.',
-    CONTACT: 'Want to learn more?\nconnect@elko.dev\nwww.elko.dev'
-};
 
 const styles = StyleSheet.create({
     container: {

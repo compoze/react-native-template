@@ -7,6 +7,7 @@ import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
 import { requiredFieldsEmpty, ValidationObject, ObjectToValidate } from '../utilities/FormValidation';
+import { copy } from '../config/static.copy';
 
 interface Props {
     userStore: UserStore;
@@ -66,24 +67,24 @@ export class SignUp extends React.Component<Props, State> {
         ];
         return (
             <ScrollView style={styles.scroll}>
-                <Text style={styles.title}>{signUpUIStrings.SIGN_UP_TITLE}</Text>
+                <Text style={styles.title}>{copy.signUpUIStrings.SIGN_UP_TITLE}</Text>
                 <LoginInput
                     title='First Name*'
-                    placeholder='Enter Your First Name'
+                    placeholder={copy.signUpUIStrings.FIRST_NAME_INPUT_PLACEHOLDER}
                     onChangeText={(firstName: string) => {
                         this.setState({ firstName: firstName })
                     }}
                 />
                 <LoginInput
                     title='Last Name*'
-                    placeholder='Enter Your Last Name'
+                    placeholder={copy.signUpUIStrings.LAST_NAME_INPUT_PLACEHOLDER}
                     onChangeText={(lastName: string) => {
                         this.setState({ lastName: lastName })
                     }}
                 />
                 <LoginInput
                     title='Email*'
-                    placeholder='Enter Your Email'
+                    placeholder={copy.signUpUIStrings.EMAIL_INPUT_PLACEHOLDER}
                     onChangeText={(email: string) => {
                         this.setState({ email: email })
                     }}
@@ -92,38 +93,27 @@ export class SignUp extends React.Component<Props, State> {
                 <LoginInput
                     title='Password*'
                     secureTextEntry={true}
-                    placeholder='Enter Your Password'
+                    placeholder={copy.signUpUIStrings.PASSWORD_INPUT_PLACEHOLDER}
                     onChangeText={(password: string) => {
                         this.setState({ password: password })
                     }}
                 />
                 <LoginInput
                     title='Phone Number'
-                    placeholder='Enter Your Phone Number'
+                    placeholder={copy.signUpUIStrings.PHONE_NUMBER_INPUT_PLACEHOLDER}
                     onChangeText={(phoneNumber: string) => {
                         this.setState({ phoneNumber: phoneNumber })
                     }}
                     keyboardType="phone-pad"
                 />
                 <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
-                    <Text>{signUpUIStrings.SIGN_UP}</Text>
+                    <Text>{copy.signUpUIStrings.SIGN_UP}</Text>
                 </LoginButton>
             </ScrollView>
         )
     }
 }
 
-const signUpUIStrings = {
-    APP_NAME: 'myapp',
-    EMAIL_INPUT_PLACEHOLDER: 'Email',
-    PASSWORD_INPUT_PLACEHOLDER: 'Password',
-    ALERT_ENTER_EMAIL_AND_PASS: 'You must enter an email and a password',
-    ALERT_ENTER_EMAIL: 'You must enter an email and a password',
-    ALERT_ENTER_PASS: 'You must enter an email and a password',
-    ALERT_ENTER_FIRST_AND_LAST: 'You must enter an first and last name',
-    SIGN_UP_TITLE: 'Sign Up For An Account',
-    SIGN_UP: 'Sign Up',
-};
 const styles = StyleSheet.create({
     scroll: {
         backgroundColor: styleConstants.colors.APP_BACKGROUND,
