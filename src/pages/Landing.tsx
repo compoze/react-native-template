@@ -1,29 +1,32 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, ScrollView, View, ImageBackground } from 'react-native';
-import { LoginInput } from "../components/input"
-import { LoginButton } from "../components/button"
-import { UserStore } from '../stores/UserStore';
-import { getUIConstantFromFirebaseError } from '../components/error/auth';
-import { RNFirebase } from 'react-native-firebase';
+import { StyleSheet, Text, ScrollView, ImageBackground, View } from 'react-native';
 import { styleConstants } from '../config/constants';
-import { requiredFieldsEmpty, ValidationObject, ObjectToValidate } from '../utilities/FormValidation';
 import { copy } from '../config/static.copy';
+import { ContentService } from '../services/ContentService';
+import { Button } from '../components/button';
+import { Icon } from 'react-native-elements';
 
 interface Props {
 
 }
 
 interface State {
-    objects: any[];
+    content: any[];
 }
 
+const contentService = new ContentService();
 export class Landing extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            objects: [],
+            content: [],
         };
+    }
+
+    componentDidMount = () => {
+        const content: any = contentService.getAllContents();
+        this.setState({ content });
     }
 
     public render(): JSX.Element {
@@ -32,6 +35,15 @@ export class Landing extends React.Component<Props, State> {
                 <ImageBackground style={styles.titleBlock} source={require('../images/DefaultLandingImage.png')}>
                     <Text style={styles.title}>{copy.landingUIStrings.TITLE}</Text>
                     <Text style={styles.subTitle}>{copy.landingUIStrings.SUB_TITLE}</Text>
+
+                    <Button style={styles.actionButton} invalid={false}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={styles.buttonText}>
+                                {copy.landingUIStrings.DEFAULT_ACTION_TITLE}&nbsp;
+                            </Text>
+                            <Icon color='white' name='arrow-forward' />
+                        </View>
+                    </Button>
                 </ImageBackground>
             </ScrollView>
         )
@@ -41,20 +53,28 @@ export class Landing extends React.Component<Props, State> {
 const styles = StyleSheet.create({
     scroll: {
         backgroundColor: styleConstants.colors.APP_BACKGROUND,
-        paddingHorizontal: '7.5%',
+        width: '100%',
+        height: '100%',
     },
     titleBlock: {
         flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: '7.5%',
-        height: '90%',
+        padding: '7.5%',
+        minHeight: 700,
     },
     title: {
-        justifyContent: 'center',
-        paddingHorizontal: '7.5%',
+        color: 'white',
+        fontSize: styleConstants.fontSize.MASSIVE,
     },
     subTitle: {
-        justifyContent: 'center',
-        paddingHorizontal: '7.5%',
+        color: 'white',
+        fontSize: styleConstants.fontSize.XX_LARGE,
+        paddingVertical: '7.5%',
+    },
+    actionButton: {
+        width: '60%',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: styleConstants.fontSize.LARGE,
     },
 });

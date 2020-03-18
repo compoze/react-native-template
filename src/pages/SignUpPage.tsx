@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ScrollView, View } from 'react-native';
 import { LoginInput } from "../components/input"
-import { LoginButton } from "../components/button"
+import { Button } from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
@@ -111,9 +111,9 @@ export class SignUp extends React.Component<Props, State> {
                     }}
                     keyboardType="phone-pad"
                 />
-                <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
+                <Button invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
                     <Text>{copy.signUpUIStrings.SIGN_UP}</Text>
-                </LoginButton>
+                </Button>
             </ScrollView>
         )
     }

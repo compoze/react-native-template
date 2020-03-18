@@ -20,5 +20,6 @@ export const copy = {
     landingUIStrings: {
         TITLE: 'Default Title',
         SUB_TITLE: 'Default Sub Title',
+        DEFAULT_ACTION_TITLE: 'Default Action',
     },
 }

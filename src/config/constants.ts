@@ -36,7 +36,8 @@ export const styleConstants = {
         MEDIUM: 16,
         LARGE: 18,
         X_LARGE: 22,
-        XX_LARGE: 24
+        XX_LARGE: 24,
+        MASSIVE: 48,
     },
 };
 
