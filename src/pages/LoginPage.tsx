@@ -7,6 +7,7 @@ import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
 import { requiredFieldsEmpty, ObjectToValidate, ValidationObject } from '../utilities/FormValidation';
+import { copy } from '../config/static.copy';
 
 interface Props {
     userStore: UserStore;
@@ -67,10 +68,10 @@ export class Login extends React.Component<Props, State> {
         ];
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{loginUIStrings.LOGIN_TITLE}</Text>
+                <Text style={styles.title}>{copy.loginUIStrings.LOGIN_TITLE}</Text>
                 <LoginInput
                     title='Email*'
-                    placeholder='Enter Your Email'
+                    placeholder={copy.loginUIStrings.EMAIL_INPUT_PLACEHOLDER}
                     onChangeText={(email: string) => {
                         this.setState({ email: email })
                     }}
@@ -79,7 +80,7 @@ export class Login extends React.Component<Props, State> {
                 <LoginInput
                     title='Password*'
                     secureTextEntry={true}
-                    placeholder='Enter Your Password'
+                    placeholder={copy.loginUIStrings.PASSWORD_INPUT_PLACEHOLDER}
                     onChangeText={(password: string) => {
                         this.setState({ password: password })
                     }}
@@ -95,15 +96,6 @@ export class Login extends React.Component<Props, State> {
     }
 }
 
-const loginUIStrings = {
-    APP_NAME: 'myapp',
-    EMAIL_INPUT_PLACEHOLDER: 'Email',
-    PASSWORD_INPUT_PLACEHOLDER: 'Password',
-    ALERT_ENTER_EMAIL_AND_PASS: 'You must enter an email and a password',
-    ALERT_ENTER_EMAIL: 'You must enter an email and a password',
-    ALERT_ENTER_PASS: 'You must enter an email and a password',
-    LOGIN_TITLE: 'Sign In To Your Account',
-};
 const styles = StyleSheet.create({
     container: {
         flex: 1,

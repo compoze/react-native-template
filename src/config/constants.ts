@@ -23,7 +23,7 @@ export const styleConstants = {
         INPUT_BACKGROUND: '#F6F8FB',
         INPUT_BACKGROUND_BORDER: '#757E99',
     },
-    fontFamily: { DEFAULT: 'Montserrat' },
+    fontFamily: { DEFAULT: 'Montserrat' }, // May have to change this
     fontWeight: {
         LIGHT: '300' as FontWeight,
         NORMAL: '400' as FontWeight,
@@ -43,7 +43,7 @@ export const styleConstants = {
 export const DefaultNavBarContainerStyle = {
     height: 56,
     width: '100%',
-    backgroundColor: styleConstants.colors.GREY_VYNE_BACKGROUND,
+    backgroundColor: styleConstants.colors.GRAY,
     borderBottomWidth: 0
 };
 

@@ -104,15 +104,6 @@ export class AccountPage extends React.Component<Props, State> {
     }
 }
 
-const signUpUIStrings = {
-    APP_NAME: 'myapp',
-    EMAIL_INPUT_PLACEHOLDER: 'Email',
-    PASSWORD_INPUT_PLACEHOLDER: 'Password',
-    ALERT_ENTER_EMAIL_AND_PASS: 'You must enter an email and a password',
-    ALERT_ENTER_EMAIL: 'You must enter an email and a password',
-    ALERT_ENTER_PASS: 'You must enter an email and a password',
-    ALERT_ENTER_FIRST_AND_LAST: 'You must enter an first and last name',
-};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
