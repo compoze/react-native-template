@@ -5,13 +5,14 @@ type FontWeight = '300' | '400' | '500' | '700' | 'normal' | 'bold' | '100' | '2
 export const styleConstants = {
     colors: {
         PRIMARY: '#0D215C', // Update these to represent your app
+        SECONDARY: '#4280F6',
         PRIMARY_UNDERLAY: '#FE9847BB', // This is the standard button highlight
         TITLE_PRIMARY: '#0D215C',
         TEXT_PRIMARY: '#000',
         TRANSPARENT: 'transparent',
         PRIMARY_BUTTON: '#0D88BC',
         PRIMARY_BUTTON_DISABLED: '#7B8295',
-        GREY_VYNE_BACKGROUND: '#252D3A',
+        GRAY: '#807E7E',
         STATUS_BAR: '#4197D6',
         FADED_WHITE: '#FFFFFFAA',
         TOS_BODY_COPY: '#828282',

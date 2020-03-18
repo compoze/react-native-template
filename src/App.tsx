@@ -35,11 +35,14 @@ export default class App extends React.Component<Props, State> {
     return (
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Home"
+          drawerStyle={{
+            width: '85%',
+          }}
           drawerContent={props => <Menu userStore={userStore} {...props} stackNavigation={this.state.stackNavigation} />}>
           <Drawer.Screen
-            name="Home"
-            component={props => <AppNavigator setStackNavigation={this.setStackNavigator} {...props} />}
-          />
+            name="Home">
+            {props => <AppNavigator userStore={userStore} setStackNavigation={this.setStackNavigator} {...props} />}
+          </Drawer.Screen>
         </Drawer.Navigator>
       </NavigationContainer>
     );

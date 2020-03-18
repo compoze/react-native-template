@@ -8,6 +8,10 @@ export class UserStore {
         return null !== Auth.currentUser;
     }
 
+    public getAuthUser(): RNFirebase.User {
+        return Auth.currentUser;
+    }
+
     public logout(): Promise<void> {
         return Auth.signOut();
     }

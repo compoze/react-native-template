@@ -17,25 +17,36 @@ export default class Menu extends React.Component<Props> {
         stackNavigation.navigate('Login');
     }
 
+    navigateToRoute = (routeName: string) => {
+        const { stackNavigation } = this.props;
+        stackNavigation.navigate(routeName);
+    }
+
     render() {
         const { userStore } = this.props;
+        const user = userStore.getAuthUser();
         return (
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container}>
-                    {userStore.isAuthenticated && <View>
-                        <View style={styles.profilePhoto} />
-
-                    </View>}
+                    {userStore.isAuthenticated &&
+                        <View style={styles.userDisplay}>
+                            <View style={styles.profilePhoto} />
+                            <View>
+                                <Text style={styles.userName}>{user.displayName}</Text>
+                                <Text style={styles.userEmail}>{user.email}</Text>
+                            </View>
+                        </View>
+                    }
                     <View style={styles.menuOptions}>
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Invite Friends</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        {userStore.isAuthenticated && <TouchableOpacity onPress={() => this.navigateToRoute('AccountPage')}>
                             <Text style={styles.menuOption}>Account Settings</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
+                        </TouchableOpacity>}
+                        {userStore.isAuthenticated && <TouchableOpacity>
                             <Text style={styles.menuOption}>Account History</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Get Social</Text>
                         </TouchableOpacity>
@@ -49,7 +60,7 @@ export default class Menu extends React.Component<Props> {
                             <TouchableOpacity onPress={this.onLogout}>
                                 <Text style={styles.menuOption}>Logout</Text>
                             </TouchableOpacity> :
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.navigateToRoute('Login')}>
                                 <Text style={styles.menuOption}>Login</Text>
                             </TouchableOpacity>
                         }
@@ -71,11 +82,24 @@ const styles = StyleSheet.create({
         paddingVertical: '20%',
         height: '100%',
     },
+    userDisplay: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    userName: {
+        color: styleConstants.colors.SECONDARY,
+        fontSize: styleConstants.fontSize.X_LARGE,
+    },
+    userEmail: {
+        color: styleConstants.colors.GRAY,
+        fontSize: styleConstants.fontSize.SMALL,
+    },
     profilePhoto: {
         width: '50%',
         aspectRatio: 1 / 1,
         backgroundColor: styleConstants.colors.PRIMARY_BUTTON_DISABLED,
         borderRadius: 100,
+        marginRight: '1%',
     },
     menuOptions: {
         paddingVertical: '7.5%',
