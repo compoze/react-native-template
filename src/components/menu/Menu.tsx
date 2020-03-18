@@ -50,7 +50,7 @@ export default class Menu extends React.Component<Props> {
                         <TouchableOpacity>
                             <Text style={styles.menuOption}>Get Social</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.navigateToRoute('AboutPage')}>
                             <Text style={styles.menuOption}>About Us</Text>
                         </TouchableOpacity>
                         <TouchableOpacity>
