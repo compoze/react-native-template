@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { LoginInput } from "../components/input"
-import { LoginButton } from "../components/button"
+import { Button } from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
@@ -31,13 +31,16 @@ export class Login extends React.Component<Props, State> {
 
     componentDidMount = () => {
         this.props.setStackNavigation(this.props.navigation);
+        if (this.props.userStore.isAuthenticated) {
+            this.props.navigation.navigate('Landing');
+        }
     }
 
     private navigateToSignUp = (): void => {
         this.props.navigation.navigate('SignUp');
     }
 
-    private onPressLoginButton = (): void => {
+    private onPressLoginButton = async (): Promise<void> => {
         const { email, password } = this.state;
         const validationFields: ObjectToValidate[] = [
             { key: 'email', value: email },
@@ -51,13 +54,16 @@ export class Login extends React.Component<Props, State> {
 
         //TODO: Hack this just to make progress on automation
         const userStore: UserStore = new UserStore()
-        userStore.login(email!, password!).catch(error => {
+        await userStore.login(email!, password!).catch(error => {
             const alertString = getUIConstantFromFirebaseError(error);
             Alert.alert(alertString);
         })
             .then((user: RNFirebase.UserCredential) => {
                 Alert.alert('User logged in successfully')
             });
+        if (this.props.userStore.isAuthenticated) {
+            this.props.navigation.navigate('Landing');
+        }
     };
 
     public render(): JSX.Element {
@@ -85,12 +91,12 @@ export class Login extends React.Component<Props, State> {
                         this.setState({ password: password })
                     }}
                 />
-                <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressLoginButton}>
+                <Button invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressLoginButton}>
                     <Text >Login</Text>
-                </LoginButton>
-                <LoginButton invalid={false} onPress={this.navigateToSignUp}>
+                </Button>
+                <Button invalid={false} onPress={this.navigateToSignUp}>
                     <Text >Sign Up</Text>
-                </LoginButton>
+                </Button>
             </View>
         )
     }

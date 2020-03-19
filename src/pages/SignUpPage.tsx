@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ScrollView, View } from 'react-native';
 import { LoginInput } from "../components/input"
-import { LoginButton } from "../components/button"
+import { Button } from "../components/button"
 import { UserStore } from '../stores/UserStore';
 import { getUIConstantFromFirebaseError } from '../components/error/auth';
 import { RNFirebase } from 'react-native-firebase';
@@ -11,6 +11,7 @@ import { copy } from '../config/static.copy';
 
 interface Props {
     userStore: UserStore;
+    navigation: any;
 }
 
 interface State {
@@ -33,7 +34,7 @@ export class SignUp extends React.Component<Props, State> {
         };
     }
 
-    private onPressSignUpButton = (): void => {
+    private onPressSignUpButton = async (): Promise<void> => {
         const { email, password, firstName, lastName, phoneNumber } = this.state;
         const validationFields: ObjectToValidate[] = [
             { key: 'First Name', value: firstName },
@@ -48,13 +49,17 @@ export class SignUp extends React.Component<Props, State> {
 
         const displayName: string = `${firstName} ${lastName}`;
         const userStore: UserStore = new UserStore()
-        userStore.signUp(email!, password!, displayName, phoneNumber).catch(error => {
+        await userStore.signUp(email!, password!, displayName, phoneNumber).catch(error => {
             const alertString = getUIConstantFromFirebaseError(error);
             Alert.alert(alertString);
         })
             .then((user: RNFirebase.UserCredential) => {
                 Alert.alert('User signed up successfully')
             });
+
+        if (this.props.userStore.isAuthenticated) {
+            this.props.navigation.navigate('Landing');
+        }
     };
 
     public render(): JSX.Element {
@@ -106,9 +111,9 @@ export class SignUp extends React.Component<Props, State> {
                     }}
                     keyboardType="phone-pad"
                 />
-                <LoginButton invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
+                <Button invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressSignUpButton}>
                     <Text>{copy.signUpUIStrings.SIGN_UP}</Text>
-                </LoginButton>
+                </Button>
             </ScrollView>
         )
     }

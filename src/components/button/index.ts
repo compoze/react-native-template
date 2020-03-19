@@ -1,7 +1,7 @@
-import LoginButton from './LoginButton';
+import Button from './Button';
 import UpdateAccountButton from './UpdateAccountButton';
 
 export {
-    LoginButton,
+    Button,
     UpdateAccountButton,
 }

@@ -16,5 +16,10 @@ export const copy = {
         FIRST_NAME_INPUT_PLACEHOLDER: 'Enter Your First Name',
         LAST_NAME_INPUT_PLACEHOLDER: 'Enter Your Last Name',
         PHONE_NUMBER_INPUT_PLACEHOLDER: 'Enter Your Phone Number',
-    }
+    },
+    landingUIStrings: {
+        TITLE: 'Default Title',
+        SUB_TITLE: 'Default Sub Title',
+        DEFAULT_ACTION_TITLE: 'Default Action',
+    },
 }

@@ -7,7 +7,7 @@ export interface ButtonProps extends TouchableOpacityProperties {
     invalid: boolean;
 }
 
-const LoginButton: React.SFC<ButtonProps> = ({ style, contentContainerStyle, children, ...props }) => {
+const Button: React.SFC<ButtonProps> = ({ style, contentContainerStyle, children, ...props }) => {
     const buttonStyles: StyleProp<ViewStyle>[] = [styles.button];
     if(props.invalid) {
         buttonStyles.push(styles.invalid);
@@ -19,7 +19,7 @@ const LoginButton: React.SFC<ButtonProps> = ({ style, contentContainerStyle, chi
     );
 };
 
-export default LoginButton;
+export default Button;
 
 const styles = StyleSheet.create({
     button: {
