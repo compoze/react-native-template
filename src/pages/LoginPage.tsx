@@ -57,8 +57,7 @@ export class Login extends React.Component<Props, State> {
             await this.props.userStore.login(email!, password!);
             Alert.alert('User signed up successfully');
         } catch (errors) {
-            console.log(errors);
-            // Alert.alert(errors);
+            Alert.alert(errors);
         }
 
         if (this.props.userStore.isAuthenticated) {

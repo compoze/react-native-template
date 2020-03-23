@@ -53,9 +53,7 @@ export class SignUp extends React.Component<Props, State> {
             await userStore.signUp(email, password, firstName, lastName, phoneNumber);
             Alert.alert('User signed up successfully');
         } catch (errors) {
-            // Alert.alert(errors);
-            console.log(errors);
-            // Alert.alert(errors[0].message);
+            Alert.alert(errors);
         }
 
         if (this.props.userStore.isAuthenticated) {
