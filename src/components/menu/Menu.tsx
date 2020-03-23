@@ -24,7 +24,7 @@ export default class Menu extends React.Component<Props> {
 
     render() {
         const { userStore } = this.props;
-        const user = userStore.getAuthUser();
+        const authUser = userStore.getAuthUser();
         return (
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container}>
@@ -32,8 +32,8 @@ export default class Menu extends React.Component<Props> {
                         <View style={styles.userDisplay}>
                             <View style={styles.profilePhoto} />
                             <View>
-                                <Text style={styles.userName}>{user.displayName}</Text>
-                                <Text style={styles.userEmail}>{user.email}</Text>
+                                <Text style={styles.userName}>{authUser.displayName}</Text>
+                                <Text style={styles.userEmail}>{authUser.email}</Text>
                             </View>
                         </View>
                     }

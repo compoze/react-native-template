@@ -1,0 +1,78 @@
+import { User } from '../model/User';
+import { request } from 'graphql-request';
+import { ApiService } from './ApiService';
+import { Auth } from '../stores/UserStore';
+import { BASE_URL } from 'react-native-dotenv'
+
+const BASE_API: string = BASE_URL;
+export class UserService {
+    private apiService = new ApiService();
+
+    public async signUpUser(email: string, firstName: string, lastName: string, phoneNumber: string, password: string): Promise<User> {
+        const mutationString: string = `
+        mutation { signUpUser(
+            email: "${email}"
+            firstName: "${firstName}"
+            lastName: "${lastName}"
+            phoneNumber: "${phoneNumber}"
+            password: "${password}"
+          ) {
+                user {
+                    id
+                    email
+                    firstName
+                    lastName
+                    phoneNumber
+                }
+                errors {
+                    message
+                }
+            }
+        }
+      `;
+
+        return request(BASE_API, mutationString).then(data => {
+            if (data.signUpUser.user === null || data.signUpUser.errors.length > 0) {
+                throw (data.signUpUser.errors);
+            }
+            return new User(data.signUpUser.user);
+        }
+        );
+    }
+
+    public async loginUser(email: string, password: string): Promise<User> {
+        await Auth.signInWithEmailAndPassword(email, password);
+
+        if (!Auth.currentUser.uid) {
+            throw ('user failed to log in');
+        }
+
+        const query: string = `
+        query { getUserByFirebaseId(
+            id: "${Auth.currentUser.uid}"
+          ) {
+                user {
+                    id
+                    email
+                    firstName
+                    lastName
+                    phoneNumber
+                }
+                errors {
+                    message
+                }
+            }
+        }
+      `;
+
+        try {
+            const response = await this.apiService.authenticatedGqlQuery(query);
+            if (response.getUserByFirebaseId.user === null || response.getUserByFirebaseId.errors.length > 0) {
+                throw (response.getUserByFirebaseId.errors);
+            }
+            return new User(response.getUserByFirebaseId.user);
+        } catch (error) {
+            throw (error);
+        }
+    }
+}

@@ -8,6 +8,7 @@ import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
 import { requiredFieldsEmpty, ValidationObject, ObjectToValidate } from '../utilities/FormValidation';
 import { copy } from '../config/static.copy';
+import { User } from '../model/User';
 
 interface Props {
     userStore: UserStore;
@@ -47,15 +48,15 @@ export class SignUp extends React.Component<Props, State> {
             Alert.alert(validationErrors[0].message); return;
         }
 
-        const displayName: string = `${firstName} ${lastName}`;
-        const userStore: UserStore = new UserStore()
-        await userStore.signUp(email!, password!, displayName, phoneNumber).catch(error => {
-            const alertString = getUIConstantFromFirebaseError(error);
-            Alert.alert(alertString);
-        })
-            .then((user: RNFirebase.UserCredential) => {
-                Alert.alert('User signed up successfully')
-            });
+        const userStore: UserStore = new UserStore();
+        try {
+            await userStore.signUp(email, password, firstName, lastName, phoneNumber);
+            Alert.alert('User signed up successfully');
+        } catch (errors) {
+            // Alert.alert(errors);
+            console.log(errors);
+            // Alert.alert(errors[0].message);
+        }
 
         if (this.props.userStore.isAuthenticated) {
             this.props.navigation.navigate('Landing');
