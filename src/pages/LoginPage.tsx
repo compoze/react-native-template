@@ -53,9 +53,8 @@ export class Login extends React.Component<Props, State> {
         }
 
         //TODO: Hack this just to make progress on automation
-        const userStore: UserStore = new UserStore()
         try {
-            await userStore.login(email!, password!)
+            await this.props.userStore.login(email!, password!);
             Alert.alert('User signed up successfully');
         } catch (errors) {
             console.log(errors);

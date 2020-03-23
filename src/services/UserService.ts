@@ -40,13 +40,7 @@ export class UserService {
         );
     }
 
-    public async loginUser(email: string, password: string): Promise<User> {
-        await Auth.signInWithEmailAndPassword(email, password);
-
-        if (!Auth.currentUser.uid) {
-            throw ('user failed to log in');
-        }
-
+    public async getAuthenticatedUser(): Promise<User> {
         const query: string = `
         query { getUserByFirebaseId(
             id: "${Auth.currentUser.uid}"

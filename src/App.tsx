@@ -25,6 +25,11 @@ export default class App extends React.Component<Props, State> {
     };
   }
 
+  // TODO refactor with state management
+  async UNSAFE_componentWillMount(): Promise<void> {
+    await userStore.setup();
+  }
+
   setStackNavigator = (stackNavigation: any) => {
     if (this.state.stackNavigation === '') {
       this.setState({ stackNavigation });

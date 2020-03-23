@@ -8,8 +8,19 @@ export class UserStore {
     private userService: UserService = new UserService();
     public user: User | null = null;
 
+    public async setup(): Promise<void> {
+        if (Auth.currentUser !== null) {
+            const user: User = await this.userService.getAuthenticatedUser();
+            this.user = user;
+        }
+    }
+
     public get isAuthenticated(): boolean {
         return !!Auth.currentUser;
+    }
+
+    public get currentUser(): User | null {
+        return this.user;
     }
 
     public getAuthUser(): RNFirebase.User {
@@ -23,7 +34,9 @@ export class UserStore {
 
     public async login(email: string, password: string): Promise<User> {
         try {
-            const user: User = await this.userService.loginUser(email, password);
+            await Auth.signInWithEmailAndPassword(email, password);
+
+            const user: User = await this.userService.getAuthenticatedUser();
             this.user = user;
             return user;
         } catch (errors) {

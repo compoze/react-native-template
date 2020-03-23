@@ -27,14 +27,16 @@ export default class AppNavigator extends React.Component<Props> {
                 </Stack.Screen>
                 <Stack.Screen
                     name="SignUp"
-                    component={SignUp}
                     options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
-                />
+                >
+                    {props => <SignUp userStore={this.props.userStore} {...props} />}
+                </Stack.Screen>
                 <Stack.Screen
                     name="AccountPage"
-                    component={AccountPage}
                     options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
-                />
+                >
+                    {props => <AccountPage userStore={this.props.userStore} {...props} />}
+                </Stack.Screen>
                 <Stack.Screen
                     name="AboutPage"
                     component={AboutPage}
@@ -42,9 +44,10 @@ export default class AppNavigator extends React.Component<Props> {
                 />
                 <Stack.Screen
                     name="Landing"
-                    component={Landing}
                     options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
-                />
+                >
+                    {props => <Landing {...props} />}
+                </Stack.Screen>
             </Stack.Navigator>
         );
     }
