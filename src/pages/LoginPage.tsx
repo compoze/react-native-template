@@ -53,14 +53,13 @@ export class Login extends React.Component<Props, State> {
         }
 
         //TODO: Hack this just to make progress on automation
-        const userStore: UserStore = new UserStore()
-        await userStore.login(email!, password!).catch(error => {
-            const alertString = getUIConstantFromFirebaseError(error);
-            Alert.alert(alertString);
-        })
-            .then((user: RNFirebase.UserCredential) => {
-                Alert.alert('User logged in successfully')
-            });
+        try {
+            await this.props.userStore.login(email!, password!);
+            Alert.alert('User signed up successfully');
+        } catch (errors) {
+            Alert.alert(errors);
+        }
+
         if (this.props.userStore.isAuthenticated) {
             this.props.navigation.navigate('Landing');
         }

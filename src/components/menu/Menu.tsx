@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, SafeAreaView, ImageBackground, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { styleConstants } from '../../config/constants';
 import { UserStore } from '../../stores/UserStore';
+import { User } from '../../model/User';
 
 interface Props {
     userStore: UserStore;
@@ -24,16 +25,16 @@ export default class Menu extends React.Component<Props> {
 
     render() {
         const { userStore } = this.props;
-        const user = userStore.getAuthUser();
+        const currentUser: User | null = userStore.currentUser;
         return (
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container}>
-                    {userStore.isAuthenticated &&
+                    {userStore.currentUser !== null &&
                         <View style={styles.userDisplay}>
                             <View style={styles.profilePhoto} />
                             <View>
-                                <Text style={styles.userName}>{user.displayName}</Text>
-                                <Text style={styles.userEmail}>{user.email}</Text>
+                                <Text style={styles.userName}>{currentUser.firstName} {currentUser.lastName}</Text>
+                                <Text style={styles.userEmail}>{currentUser.email}</Text>
                             </View>
                         </View>
                     }

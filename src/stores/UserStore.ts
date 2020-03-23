@@ -1,11 +1,26 @@
 import firebase, { RNFirebase } from 'react-native-firebase';
 import { User } from '../model/User'
+import { UserService } from '../services/UserService';
 export const Firebase = firebase;
 export const Auth = firebase.auth();
 
 export class UserStore {
+    private userService: UserService = new UserService();
+    public user: User | null = null;
+
+    public async setup(): Promise<void> {
+        if (Auth.currentUser !== null) {
+            const user: User = await this.userService.getAuthenticatedUser();
+            this.user = user;
+        }
+    }
+
     public get isAuthenticated(): boolean {
-        return null !== Auth.currentUser;
+        return !!Auth.currentUser;
+    }
+
+    public get currentUser(): User | null {
+        return this.user;
     }
 
     public getAuthUser(): RNFirebase.User {
@@ -13,28 +28,29 @@ export class UserStore {
     }
 
     public logout(): Promise<void> {
+        this.user = null;
         return Auth.signOut();
     }
 
-    public async login(email: string, password: string): Promise<RNFirebase.UserCredential> {
-        return Auth.signInWithEmailAndPassword(email, password);
+    public async login(email: string, password: string): Promise<User> {
+        try {
+            await Auth.signInWithEmailAndPassword(email, password);
+
+            const user: User = await this.userService.getAuthenticatedUser();
+            this.user = user;
+            return user;
+        } catch (errors) {
+            throw (errors);
+        }
     }
 
-    public async signUp(email: string, password: string, displayName: string, phoneNumber?: string): Promise<RNFirebase.UserCredential> {
-        return Auth.createUserWithEmailAndPassword(email, password).then(function (response) {
-            const user = Auth.currentUser;
-            user!.updateProfile({ displayName: displayName });
-            if (phoneNumber) {
-                // TODO
-                // Send verification code to user's phone
-                // Auth.PhoneAuthProvider.verifyPhoneNumber(phoneNumber, recaptchVerifier).then(function (verificationId) {
-                //     // verification code from user
-                //     const cred = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
-                // });
-            }
-            return response;
-        }).catch(function (error) {
-            throw error;
-        });
+    public async signUp(email: string, password: string, firstName: string, lastName: string, phoneNumber?: string): Promise<User> {
+        try {
+            const user: User = await this.userService.signUpUser(email, firstName, lastName, phoneNumber, password);
+            await this.login(email, password);
+            return user;
+        } catch (errors) {
+            throw (errors)
+        }
     };
 }
