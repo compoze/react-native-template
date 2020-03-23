@@ -5,7 +5,8 @@
     "androidProjectName": "1:157175452340:android:6202e96dce8ed954f9bde1"
   },
   "scripts": {
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
+    "build": "./scripts/build.sh",
     "android": "react-native run-android",
     "ios": "react-native run-ios --scheme myapp",
     "postinstall": "jetify && npm run podinstall && npm run decode-appcenter-config && npm run create-config-files",
