@@ -69,4 +69,39 @@ export class UserService {
             throw (error);
         }
     }
+
+    public async signUpAuthUser(email: string, firstName: string, lastName: string, authId: string, phoneNumber?: string): Promise<User> {
+        const mutationString: string = `
+        mutation { signUpAuthorizedUser(
+            email: "${email}"
+            firstName: "${firstName}"
+            lastName: "${lastName}"
+            phoneNumber: "${phoneNumber}"
+            authId: "${authId}"
+          ) {
+                user {
+                    id
+                    email
+                    firstName
+                    lastName
+                    phoneNumber
+                }
+                errors {
+                    message
+                }
+            }
+        }
+      `;
+
+        try {
+            const response = await this.apiService.authenticatedGqlQuery(mutationString);
+            if (response.getUserByFirebaseId.user === null || response.getUserByFirebaseId.errors.length > 0) {
+                throw (response.getUserByFirebaseId.errors);
+            }
+            return new User(response.getUserByFirebaseId.user);
+        } catch (error) {
+            throw (error);
+        }
+    }
+
 }

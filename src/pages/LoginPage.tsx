@@ -43,6 +43,20 @@ export class Login extends React.Component<Props, State> {
         this.props.navigation.navigate('SignUp');
     }
 
+    private googleLogin = async (): Promise<void> => {
+        try {
+            await this.props.userStore.googleLogin();
+            Alert.alert('User signed in successfully');
+        } catch (errors) {
+            Alert.alert(errors);
+        }
+
+        if (this.props.userStore.isAuthenticated) {
+            this.props.navigation.navigate('Landing');
+        }
+    };
+
+
     private onPressLoginButton = async (): Promise<void> => {
         const { email, password } = this.state;
         const validationFields: ObjectToValidate[] = [
@@ -97,12 +111,7 @@ export class Login extends React.Component<Props, State> {
                     style={{ width: 192, height: 48 }}
                     size={GoogleSigninButton.Size.Wide}
                     color={GoogleSigninButton.Color.Dark}
-                    onPress={async () => {
-                        console.log('logging in')
-                        await GoogleSignin.hasPlayServices();
-                        const userInfo = await GoogleSignin.signIn();
-                        console.log(userInfo);
-                    }} />
+                    onPress={this.googleLogin} />
 
                 <Button invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressLoginButton}>
                     <Text >Login</Text>
