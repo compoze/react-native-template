@@ -14,9 +14,12 @@
     "xcode": "open ./ios/myapp.xcworkspace || open ./ios/myapp.xcodeproj",
     "create-config-files": "node create.config.files.js $npm_package_config_iosProjectName $npm_package_config_androidProjectName",
     "test": "jest",
-    "decode-appcenter-config": "./scripts/appcenter_decode.sh"
+    "decode-appcenter-config": "./scripts/appcenter_decode.sh",
+    "clean": "rm -rf node_modules/ && cd ios  && rm -rf Pods/ && cd ..",
+    "clean-start": "npm run clean && npm i && npm start"
   },
   "dependencies": {
+    "@react-native-community/google-signin": "^4.0.0",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/drawer": "^5.3.0",
     "@react-navigation/native": "^5.0.8",

@@ -7,6 +7,7 @@ import com.oblador.vectoricons.VectorIconsPackage;
 
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.facebook.react.ReactNativeHost;
@@ -53,6 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNFirebaseAuthPackage(),
                     new ReanimatedPackage(),
                     new RNGestureHandlerPackage(),
+                    new RNGoogleSigninPackage(),
                     new RNScreensPackage(),
                     new ModuleRegistryAdapter(mModuleRegistryProvider)
             );

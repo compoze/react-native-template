@@ -3,11 +3,13 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { LoginInput } from "../components/input"
 import { Button } from "../components/button"
 import { UserStore } from '../stores/UserStore';
-import { getUIConstantFromFirebaseError } from '../components/error/auth';
-import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
 import { requiredFieldsEmpty, ObjectToValidate, ValidationObject } from '../utilities/FormValidation';
 import { copy } from '../config/static.copy';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
+GoogleSignin.configure({
+    webClientId: '157175452340-qsvji9p19lq2240v49vtaf3pejgakvb2.apps.googleusercontent.com'
+});
 
 interface Props {
     userStore: UserStore;
@@ -36,6 +38,7 @@ export class Login extends React.Component<Props, State> {
         }
     }
 
+    
     private navigateToSignUp = (): void => {
         this.props.navigation.navigate('SignUp');
     }
@@ -90,6 +93,17 @@ export class Login extends React.Component<Props, State> {
                         this.setState({ password: password })
                     }}
                 />
+                <GoogleSigninButton
+                    style={{ width: 192, height: 48 }}
+                    size={GoogleSigninButton.Size.Wide}
+                    color={GoogleSigninButton.Color.Dark}
+                    onPress={async () => {
+                        console.log('logging in')
+                        await GoogleSignin.hasPlayServices();
+                        const userInfo = await GoogleSignin.signIn();
+                        console.log(userInfo);
+                    }} />
+
                 <Button invalid={requiredFieldsEmpty(...validationFields).length !== 0} onPress={this.onPressLoginButton}>
                     <Text >Login</Text>
                 </Button>
