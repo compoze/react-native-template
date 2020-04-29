@@ -57,7 +57,7 @@ export class SignUp extends React.Component<Props, State> {
         }
 
         if (this.props.userStore.isAuthenticated) {
-            this.props.navigation.navigate('Landing');
+            this.props.navigation.navigate('Map');
         }
     };
 

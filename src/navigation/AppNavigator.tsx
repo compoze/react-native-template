@@ -8,6 +8,7 @@ import { AboutPage } from '../pages/AboutPage';
 import { AppHeader } from '../components/header/Header';
 import { UserStore } from '../stores/UserStore';
 import { Landing } from '../pages/Landing';
+import { Map } from '../pages/Map';
 
 interface Props {
     navigation: any;
@@ -47,6 +48,12 @@ export default class AppNavigator extends React.Component<Props> {
                     options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
                 >
                     {props => <Landing {...props} />}
+                </Stack.Screen>
+                <Stack.Screen
+                    name="Map"
+                    options={{ headerShown: false }}
+                >
+                    {props => <Map userStore={this.props.userStore} {...props} />}
                 </Stack.Screen>
             </Stack.Navigator>
         );
