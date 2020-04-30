@@ -9,7 +9,7 @@ import { copy } from '../config/static.copy';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 import { Icon } from 'react-native-elements';
 GoogleSignin.configure({
-    webClientId: '157175452340-qsvji9p19lq2240v49vtaf3pejgakvb2.apps.googleusercontent.com'
+    webClientId: '<GOOGLE_WEB_CLIENT_ID>'
 });
 
 interface Props {
