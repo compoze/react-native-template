@@ -14,7 +14,8 @@ import { styleConstants } from '../config/constants';
 import Geolocation, { GeolocationResponse } from '@react-native-community/geolocation';
 import { Icon } from 'react-native-elements';
 import { UserStore } from '../stores/UserStore';
-
+import { LocationService } from '../services/LocationService';
+import Location from '../model/Location';
 let GOOGLE_MAPS_APIKEY = '';
 // if (Platform.OS == 'ios') {
 //     GOOGLE_MAPS_APIKEY = IOS_GOOGLE_API_KEY;
@@ -29,6 +30,7 @@ interface Coord {
 
 interface Props {
     userStore: UserStore;
+    locationService: LocationService;
     navigation: any;
     route: any;
 }
@@ -36,9 +38,10 @@ interface Props {
 interface State {
     error: string;
     userPosition: Coord;
+    locations: Location[];
 }
 
-const INITIAL_ALTITUDE = 600;
+const INITIAL_ALTITUDE = 6;
 const INITIAL_LAT_LONG_ZOOM_DELTA = 11;
 const { width, height } = Dimensions.get('window');
 export class Map extends React.Component<Props, State> {
@@ -49,22 +52,40 @@ export class Map extends React.Component<Props, State> {
         this.state = {
             error: '',
             userPosition: { latitude: 44.976400, longitude: -93.268548 },
+            locations: [],
         };
     }
 
     componentDidMount = async () => {
+        this.props.locationService.getLocations().then((locations: Location[]) => {
+            this.setState({
+                locations,
+            })
+        })
 
     }
 
     componentWillUnmount = () => {
     }
 
-    setMapRef = (mapView: MapView): void => {
+    createMarker = (location: Location) => {
+        return (
+            <Marker
+                onPress={() => alert(location.description)}
+                key={location.name}
+                coordinate={{
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                }}
+            >
+                <Icon name='map-marker' type='font-awesome' color='red' />
+            </Marker>
+        )
     }
 
     public render(): JSX.Element {
-        const { error, userPosition } = this.state;
-        const { route } = this.props;
+        const { error, userPosition, locations } = this.state;
+
         if (error) {
             return (
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -81,7 +102,7 @@ export class Map extends React.Component<Props, State> {
                 <View style={styles.mapContainer}>
                     <MapView
                         //provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                        ref={this.setMapRef}
+                        // ref={this.setMapRef}
                         style={styles.map}
                         initialRegion={{
                             latitude: userPosition.latitude,
@@ -101,39 +122,9 @@ export class Map extends React.Component<Props, State> {
                         }}
                         showsUserLocation={true}
                     >
-                        {/* {destinationPosition.latitude === 0 && destinationPosition.longitude === 0 && destinations.map((destination, index) => {
-                                // this seems a little repetetive, but I get an ios bug otherwise
-                                // possibly look into later
-                                if (selectedDestinationIndex === index) {
-                                    return (
-                                        <Marker
-                                            ref={el => (this.itemRefs[index] = el)}
-                                            onPress={() => alert('hello')}
-                                            key={`destination:${destination.id}` + Date.now()}
-                                            coordinate={{
-                                                latitude: destination.latitude,
-                                                longitude: destination.longitude,
-                                            }}
-                                        >
-                                            <Icon name='map-marker' type='font-awesome' color='blue' size={40} />
-                                        </Marker>
-                                    )
-                                } else {
-                                    return (
-                                        <Marker
-                                            ref={el => (this.itemRefs[index] = el)}
-                                            onPress={() => alert('hello')}
-                                            key={`destination:${destination.id}`}
-                                            coordinate={{
-                                                latitude: destination.latitude,
-                                                longitude: destination.longitude,
-                                            }}
-                                        >
-                                            <Icon name='map-marker' type='font-awesome' color='red' />
-                                        </Marker>
-                                    )
-                                }
-                            })} */}
+                        {locations.map((location: Location) => {
+                            return this.createMarker(location);
+                        })}
                     </MapView>
                 </View>
 

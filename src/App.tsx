@@ -5,6 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { UserStore } from './stores/UserStore';
 import Menu from './components/menu/Menu';
 import AppNavigator from './navigation/AppNavigator';
+import { LocationService } from './services/LocationService';
 
 interface Props {
   navigation: any;
@@ -15,6 +16,7 @@ interface State {
 }
 
 const userStore: UserStore = new UserStore();
+const locationService: LocationService = new LocationService();
 const Drawer = createDrawerNavigator();
 export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -46,7 +48,7 @@ export default class App extends React.Component<Props, State> {
           drawerContent={props => <Menu userStore={userStore} {...props} stackNavigation={this.state.stackNavigation} />}>
           <Drawer.Screen
             name="Home">
-            {props => <AppNavigator userStore={userStore} setStackNavigation={this.setStackNavigator} {...props} />}
+            {props => <AppNavigator userStore={userStore} locationService={locationService} setStackNavigation={this.setStackNavigator} {...props} />}
           </Drawer.Screen>
         </Drawer.Navigator>
       </NavigationContainer>

@@ -9,10 +9,12 @@ import { AppHeader } from '../components/header/Header';
 import { UserStore } from '../stores/UserStore';
 import { Landing } from '../pages/Landing';
 import { Map } from '../pages/Map';
+import { LocationService } from '../services/LocationService';
 
 interface Props {
     navigation: any;
     userStore: UserStore;
+    locationService: LocationService;
     setStackNavigation(stackNavigation: any): void;
 }
 
@@ -53,7 +55,7 @@ export default class AppNavigator extends React.Component<Props> {
                     name="Map"
                     options={{ headerShown: false }}
                 >
-                    {props => <Map userStore={this.props.userStore} {...props} />}
+                    {props => <Map userStore={this.props.userStore} locationService={this.props.locationService} {...props} />}
                 </Stack.Screen>
             </Stack.Navigator>
         );
