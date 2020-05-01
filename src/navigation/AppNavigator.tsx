@@ -53,7 +53,7 @@ export default class AppNavigator extends React.Component<Props> {
                 </Stack.Screen>
                 <Stack.Screen
                     name="Map"
-                    options={{ headerShown: false }}
+                    options={{ header: props => <AppHeader {...props} toggleSideMenu={this.props.navigation.toggleDrawer} /> }}
                 >
                     {props => <Map userStore={this.props.userStore} locationService={this.props.locationService} {...props} />}
                 </Stack.Screen>

@@ -50,7 +50,6 @@ export class Login extends React.Component<Props, State> {
     private googleLogin = async (): Promise<void> => {
         try {
             await this.props.userStore.googleLogin();
-            Alert.alert('User signed in successfully');
         } catch (errors) {
             Alert.alert(errors);
         }
@@ -75,7 +74,6 @@ export class Login extends React.Component<Props, State> {
         //TODO: Hack this just to make progress on automation
         try {
             await this.props.userStore.login(email!, password!);
-            Alert.alert('User signed in successfully');
         } catch (errors) {
             Alert.alert(JSON.stringify(errors));
         }
