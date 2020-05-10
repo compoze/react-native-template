@@ -36,19 +36,33 @@ export default class App extends React.Component<Props, State> {
     if (this.state.stackNavigation === '') {
       this.setState({ stackNavigation });
     }
-  }
+  };
 
   render() {
     return (
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home"
+        <Drawer.Navigator
+          initialRouteName="Home"
           drawerStyle={{
             width: '85%',
           }}
-          drawerContent={props => <Menu userStore={userStore} {...props} stackNavigation={this.state.stackNavigation} />}>
-          <Drawer.Screen
-            name="Home">
-            {props => <AppNavigator userStore={userStore} locationService={locationService} setStackNavigation={this.setStackNavigator} {...props} />}
+          drawerContent={(props) => (
+            <Menu
+              userStore={userStore}
+              {...props}
+              stackNavigation={this.state.stackNavigation}
+            />
+          )}
+        >
+          <Drawer.Screen name="Home">
+            {(props) => (
+              <AppNavigator
+                userStore={userStore}
+                locationService={locationService}
+                setStackNavigation={this.setStackNavigator}
+                {...props}
+              />
+            )}
           </Drawer.Screen>
         </Drawer.Navigator>
       </NavigationContainer>
