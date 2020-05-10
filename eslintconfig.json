@@ -1,15 +1,30 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier"],
-  "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "react", "jsx-a11y", "prettier"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
     "no-undef": ["off"],
     "no-unused-vars": ["off"],
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/prop-types": ["off", {}],
+    "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "react/no-unescaped-entities": ["error", { "forbid": [">", "}"] }]
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
