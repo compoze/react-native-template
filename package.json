@@ -4,6 +4,10 @@
     "iosProjectName": "1:157175452340:ios:41629cc9b57c97d5f9bde1",
     "androidProjectName": "1:157175452340:android:6202e96dce8ed954f9bde1"
   },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "start": "react-native start --reset-cache",
     "build": "./scripts/build.sh",
