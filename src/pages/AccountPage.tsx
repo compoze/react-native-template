@@ -41,7 +41,7 @@ export class AccountPage extends React.Component<Props, State> {
   }
 
   private onPressSignUpButton = (): void => {
-    const { email, password, firstName, lastName, phoneNumber } = this.state;
+    const { email, password, firstName, lastName } = this.state;
     const validationFields: ObjectToValidate[] = [
       { key: 'First Name', value: firstName },
       { key: 'Last Name', value: lastName },

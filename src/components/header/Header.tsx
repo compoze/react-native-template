@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
-import { styleConstants } from '../../config/constants';
 
 interface Props {
   toggleSideMenu(): void;

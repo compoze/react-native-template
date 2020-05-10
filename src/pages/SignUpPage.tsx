@@ -1,10 +1,8 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, ScrollView, View } from 'react-native';
+import { Alert, StyleSheet, Text, ScrollView } from 'react-native';
 import { LoginInput } from '../components/input';
 import { Button } from '../components/button';
 import { UserStore } from '../stores/UserStore';
-import { getUIConstantFromFirebaseError } from '../components/error/auth';
-import { RNFirebase } from 'react-native-firebase';
 import { styleConstants } from '../config/constants';
 import {
   requiredFieldsEmpty,
@@ -12,7 +10,6 @@ import {
   ObjectToValidate,
 } from '../utilities/FormValidation';
 import { copy } from '../config/static.copy';
-import { User } from '../model/User';
 
 interface Props {
   userStore: UserStore;

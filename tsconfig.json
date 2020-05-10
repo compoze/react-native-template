@@ -6,7 +6,10 @@
     "moduleResolution": "node",
     "noEmit": true,
     "target": "es5",
-    "skipLibCheck": true,
-    "resolveJsonModule": true
+    "skipLibCheck": false,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   }
 }

@@ -1,29 +1,11 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  Platform,
-  Text,
-  Alert,
-} from 'react-native';
+import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import MapViewDirections from 'react-native-maps-directions';
-// import { IOS_GOOGLE_API_KEY, ANDROID_GOOGLE_API_KEY } from 'react-native-dotenv';
 import { styleConstants } from '../config/constants';
-import Geolocation, {
-  GeolocationResponse,
-} from '@react-native-community/geolocation';
 import { Icon } from 'react-native-elements';
 import { UserStore } from '../stores/UserStore';
 import { LocationService } from '../services/LocationService';
-import Location from '../model/Location';
-let GOOGLE_MAPS_APIKEY = '';
-// if (Platform.OS == 'ios') {
-//     GOOGLE_MAPS_APIKEY = IOS_GOOGLE_API_KEY;
-// } else {
-//     GOOGLE_MAPS_APIKEY = ANDROID_GOOGLE_API_KEY;
-// }
+import { Location } from '../model/Location';
 
 interface Coord {
   latitude: number;

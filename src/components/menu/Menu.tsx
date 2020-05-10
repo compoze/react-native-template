@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Text,
   SafeAreaView,
-  ImageBackground,
   StyleSheet,
   View,
   TouchableOpacity,

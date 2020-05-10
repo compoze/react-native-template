@@ -17,10 +17,7 @@ import {
   ValidationObject,
 } from '../utilities/FormValidation';
 import { copy } from '../config/static.copy';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-community/google-signin';
+import { GoogleSignin } from '@react-native-community/google-signin';
 import { Icon } from 'react-native-elements';
 
 GoogleSignin.configure({
@@ -100,11 +97,6 @@ export class Login extends React.Component<Props, State> {
   };
 
   public render(): JSX.Element {
-    const { email, password } = this.state;
-    const validationFields: ObjectToValidate[] = [
-      { key: 'email', value: email },
-      { key: 'password', value: password },
-    ];
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -148,7 +140,7 @@ export class Login extends React.Component<Props, State> {
           <Button
             onPress={this.googleLogin}
             invalid={false}
-            buttonStyle={styles.continueWithGoogleButton}
+            style={styles.continueWithGoogleButton}
           >
             <View style={styles.continueWithGoogleContent}>
               <Icon name="google" type="font-awesome" color="#4285F4" />
