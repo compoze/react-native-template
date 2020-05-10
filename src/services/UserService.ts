@@ -64,18 +64,16 @@ export class UserService {
         }
       `;
 
-    try {
-      const response = await this.apiService.authenticatedGqlQuery(query);
-      if (
-        response.getUserByFirebaseId.user === null ||
-        response.getUserByFirebaseId.errors.length > 0
-      ) {
-        throw response.getUserByFirebaseId.errors;
-      }
-      return new User(response.getUserByFirebaseId.user);
-    } catch (error) {
-      throw error;
+    const response = await this.apiService.authenticatedGqlQuery(query);
+
+    if (
+      response.getUserByFirebaseId.user === null ||
+      response.getUserByFirebaseId.errors.length > 0
+    ) {
+      throw response.getUserByFirebaseId.errors;
     }
+
+    return new User(response.getUserByFirebaseId.user);
   }
 
   public async signUpAuthUser(
@@ -107,19 +105,17 @@ export class UserService {
         }
       `;
 
-    try {
-      const response = await this.apiService.authenticatedGqlQuery(
-        mutationString
-      );
-      if (
-        response.getUserByFirebaseId.user === null ||
-        response.getUserByFirebaseId.errors.length > 0
-      ) {
-        throw response.getUserByFirebaseId.errors;
-      }
-      return new User(response.getUserByFirebaseId.user);
-    } catch (error) {
-      throw error;
+    const response = await this.apiService.authenticatedGqlQuery(
+      mutationString
+    );
+
+    if (
+      response.getUserByFirebaseId.user === null ||
+      response.getUserByFirebaseId.errors.length > 0
+    ) {
+      throw response.getUserByFirebaseId.errors;
     }
+
+    return new User(response.getUserByFirebaseId.user);
   }
 }

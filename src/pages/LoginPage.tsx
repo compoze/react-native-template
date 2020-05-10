@@ -22,6 +22,7 @@ import {
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 import { Icon } from 'react-native-elements';
+
 GoogleSignin.configure({
   webClientId: '<GOOGLE_WEB_CLIENT_ID>',
 });

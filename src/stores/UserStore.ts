@@ -34,15 +34,12 @@ export class UserStore {
   }
 
   public async login(email: string, password: string): Promise<User> {
-    try {
-      await Auth.signInWithEmailAndPassword(email, password);
+    await Auth.signInWithEmailAndPassword(email, password);
 
-      const user: User = await this.userService.getAuthenticatedUser();
-      this.user = user;
-      return user;
-    } catch (errors) {
-      throw errors;
-    }
+    const user: User = await this.userService.getAuthenticatedUser();
+    this.user = user;
+
+    return user;
   }
 
   public googleLogin = async (): Promise<User> => {
@@ -87,18 +84,15 @@ export class UserStore {
     lastName: string,
     phoneNumber?: string
   ): Promise<User> {
-    try {
-      const user: User = await this.userService.signUpUser(
-        email,
-        firstName,
-        lastName,
-        phoneNumber,
-        password
-      );
-      await this.login(email, password);
-      return user;
-    } catch (errors) {
-      throw errors;
-    }
+    const user: User = await this.userService.signUpUser(
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      password
+    );
+    await this.login(email, password);
+
+    return user;
   }
 }
