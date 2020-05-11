@@ -1,7 +1,7 @@
 import React from 'react';
 import Camera from './Camera';
 import { mount } from 'enzyme';
-import { simulatePress } from '../../utilities/testUtils';
+// import { simulatePress } from '../../utilities/testUtils';
 
 describe(Camera, () => {
   it('does not call onPictureTaken until user interaction', () => {
