@@ -49,27 +49,38 @@ export default class Menu extends React.Component<Props> {
             <TouchableOpacity>
               <Text style={styles.menuOption}>Invite Friends</Text>
             </TouchableOpacity>
+
             {userStore.isAuthenticated && (
-              <TouchableOpacity
-                onPress={() => this.navigateToRoute('AccountPage')}
-              >
-                <Text style={styles.menuOption}>Account Settings</Text>
-              </TouchableOpacity>
+              <>
+                <TouchableOpacity
+                  onPress={() => this.navigateToRoute('AccountPage')}
+                >
+                  <Text style={styles.menuOption}>Account Settings</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text style={styles.menuOption}>Account History</Text>
+                </TouchableOpacity>
+              </>
             )}
-            {userStore.isAuthenticated && (
-              <TouchableOpacity>
-                <Text style={styles.menuOption}>Account History</Text>
-              </TouchableOpacity>
-            )}
+
             <TouchableOpacity>
               <Text style={styles.menuOption}>Get Social</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => this.navigateToRoute('CameraPage')}
+            >
+              <Text style={styles.menuOption}>Camera</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={() => this.navigateToRoute('AboutPage')}>
               <Text style={styles.menuOption}>About Us</Text>
             </TouchableOpacity>
+
             <TouchableOpacity>
               <Text style={styles.menuOption}>Need Help?</Text>
             </TouchableOpacity>
+
             {userStore.isAuthenticated ? (
               <TouchableOpacity onPress={this.onLogout}>
                 <Text style={styles.menuOption}>Logout</Text>

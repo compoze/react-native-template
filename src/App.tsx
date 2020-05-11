@@ -18,6 +18,7 @@ interface State {
 const userStore: UserStore = new UserStore();
 const locationService: LocationService = new LocationService();
 const Drawer = createDrawerNavigator();
+
 export default class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);

@@ -10,6 +10,7 @@ import { UserStore } from '../stores/UserStore';
 import { Landing } from '../pages/Landing';
 import { Map } from '../pages/Map';
 import { LocationService } from '../services/LocationService';
+import { CameraPage } from '../pages/CameraPage';
 
 interface Props {
   navigation: any;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const Stack = createStackNavigator();
+
 export default class AppNavigator extends React.Component<Props> {
   render() {
     return (
@@ -113,6 +115,19 @@ export default class AppNavigator extends React.Component<Props> {
               {...props}
             />
           )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="CameraPage"
+          options={{
+            header: (props) => (
+              <AppHeader
+                {...props}
+                toggleSideMenu={this.props.navigation.toggleDrawer}
+              />
+            ),
+          }}
+        >
+          {() => <CameraPage />}
         </Stack.Screen>
       </Stack.Navigator>
     );
