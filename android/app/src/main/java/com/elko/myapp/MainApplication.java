@@ -30,6 +30,8 @@ import expo.modules.constants.ConstantsPackage;
 import expo.modules.permissions.PermissionsPackage;
 import expo.modules.filesystem.FileSystemPackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +62,7 @@ public class MainApplication extends Application implements ReactApplication {
                     new RNGestureHandlerPackage(),
                     new RNGoogleSigninPackage(),
                     new RNScreensPackage(),
+                    new SplashScreenReactPackage(),
                     new ModuleRegistryAdapter(mModuleRegistryProvider)
             );
         }
