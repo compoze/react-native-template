@@ -60,6 +60,14 @@ try {
                 .then(() => {
                     process.exit()
                 })
+                .catch((error) => {
+                    console.log('Error fetching ios config ', error);
+                    process.exit(1);
+                })
+        })
+        .catch((error) => {
+            console.log('Error fetching ios config ', error);
+            process.exit(1);
         })
 }
 catch (error) {
