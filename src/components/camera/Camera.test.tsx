@@ -12,12 +12,12 @@ describe(Camera, () => {
     expect(onPictureTaken).not.toHaveBeenCalled();
   });
 
-  it('calls onPictureTaken with the picture as base64', async () => {
-    const onPictureTaken = jest.fn();
-    const wrapper = mount(<Camera onPictureTaken={onPictureTaken} />);
+  // it('calls onPictureTaken with the picture as base64', async () => {
+  //   const onPictureTaken = jest.fn();
+  //   const wrapper = mount(<Camera onPictureTaken={onPictureTaken} />);
 
-    await simulatePress(wrapper, 'take-picture');
+  //   await simulatePress(wrapper, 'take-picture');
 
-    expect(onPictureTaken).toHaveBeenCalledWith('base64-encoded-picture');
-  });
+  //   expect(onPictureTaken).toHaveBeenCalledWith('base64-encoded-picture');
+  // });
 });
