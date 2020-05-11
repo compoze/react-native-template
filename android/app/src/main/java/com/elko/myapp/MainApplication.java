@@ -53,7 +53,6 @@ public class MainApplication extends Application implements ReactApplication {
                     new VectorIconsPackage(),
                     new RNFirebasePackage(),
                     new GeolocationPackage(),
-                    new ModuleRegistryAdapter(mModuleRegistryProvider),
                     new MapsPackage(),
                     new SafeAreaContextPackage(),
                     new RNFirebaseAuthPackage(),
