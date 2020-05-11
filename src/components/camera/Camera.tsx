@@ -47,6 +47,8 @@ export default class Camera extends Component<CameraProps, CameraState> {
         >
           {({ camera, status, recordAudioPermissionStatus }) => {
             if (status !== 'READY') return null;
+            console.log(camera);
+            console.log(recordAudioPermissionStatus);
             return (
               <View>
                 <Text>{this.state.data?.base64}</Text>
