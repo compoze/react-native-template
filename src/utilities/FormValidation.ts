@@ -12,9 +12,10 @@ export function requiredFieldsEmpty(
   ...args: ObjectToValidate[]
 ): ValidationObject[] {
   const validationObject: ValidationObject[] = [];
+
   if (!args.length) {
     validationObject.push({
-      fieldName: 'lenght',
+      fieldName: 'length',
       message: 'Is Empty',
     });
   }
@@ -27,5 +28,6 @@ export function requiredFieldsEmpty(
       });
     }
   });
+
   return validationObject;
 }
