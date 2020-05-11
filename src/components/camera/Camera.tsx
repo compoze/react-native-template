@@ -44,11 +44,22 @@ export default class Camera extends Component<CameraProps, CameraState> {
             buttonPositive: 'Ok',
             buttonNegative: 'Cancel',
           }}
-        />
-        <Text>{this.state.data?.base64}</Text>
-        <TouchableOpacity onPress={this.takePicture} testID="take-picture">
-          <Text>Take photo</Text>
-        </TouchableOpacity>
+        >
+          {({ camera, status, recordAudioPermissionStatus }) => {
+            if (status !== 'READY') return null;
+            return (
+              <View>
+                <Text>{this.state.data?.base64}</Text>
+                <TouchableOpacity
+                  onPress={this.takePicture}
+                  testID="take-picture"
+                >
+                  <Text>Take photo</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        </RNCamera>
       </View>
     );
   }
