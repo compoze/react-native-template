@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import SplashScreen from 'react-native-splash-screen';
 import { UserStore } from './stores/UserStore';
 import Menu from './components/menu/Menu';
 import AppNavigator from './navigation/AppNavigator';
@@ -30,6 +31,7 @@ export default class App extends React.Component<Props, State> {
 
   // TODO refactor with state management
   async UNSAFE_componentWillMount(): Promise<void> {
+    SplashScreen.hide();
     await userStore.setup();
   }
 
