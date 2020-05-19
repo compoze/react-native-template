@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 interface CameraProps {
@@ -25,7 +25,7 @@ export default class Camera extends Component<CameraProps, CameraState> {
 
   public render() {
     return (
-      <View>
+      <View style={{ flex: 1, width: '100%', height: '100%' }}>
         <Text>Camera</Text>
         <RNCamera
           ref={(ref) => (this.camera = ref)}
@@ -44,6 +44,7 @@ export default class Camera extends Component<CameraProps, CameraState> {
             buttonPositive: 'Ok',
             buttonNegative: 'Cancel',
           }}
+          style={styles.preview}
         >
           {({ camera, status, recordAudioPermissionStatus }) => {
             if (status !== 'READY') return null;
@@ -51,12 +52,11 @@ export default class Camera extends Component<CameraProps, CameraState> {
             console.log(recordAudioPermissionStatus);
             return (
               <View>
-                <Text>{this.state.data?.base64}</Text>
                 <TouchableOpacity
                   onPress={this.takePicture}
                   testID="take-picture"
                 >
-                  <Text>Take photo</Text>
+                  <Text style={{ color: 'white' }}>Take photo</Text>
                 </TouchableOpacity>
               </View>
             );
@@ -77,3 +77,13 @@ export default class Camera extends Component<CameraProps, CameraState> {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  preview: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
