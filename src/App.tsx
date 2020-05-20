@@ -7,6 +7,7 @@ import { UserStore } from './stores/UserStore';
 import Menu from './components/menu/Menu';
 import AppNavigator from './navigation/AppNavigator';
 import { LocationService } from './services/LocationService';
+import { Image } from 'react-native';
 
 interface Props {
   navigation: any;
@@ -14,6 +15,7 @@ interface Props {
 
 interface State {
   stackNavigation: any;
+  appReady: boolean;
 }
 
 const userStore: UserStore = new UserStore();
@@ -26,7 +28,16 @@ export default class App extends React.Component<Props, State> {
 
     this.state = {
       stackNavigation: '',
+      appReady: false,
     };
+
+    setTimeout(
+      () =>
+        this.setState({
+          appReady: true,
+        }),
+      3500
+    );
   }
 
   // TODO refactor with state management
@@ -42,33 +53,49 @@ export default class App extends React.Component<Props, State> {
   };
 
   render() {
-    return (
-      <NavigationContainer>
-        <Drawer.Navigator
-          initialRouteName="Home"
-          drawerStyle={{
-            width: '85%',
-          }}
-          drawerContent={(props) => (
-            <Menu
-              userStore={userStore}
-              {...props}
-              stackNavigation={this.state.stackNavigation}
-            />
-          )}
-        >
-          <Drawer.Screen name="Home">
-            {(props) => (
-              <AppNavigator
+    if (this.state.appReady) {
+      return (
+        <NavigationContainer>
+          <Drawer.Navigator
+            initialRouteName="Home"
+            drawerStyle={{
+              width: '85%',
+            }}
+            drawerContent={(props) => (
+              <Menu
                 userStore={userStore}
-                locationService={locationService}
-                setStackNavigation={this.setStackNavigator}
                 {...props}
+                stackNavigation={this.state.stackNavigation}
               />
             )}
-          </Drawer.Screen>
-        </Drawer.Navigator>
-      </NavigationContainer>
-    );
+          >
+            <Drawer.Screen name="Home">
+              {(props) => (
+                <AppNavigator
+                  userStore={userStore}
+                  locationService={locationService}
+                  setStackNavigation={this.setStackNavigator}
+                  {...props}
+                />
+              )}
+            </Drawer.Screen>
+          </Drawer.Navigator>
+        </NavigationContainer>
+      );
+    } else {
+      return (
+        <Image
+          source={require('../assets/Elko.gif')}
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+          }}
+          resizeMode={'cover'}
+        />
+      );
+    }
   }
 }
