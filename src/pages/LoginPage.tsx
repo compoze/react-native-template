@@ -62,7 +62,7 @@ export class Login extends React.Component<Props, State> {
     try {
       await this.props.userStore.googleLogin();
     } catch (errors) {
-      Alert.alert(errors);
+      Alert.alert('Login Error', JSON.stringify(errors));
     }
 
     if (this.props.userStore.isAuthenticated) {
@@ -80,7 +80,7 @@ export class Login extends React.Component<Props, State> {
       ...validationFields
     );
     if (validationErrors.length !== 0) {
-      Alert.alert(JSON.stringify(validationErrors));
+      Alert.alert('Login Error', JSON.stringify(validationErrors));
       return;
     }
 
@@ -88,7 +88,7 @@ export class Login extends React.Component<Props, State> {
     try {
       await this.props.userStore.login(email!, password!);
     } catch (errors) {
-      Alert.alert(JSON.stringify(errors));
+      Alert.alert('Login Error', JSON.stringify(errors));
     }
 
     if (this.props.userStore.isAuthenticated) {

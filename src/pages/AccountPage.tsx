@@ -52,7 +52,7 @@ export class AccountPage extends React.Component<Props, State> {
       ...validationFields
     );
     if (validationErrors.length !== 0) {
-      Alert.alert(validationErrors[0].message);
+      Alert.alert('Sign Up Error', validationErrors[0].message);
       return;
     }
   };

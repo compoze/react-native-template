@@ -48,7 +48,7 @@ export class SignUp extends React.Component<Props, State> {
       ...validationFields
     );
     if (validationErrors.length !== 0) {
-      Alert.alert(validationErrors[0].message);
+      Alert.alert('Sign Up Error', validationErrors[0].message);
       return;
     }
 
@@ -57,7 +57,7 @@ export class SignUp extends React.Component<Props, State> {
       await userStore.signUp(email, password, firstName, lastName, phoneNumber);
       Alert.alert('User signed up successfully');
     } catch (errors) {
-      Alert.alert(errors);
+      Alert.alert('Sign Up Error', JSON.stringify(errors));
     }
 
     if (this.props.userStore.isAuthenticated) {
