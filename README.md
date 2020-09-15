@@ -30,3 +30,5 @@ Template repo for React-Native application
 
 
 https://console.firebase.google.com/project/myapp-22b6f/settings/serviceaccounts/adminsdk
+
+### Suggest adding MobX for user store management
