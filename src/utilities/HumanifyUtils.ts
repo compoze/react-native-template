@@ -1,6 +1,6 @@
 //Replace every 3 digits with commas for easier reading
 export function Commafy(number: number) {
-    return number.toString().trim().replace(/\B(?=(\d{3})+(?!\d))/g, ',').toLocaleString();
+  return number.toString().trim().replace(/\B(?=(\d{3})+(?!\d))/g, ',').toLocaleString();
 }
 
 export function TitleCase(str: string) {
@@ -19,22 +19,27 @@ export function UppercaseFirstLetter(str: string) {
 }
 
 
-export function ToPercent(object: number | string, decimals = 0) {
-  if (!isNaN(+object)) {
-    //If is less than 100 keep 100
-    let percent = +object <= 100 ? +object : +object;
-    //If is less than one e.g. .45 * 100 turn into 45
-    percent = percent <= 1 ? percent * 100 : percent;
-    return ((+percent)).toFixed(decimals) + '%';
+export function ToPercent(number: number | string, decimals = 0) {
+  let percent = number;
+  if (typeof percent === 'string') {
+    percent = percent.replace(/[^\d.\-]/g, '');
   }
-  else {
+  if (!isNaN(+percent)) {
+    //If is less than one e.g. .45 * 100 turn into 45
+    percent = percent < 1 ? +percent * 100 : +percent;
+    return (+percent).toFixed(decimals) + '%';
+  } else {
     return '0%';
   }
 }
 
-export function ToDollarAmount(object: number | string) {
-  if (!isNaN(+object))
-    return '$' + (+object).toFixed(2);
+export function ToDollarAmount(amount: number | string) {
+  let dollars = amount;
+  if (typeof dollars === 'string') {
+    dollars = dollars.replace(/[^\d.\-]/g, '');
+  }
+  if (!isNaN(+dollars))
+    return '$' + (+dollars).toFixed(2);
   else {
     return '$0.00';
   }
