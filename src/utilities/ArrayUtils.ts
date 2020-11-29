@@ -16,7 +16,7 @@ export function reduceToSum(accumulator: number, currentValue: number): number {
 
 //Simple sort array function
 //used as array.sort(simpleSort)
-export function simpleSort(a: number | string | object, b: number | string | object): number {
+export function simpleSort(a: number | string | object, b: number | string | object): number | undefined {
   const simpleCompare = (a: string | object, b: string | object) => {
     if (a > b)
       return 1;
