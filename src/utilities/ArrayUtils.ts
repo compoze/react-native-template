@@ -4,7 +4,7 @@ export function onlyUnique(value: any, index: number, self: any[]): boolean {
   return self.indexOf(value) === index;
 }
 
-export function filterNil(value: any ): boolean {
+export function filterNil(value: any): boolean {
   return !!value
 }
 
