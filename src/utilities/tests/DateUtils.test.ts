@@ -2,7 +2,9 @@ import {
   convertMilitaryCivilianTime,
   DateFormat,
   humanToUnixTime,
+  simpleWeekDaySort,
   unixTimeToHumanDateTime,
+  simpleMonthSort,
 } from '../DateUtils';
 
 describe('MiscUtils', () => {
@@ -37,6 +39,65 @@ describe('MiscUtils', () => {
     it('Creates a Unix time default locate', async () => {
       const unixTime = unixTimeToHumanDateTime(1609653600); // 1606953600
       expect(unixTime).toEqual('12/03/2020');
+    });
+  });
+  describe('simpleWeekDaySort', () => {
+    it('Creates a Unix time default locate', async () => {
+      const unOrgWeeks = [
+        'sunday',
+        'wednesday',
+        'tuesday',
+        'monday',
+        'thursday',
+        'saturday',
+        'friday',
+      ];
+      const expected = [
+        'sunday',
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+      ];
+      const total = unOrgWeeks.sort(simpleWeekDaySort);
+      expect(total).toEqual(expected);
+    });
+  });
+
+  describe('simpleWeekDaySort', () => {
+    it('Creates a Unix time default locate', async () => {
+      const unOrgMonths = [
+        'january',
+        'may',
+        'june',
+        'july',
+        'august',
+        'september',
+        'october',
+        'november',
+        'december',
+        'february',
+        'march',
+        'april',
+      ];
+      const expected = [
+        'january',
+        'february',
+        'march',
+        'april',
+        'may',
+        'june',
+        'july',
+        'august',
+        'september',
+        'october',
+        'november',
+        'december',
+      ];
+      const total = unOrgMonths.sort(simpleMonthSort);
+      expect(total).toEqual(expected);
     });
   });
 });

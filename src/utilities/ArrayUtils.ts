@@ -31,15 +31,15 @@ export const simpleSort = (a: Sortable, b: Sortable): number => {
     return a - b;
   } else if (typeof a === 'string' && typeof b === 'string') {
     return a.localeCompare(b);
-    // return (simpleCompare(a, b));
   } else if (typeof a === 'object' && typeof b === 'object') {
     return simpleCompare(a, b);
   }
 };
+//Alias function
 export const simpleSortAscending = (a: Sortable, b: Sortable): number => {
   return simpleSort(a, b);
 };
-
+//reverse function
 export const simpleSortDescending = (a: Sortable, b: Sortable): number => {
   return simpleSort(b, a);
 };

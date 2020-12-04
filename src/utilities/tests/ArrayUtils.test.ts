@@ -5,6 +5,8 @@ import {
   arrayRemove,
   simpleSort,
   filterNil,
+  simpleSortDescending,
+  simpleSortAscending,
 } from '../ArrayUtils';
 
 describe('ArrayUtils', () => {
@@ -54,6 +56,26 @@ describe('ArrayUtils', () => {
       const total: string[] = ['a', 'bb', 'b', 'aa'];
 
       const actual = total.sort(simpleSort);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('simpleSortAscending', () => {
+    it('Sorts objects based on order strings', async () => {
+      const expected: string[] = ['a', 'aa', 'b', 'bb'];
+      const total: string[] = ['a', 'bb', 'b', 'aa'];
+
+      const actual = total.sort(simpleSortAscending);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('simpleSortDescending', () => {
+    it('Sorts objects based on order strings reverse', async () => {
+      const expected: string[] = ['bb', 'b', 'aa', 'a'];
+      const total: string[] = ['a', 'bb', 'b', 'aa'];
+
+      const actual = total.sort(simpleSortDescending);
 
       expect(actual).toEqual(expected);
     });

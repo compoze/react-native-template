@@ -2,7 +2,29 @@ import importMoment, { Moment } from 'moment';
 
 type DateType = Date | Moment | string;
 type DateTimeType = DateFormat | TimeFormat | DateTimeFormat;
+export type WeekDaysFull =
+  | 'sunday'
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday';
+export type MonthsFull =
+  | 'january'
+  | 'february'
+  | 'march'
+  | 'april'
+  | 'may'
+  | 'june'
+  | 'july'
+  | 'august'
+  | 'september'
+  | 'october'
+  | 'november'
+  | 'december';
 const moment = importMoment;
+
 //Add more as needed
 export enum DateTimeFormat {
   computerStandard = 'YYYY-MM-DD HH:mm',
@@ -13,6 +35,7 @@ export enum DateTimeFormat {
   usHumanWithSeconds = 'hh:mm:ss A MM/DD/YYYY',
   locate = 'locate',
 }
+
 //Women: "Whats your idea of the prefect date?" Comp Sci Major: "YYYY-MM-DD"
 export enum DateFormat {
   computerStandard = 'YYYY-MM-DD',
@@ -96,4 +119,87 @@ export const isMilitaryTime = (): boolean => {
     !!dateString.toLowerCase().match(/am|pm/i) ||
     !!date.toString().toLowerCase().match(/am|pm/i)
   );
+};
+export const monthNumberToMonthString = (month: number): string => {
+  switch (month) {
+    case 1:
+      return 'January';
+    case 2:
+      return 'February';
+    case 3:
+      return 'March';
+    case 4:
+      return 'April';
+    case 5:
+      return 'May';
+    case 6:
+      return 'June';
+    case 7:
+      return 'July';
+    case 8:
+      return 'August';
+    case 9:
+      return 'September';
+    case 10:
+      return 'October';
+    case 11:
+      return 'November';
+    case 12:
+      return 'December';
+    default:
+      return 'Undefined';
+  }
+};
+
+export const convertFullDayToShortDay = (fullDay: string): string => {
+  switch (fullDay.toLowerCase().trim()) {
+    case 'monday':
+      return 'M';
+    case 'tuesday':
+      return 'Tu';
+    case 'wednesday':
+      return 'W';
+    case 'thursday':
+      return 'Th';
+    case 'friday':
+      return 'F';
+    case 'saturday':
+      return 'Sa';
+    case 'sunday':
+      return 'Su';
+    default:
+      return '';
+  }
+};
+
+export const weekDaySorting = {
+  sunday: 0, // << if sunday is first day of week
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
+  // "sunday": 7
+};
+export const monthSorting = {
+  january: 0, // << if sunday is first day of week
+  february: 1,
+  march: 2,
+  april: 3,
+  may: 4,
+  june: 5,
+  july: 6,
+  august: 7,
+  september: 8,
+  october: 9,
+  november: 10,
+  december: 11,
+  // "sunday": 7
+};
+export const simpleWeekDaySort = (a: WeekDaysFull, b: WeekDaysFull) => {
+  return weekDaySorting[a] - weekDaySorting[b];
+};
+export const simpleMonthSort = (a: MonthsFull, b: MonthsFull) => {
+  return monthSorting[a] - monthSorting[b];
 };

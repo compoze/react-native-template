@@ -48,6 +48,16 @@ describe('HumanifyUtils', () => {
   });
   describe('toPercent', () => {
     it('ToPercent value', async () => {
+      const expected: string = '0%';
+      const total: string = 'vvv';
+
+      const actual = toPercent(total);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('toPercent', () => {
+    it('ToPercent value', async () => {
       const expected: string = '66.9%';
       const total: string = '66.9M';
 
@@ -57,9 +67,19 @@ describe('HumanifyUtils', () => {
     });
   });
   describe('toDollarAmount', () => {
-    it('ToPercent value', async () => {
+    it('toDollarAmount value', async () => {
       const expected: string = '$6.90';
       const total: number = 6.9;
+
+      const actual = toDollarAmount(total);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('toDollarAmount', () => {
+    it('toDollarAmount value', async () => {
+      const expected: string = '$0.00';
+      const total: string = 'ctp';
 
       const actual = toDollarAmount(total);
 

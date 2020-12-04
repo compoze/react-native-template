@@ -6,6 +6,7 @@ import {
   numberIsInteger,
   floorFigure,
   replaceNonNumber,
+  isBoolean,
 } from '../MiscUtils';
 
 describe('MiscUtils', () => {
@@ -19,6 +20,18 @@ describe('MiscUtils', () => {
     it('Returns a boolean value', async () => {
       const stringToBoolean = isBool(null);
       expect(stringToBoolean).toEqual(false);
+    });
+  });
+  describe('isBoolean', () => {
+    it('Returns a boolean value', async () => {
+      const stringToBoolean = isBoolean('no ');
+      expect(stringToBoolean).toEqual(false);
+    });
+  });
+  describe('isBoolean', () => {
+    it('Returns a boolean value', async () => {
+      const stringToBoolean = isBoolean('1 ');
+      expect(stringToBoolean).toEqual(true);
     });
   });
   describe('isEmpty', () => {
@@ -49,6 +62,12 @@ describe('MiscUtils', () => {
     it('Array returns boolean if is empty', async () => {
       const isEmpt = isEmpty([]);
       expect(isEmpt).toEqual(true);
+    });
+  });
+  describe('isEmpty', () => {
+    it('Array returns boolean if is empty', async () => {
+      const isEmpt = isEmpty([1, 2, 3]);
+      expect(isEmpt).toEqual(false);
     });
   });
   describe('isEmpty', () => {
@@ -83,8 +102,8 @@ describe('MiscUtils', () => {
   });
   describe('replaceNonNumber', () => {
     it('Replaces non numbers in a string', async () => {
-      const isEmpt = replaceNonNumber('2000.99M');
-      expect(isEmpt).toEqual(66.92);
+      const isEmpt = replaceNonNumber('-2000.99M');
+      expect(isEmpt).toEqual(-2000.99);
     });
   });
 });

@@ -10,9 +10,31 @@ export const makeCleanClassName = (classNames: className[]): string => {
 
 export const stringToBoolean = (str: Str): boolean => {
   switch ((str || '').toLowerCase().trim()) {
-    case 'true' || 'yes' || '1' || 'on':
+    //true objs
+    case 'true':
       return true;
-    case 'false' || 'no' || '0' || 'off' || 'null' || 'undefined' || '':
+    case 'yes':
+      return true;
+    case '1':
+      return true;
+    case 'on':
+      return true;
+    //False obj
+    case 'false':
+      return false;
+    case 'no':
+      return false;
+    case '0':
+      return false;
+    case 'off':
+      return false;
+    case 'null':
+      return false;
+    case 'undefined':
+      return false;
+    case 'nil':
+      return false;
+    case '':
       return false;
     default:
       return Boolean(str);
@@ -74,10 +96,10 @@ export const numberIsInteger = (number: number): boolean => {
   return !isNaN(number) && number % 1 === 0;
 };
 
-export const floorFigure = (num: number, digit: MultiplesOf10): number => {
-  return Math.round((num + Number.EPSILON) * digit) / digit;
+export const floorFigure = (num: number, place: MultiplesOf10): number => {
+  return Math.round((num + Number.EPSILON) * place) / place;
 };
 //Replaces non number digits plus neg and decimal points
-export const replaceNonNumber = (str: string) => {
-  return str.replace(/[^\d.-]/g, '');
+export const replaceNonNumber = (str: string): number => {
+  return +str.replace(/[^\d.-]/g, '');
 };
