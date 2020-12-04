@@ -1,6 +1,7 @@
 const env = process.env.ENVIRONMENT;
 export default class Log {
-  private readonly isLoggingEnabled: boolean = env.toString().toLowerCase() === 'dev';
+  private readonly isLoggingEnabled: boolean =
+    env.toString().toLowerCase() === 'dev';
   //Debug log
   public debug = (...msg: string[] | any[] | object[]) => {
     if (this.isLoggingEnabled) {
