@@ -1,10 +1,11 @@
+// @ts-ignore
 import {
   onlyUnique,
   reduceToSum,
-  ArrayRemove,
+  arrayRemove,
   simpleSort,
   filterNil,
-} from './ArrayUtils';
+} from '../ArrayUtils';
 
 describe('ArrayUtils', () => {
   describe('onlyUnique', () => {
@@ -32,7 +33,7 @@ describe('ArrayUtils', () => {
       const expected: string[] = ['one', 'two'];
       const total: string[] = ['one', 'two', 'three'];
 
-      const actual = ArrayRemove(total, 'three');
+      const actual = arrayRemove(total, 'three');
 
       expect(actual).toEqual(expected);
     });
@@ -42,7 +43,17 @@ describe('ArrayUtils', () => {
       const expected: number[] = [1, 2, 3, 4, 5];
       const total: number[] = [1, 4, 3, 5, 2];
 
-      const actual = total.sort();
+      const actual = total.sort(simpleSort);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('simpleSort', () => {
+    it('Sorts objects based on order strings', async () => {
+      const expected: string[] = ['a', 'aa', 'b', 'bb'];
+      const total: string[] = ['a', 'bb', 'b', 'aa'];
+
+      const actual = total.sort(simpleSort);
 
       expect(actual).toEqual(expected);
     });
@@ -50,7 +61,7 @@ describe('ArrayUtils', () => {
   describe('filterNil', () => {
     it('Filtering out null vales', async () => {
       const expected: number[] = [1, 2];
-      const total: number[] = [undefined,undefined,null,1, 2];
+      const total: number[] = [undefined, undefined, null, 1, 2];
 
       const actual = total.filter(filterNil);
 

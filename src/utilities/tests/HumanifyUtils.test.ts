@@ -1,68 +1,67 @@
 import {
-  Commafy,
-  TitleCase,
-  UppercaseFirstLetter,
-  ToPercent,
-  ToDollarAmount
-} from './HumanifyUtils';
+  commafy,
+  titleCase,
+  uppercaseFirstLetter,
+  toPercent,
+  toDollarAmount,
+} from '../HumanifyUtils';
 describe('HumanifyUtils', () => {
-  describe('Commafy', () => {
+  describe('commafy', () => {
     it('Comma every 3rd digit', async () => {
       const expected: string = '100,000';
       const total: number = 100000;
 
-      const actual = Commafy(total);
+      const actual = commafy(total);
 
       expect(actual).toEqual(expected);
     });
   });
-  describe('TitleCase', () => {
-    it("Title case caps every first letter", async () => {
+  describe('titleCase', () => {
+    it('Title case caps every first letter', async () => {
       const expected: string = 'Google Is Great';
       const total: string = 'google is great';
 
-      const actual = TitleCase(total);
+      const actual = titleCase(total);
 
       expect(actual).toEqual(expected);
     });
   });
-  describe('UppercaseFirstLetter', () => {
+  describe('uppercaseFirstLetter', () => {
     it('Uppercase the first letter', async () => {
       const expected: string = 'Google is great';
       const total: string = 'google is great';
 
-      const actual = UppercaseFirstLetter(total);
+      const actual = uppercaseFirstLetter(total);
 
       expect(actual).toEqual(expected);
     });
   });
-  describe('ToPercent', () => {
+  describe('toPercent', () => {
     it('ToPercent value', async () => {
       const expected: string = '67%';
-      const total: number = .669;
+      const total: number = 0.669;
 
-      const actual = ToPercent(total);
+      const actual = toPercent(total);
 
       expect(actual).toEqual(expected);
     });
   });
-  describe('ToPercent', () => {
+  describe('toPercent', () => {
     it('ToPercent value', async () => {
       const expected: string = '66.9%';
       const total: string = '66.9M';
 
-      const actual = ToPercent(total, 1);
+      const actual = toPercent(total, 1);
 
       expect(actual).toEqual(expected);
     });
   });
-  describe('ToDollarAmount', () => {
+  describe('toDollarAmount', () => {
     it('ToPercent value', async () => {
       const expected: string = '$6.90';
       const total: number = 6.9;
 
-
-      const actual = ToDollarAmount(total);
+      const actual = toDollarAmount(total);
 
       expect(actual).toEqual(expected);
     });
