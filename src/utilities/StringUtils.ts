@@ -34,13 +34,10 @@ export const stringToBoolean = (str: Str): boolean => {
   }
 };
 
-export const isBoolean = (str: Str): boolean => {
-  return stringToBoolean(str);
-};
+export const isBoolean = (str: Str): boolean => stringToBoolean(str);
 
-export const isBool = (str: Str): boolean => {
-  return stringToBoolean(str);
-};
+export const isBool = (str: Str): boolean => stringToBoolean(str);
+
 export const isValidEmail = (email: Str): boolean => {
   if (email) {
     const regex: RegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
