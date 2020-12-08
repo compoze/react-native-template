@@ -1,6 +1,6 @@
 import { Str } from './StringUtils';
-
-type className = string | undefined | null;
+export type NullType = null | undefined;
+type className = string | NullType;
 
 export const makeCleanClassName = (classNames: className[]): string => {
   const CLASSES_SEPARATOR = ' ';

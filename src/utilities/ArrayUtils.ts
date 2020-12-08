@@ -1,4 +1,17 @@
-type Sortable = number | string | object;
+type ArrayableType =
+  | null
+  | number
+  | symbol
+  | string
+  | object
+  | never
+  | unknown
+  | boolean
+  | any
+  | Error
+  | Date
+  | File;
+type SortableType = number | string | object;
 
 //Filter unique
 //used as array.filter(onlyUnique)
@@ -19,9 +32,15 @@ export const reduceToSum = (
   return accumulator + currentValue;
 };
 
+export const reduceToBoolean = (
+  accumulator: boolean,
+  currentValue: boolean
+): boolean => {
+  return true === (accumulator === currentValue);
+};
 //Simple sort array function
 //used as array.sort(simpleSort)
-export const simpleSort = (a: Sortable, b: Sortable): number => {
+export const simpleSort = (a: SortableType, b: SortableType): number => {
   const simpleCompare = (a: string | object, b: string | object) => {
     if (a > b) return 1;
     else if (b < a) return -1;
@@ -36,15 +55,30 @@ export const simpleSort = (a: Sortable, b: Sortable): number => {
   }
 };
 //Alias function
-export const simpleSortAscending = (a: Sortable, b: Sortable): number => {
+export const simpleSortAscending = (
+  a: SortableType,
+  b: SortableType
+): number => {
   return simpleSort(a, b);
 };
 //reverse function
-export const simpleSortDescending = (a: Sortable, b: Sortable): number => {
+export const simpleSortDescending = (
+  a: SortableType,
+  b: SortableType
+): number => {
   return simpleSort(b, a);
 };
 //Remove an item or index from an array
 // Used as ArrayRemove([1,2,4],4)
 export const arrayRemove = (self: any[], object: any): any[] => {
   return self.filter((item) => object !== item);
+};
+export const arrayToString = (array: ArrayableType[]): string => {
+  const arrayString = array
+    .toString()
+    .replace('[', '')
+    .replace(']', '')
+    .split(',')
+    .join(' ');
+  return arrayString;
 };

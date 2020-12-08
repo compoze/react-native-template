@@ -4,6 +4,7 @@ import {
   uppercaseFirstLetter,
   toPercent,
   toDollarAmount,
+  uppercaseFirstLetterLowercaseRest,
 } from '../HumanifyUtils';
 describe('HumanifyUtils', () => {
   describe('commafy', () => {
@@ -32,6 +33,16 @@ describe('HumanifyUtils', () => {
       const total: string = 'google is great';
 
       const actual = uppercaseFirstLetter(total);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('uppercaseFirstLetterLowercaseRest', () => {
+    it('Uppercase the first letter lowercase the rest', async () => {
+      const expected: string = 'Google is great';
+      const total: string = 'google is GREAt';
+
+      const actual = uppercaseFirstLetterLowercaseRest(total);
 
       expect(actual).toEqual(expected);
     });

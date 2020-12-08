@@ -7,6 +7,8 @@ import {
   filterNil,
   simpleSortDescending,
   simpleSortAscending,
+  reduceToBoolean,
+  arrayToString,
 } from '../ArrayUtils';
 
 describe('ArrayUtils', () => {
@@ -28,6 +30,24 @@ describe('ArrayUtils', () => {
       const actual = total.reduce(reduceToSum, 0);
 
       expect(actual).toEqual(expected);
+    });
+  });
+  describe('reduceToBoolean', () => {
+    it('Returns 6 after adding the numbers together', async () => {
+      const total: boolean[] = [true, true, true];
+
+      const actual = total.reduce(reduceToBoolean, true);
+
+      expect(actual).toEqual(true);
+    });
+  });
+  describe('reduceToBoolean', () => {
+    it('Returns 6 after adding the numbers together', async () => {
+      const total: boolean[] = [true, false, true];
+
+      const actual = total.reduce(reduceToBoolean, true);
+
+      expect(actual).toEqual(false);
     });
   });
   describe('ArrayRemove', () => {
@@ -86,6 +106,16 @@ describe('ArrayUtils', () => {
       const total: number[] = [undefined, undefined, null, 1, 2];
 
       const actual = total.filter(filterNil);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('arrayToString', () => {
+    it('Filtering out null vales', async () => {
+      const expected: string = '1 2 3';
+      const total: number[] = [1, 2, 3];
+
+      const actual = arrayToString(total);
 
       expect(actual).toEqual(expected);
     });

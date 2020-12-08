@@ -23,6 +23,9 @@ export const titleCase = (str: string) => {
 export const uppercaseFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1, str.length);
 };
+export const uppercaseFirstLetterLowercaseRest = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1, str.length).toLowerCase();
+};
 
 export const toPercent = (number: number | string, decimals = 0) => {
   let percent = number;

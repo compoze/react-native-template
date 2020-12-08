@@ -1,4 +1,6 @@
-export type Str = string | undefined | null;
+import { NullType } from './MiscUtils';
+
+export type Str = string | NullType;
 export const stringToBoolean = (str: Str): boolean => {
   switch ((str || '').toLowerCase().trim()) {
     //true objs

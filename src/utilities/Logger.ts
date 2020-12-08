@@ -1,5 +1,18 @@
+import { NullType } from './MiscUtils';
+
 const env = process.env.ENVIRONMENT;
-type LogType = string | any | object | number | undefined | Error | File;
+type LogType =
+  | string
+  | any
+  | object
+  | number
+  | boolean
+  | symbol
+  | unknown
+  | NullType
+  | Error
+  | File
+  | Date;
 
 export default class Log {
   private readonly isLoggingEnabled: boolean =
