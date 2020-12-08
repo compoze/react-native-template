@@ -2,7 +2,8 @@ import importMoment, { Moment } from 'moment';
 
 type DateType = Date | Moment | string;
 type DateTimeType = DateFormat | TimeFormat | DateTimeFormat;
-export type WeekDaysFull =
+
+export type WeekDaysFullType =
   | 'sunday'
   | 'monday'
   | 'tuesday'
@@ -10,7 +11,7 @@ export type WeekDaysFull =
   | 'thursday'
   | 'friday'
   | 'saturday';
-export type MonthsFull =
+export type MonthsFullType =
   | 'january'
   | 'february'
   | 'march'
@@ -23,6 +24,8 @@ export type MonthsFull =
   | 'october'
   | 'november'
   | 'december';
+type MonthsNumbersType = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+
 const moment = importMoment;
 
 //Add more as needed
@@ -120,7 +123,7 @@ export const isMilitaryTime = (): boolean => {
     !!date.toString().toLowerCase().match(/am|pm/i)
   );
 };
-export const monthNumberToMonthString = (month: number): string => {
+export const monthNumberToMonthString = (month: MonthsNumbersType): string => {
   switch (month) {
     case 1:
       return 'January';
@@ -151,7 +154,7 @@ export const monthNumberToMonthString = (month: number): string => {
   }
 };
 
-export const convertFullDayToShortDay = (fullDay: string): string => {
+export const convertFullDayToShortDay = (fullDay: WeekDaysFullType): string => {
   switch (fullDay.toLowerCase().trim()) {
     case 'monday':
       return 'M';
@@ -168,7 +171,7 @@ export const convertFullDayToShortDay = (fullDay: string): string => {
     case 'sunday':
       return 'Su';
     default:
-      return '';
+      return 'sunday';
   }
 };
 
@@ -183,7 +186,7 @@ export const weekDaySorting = {
   // "sunday": 7
 };
 export const monthSorting = {
-  january: 0, // << if sunday is first day of week
+  january: 0,
   february: 1,
   march: 2,
   april: 3,
@@ -195,11 +198,10 @@ export const monthSorting = {
   october: 9,
   november: 10,
   december: 11,
-  // "sunday": 7
 };
-export const simpleWeekDaySort = (a: WeekDaysFull, b: WeekDaysFull) => {
+export const simpleWeekDaySort = (a: WeekDaysFullType, b: WeekDaysFullType) => {
   return weekDaySorting[a] - weekDaySorting[b];
 };
-export const simpleMonthSort = (a: MonthsFull, b: MonthsFull) => {
+export const simpleMonthSort = (a: MonthsFullType, b: MonthsFullType) => {
   return monthSorting[a] - monthSorting[b];
 };

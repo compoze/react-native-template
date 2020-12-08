@@ -1,4 +1,4 @@
-import { replaceNonNumber } from './MiscUtils';
+import { replaceNonNumber } from './StringUtils';
 //Replace every 3 digits with commas for easier reading humans
 export const commafy = (number: number) => {
   return number
@@ -33,9 +33,7 @@ export const toPercent = (number: number | string, decimals = 0) => {
     //If is less than one e.g. .45 * 100 turn into 45
     percent = percent < 1 ? +percent * 100 : +percent;
     return (+percent).toFixed(decimals) + '%';
-  } else {
-    return '0%';
-  }
+  } else return '0%';
 };
 
 export const toDollarAmount = (amount: number | string) => {
@@ -44,7 +42,5 @@ export const toDollarAmount = (amount: number | string) => {
     dollars = replaceNonNumber(dollars);
   }
   if (!isNaN(+dollars)) return '$' + (+dollars).toFixed(2);
-  else {
-    return '$0.00';
-  }
+  else return '$0.00';
 };
