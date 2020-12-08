@@ -2,7 +2,7 @@ import {
   requiredFieldsEmpty,
   ObjectToValidate,
   ValidationObject,
-} from './FormValidation';
+} from '../FormValidation';
 
 describe('FormValidation', () => {
   describe('requiredFieldsEmpty', () => {

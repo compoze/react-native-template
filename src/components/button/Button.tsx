@@ -5,7 +5,7 @@ import {
   TouchableOpacityProperties,
   StyleSheet,
   ViewStyle,
-  StyleProp
+  StyleProp,
 } from 'react-native';
 import { styleConstants } from '../../config/constants';
 
@@ -25,8 +25,7 @@ const Button: React.SFC<ButtonProps> = ({
   contentContainerStyle,
   children,
   ...props
-  }) => {
-
+}) => {
   const buttonStyles: StyleProp<ViewStyle>[] = buttonSetup(props);
 
   return (
@@ -45,19 +44,18 @@ const styles = StyleSheet.create({
     backgroundColor: styleConstants.colors.PRIMARY_BUTTON,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 50
-
+    marginVertical: 50,
   },
   invalid: {
-    backgroundColor: styleConstants.colors.PRIMARY_BUTTON_DISABLED
+    backgroundColor: styleConstants.colors.PRIMARY_BUTTON_DISABLED,
   },
   defaultCorner: {
-    borderRadius: 2
+    borderRadius: 2,
   },
   shadow: {
     shadowOffset: { width: 0, height: 2 },
     shadowColor: 'black',
-    shadowOpacity: 0.14
+    shadowOpacity: 0.14,
   },
   leftCorners: {
     borderTopLeftRadius: 2,
@@ -77,16 +75,17 @@ const styles = StyleSheet.create({
   },
 });
 
-
 function buttonSetup(props: ButtonProps) {
   const buttonStyles: StyleProp<ViewStyle>[] = [styles.button];
   if (props.invalid) {
     buttonStyles.push(styles.invalid);
   }
-  if (props.hasShadow || false) { // Change false if you want the default to use shadows -- Charlie Porth
+  if (props.hasShadow || false) {
+    // Change false if you want the default to use shadows -- Charlie Porth
     buttonStyles.push(styles.shadow);
   }
-  if (!!props.rounderCorners || false) { // Change false if you want the default to use rounded Corners -- Charlie Porth
+  if (!!props.rounderCorners || false) {
+    // Change false if you want the default to use rounded Corners -- Charlie Porth
     if (typeof props.rounderCorners === 'number')
       styles.defaultCorner.borderRadius = props.rounderCorners;
 
