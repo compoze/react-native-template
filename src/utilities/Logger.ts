@@ -9,6 +9,7 @@ type LogType =
   | boolean
   | symbol
   | unknown
+  | never
   | NullType
   | Error
   | File
