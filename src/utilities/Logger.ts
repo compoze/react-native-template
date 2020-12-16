@@ -6,60 +6,41 @@ type LogType =
   | any
   | object
   | number
-  | bigint
   | boolean
   | symbol
   | unknown
-  | never
   | NullType
   | Error
   | File
   | Date;
 
-enum LogLevel {
-  DEBUG = 'DEBUG',
-  INFO = 'INFO',
-  ERROR = 'ERROR',
-  LOG = 'LOG',
-}
-
 export default class Log {
-  private static readonly isLoggingEnabled: boolean =
+  private readonly isLoggingEnabled: boolean =
     env.toString().toLowerCase() === 'dev';
   //Debug log
-  public static debug = async (...msg: LogType[]): Promise<void> => {
-    if (Log.isLoggingEnabled) {
-      console.debug(Log.logMessage(LogLevel.DEBUG, msg));
+  public debug = (...msg: LogType[]): void => {
+    if (this.isLoggingEnabled) {
+      console.debug(JSON.stringify(`DEBUG: ${new Date()}: `, ...msg));
     }
   };
   //error log
-  public static err = async (...msg: LogType[] | Error[]): Promise<void> => {
-    if (Log.isLoggingEnabled) {
-      console.error(Log.logMessage(LogLevel.ERROR, msg));
+  public err = (...msg: LogType[] | Error[]): void => {
+    if (this.isLoggingEnabled) {
+      console.error(JSON.stringify(`ERROR: ${new Date()}: `, ...msg));
     }
   };
   //Alias
-  public static error = async (...msg: LogType[] | Error[]): Promise<void> =>
-    Log.err(msg);
+  public error = (...msg: LogType[] | Error[]): void => this.err(msg);
   //log log
-  public static log = async (...msg: LogType[]): Promise<void> => {
-    if (Log.isLoggingEnabled) {
-      console.log(Log.logMessage(LogLevel.LOG, msg));
+  public log = (...msg: LogType[]): void => {
+    if (this.isLoggingEnabled) {
+      console.log(JSON.stringify(`LOG: ${new Date()}: `, ...msg));
     }
   };
   //info log
-  public static info = async (...msg: LogType[]): Promise<void> => {
-    if (Log.isLoggingEnabled) {
-      console.info(Log.logMessage(LogLevel.INFO, msg));
-    }
-  };
-  private static logMessage = async (
-    logLevel: LogLevel,
-    ...msg: LogType[]
-  ): Promise<string | void> => {
-    if (Log.isLoggingEnabled) {
-      const stamp: string = new Date().toDateString();
-      return JSON.stringify(`${logLevel.toString()}: ${stamp}: `, ...msg);
+  public info = (...msg: LogType[]): void => {
+    if (this.isLoggingEnabled) {
+      console.info(JSON.stringify(`INFO: ${new Date()}: `, ...msg));
     }
   };
 }
