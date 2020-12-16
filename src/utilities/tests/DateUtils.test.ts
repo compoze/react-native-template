@@ -7,7 +7,7 @@ import {
   simpleMonthSort,
 } from '../DateUtils';
 
-describe('DateUtils', () => {
+describe('MiscUtils', () => {
   describe('convertMilitaryCivilianTime', () => {
     it('Converts Military to Civilian Time', async () => {
       const militaryCivilianTime = convertMilitaryCivilianTime('19:00'); // 7PM
