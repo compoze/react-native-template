@@ -5,6 +5,8 @@ import {
   simpleWeekDaySort,
   unixTimeToHumanDateTime,
   simpleMonthSort,
+  MonthsFullType,
+  WeekDaysFullType,
 } from '../DateUtils';
 
 describe('DateUtils', () => {
@@ -51,7 +53,7 @@ describe('DateUtils', () => {
         'thursday',
         'saturday',
         'friday',
-      ];
+      ] as WeekDaysFullType[];
       const expected = [
         'sunday',
         'monday',
@@ -60,7 +62,7 @@ describe('DateUtils', () => {
         'thursday',
         'friday',
         'saturday',
-      ];
+      ] as WeekDaysFullType[];
       const total = unOrgWeeks.sort(simpleWeekDaySort);
       expect(total).toEqual(expected);
     });
@@ -81,7 +83,7 @@ describe('DateUtils', () => {
         'february',
         'march',
         'april',
-      ];
+      ] as MonthsFullType[];
       const expected = [
         'january',
         'february',
@@ -95,7 +97,7 @@ describe('DateUtils', () => {
         'october',
         'november',
         'december',
-      ];
+      ] as MonthsFullType[];
       const total = unOrgMonths.sort(simpleMonthSort);
       expect(total).toEqual(expected);
     });

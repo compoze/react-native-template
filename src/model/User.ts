@@ -4,6 +4,7 @@ export class User {
   public readonly firstName: string;
   public readonly lastName: string;
   public readonly phoneNumber: string;
+  public readonly profilePhotoUrl: string;
 
   public constructor(params: Partial<User> = {}) {
     const {
@@ -12,6 +13,7 @@ export class User {
       firstName = '',
       lastName = '',
       phoneNumber = '',
+      profilePhotoUrl = '',
     } = params;
 
     this.userID = userID!;
@@ -19,5 +21,9 @@ export class User {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
+    this.profilePhotoUrl = profilePhotoUrl;
   }
+  public getFullName = (): string => {
+    return this.firstName.trim() + ' ' + this.lastName.trim();
+  };
 }

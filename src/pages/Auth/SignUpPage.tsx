@@ -1,15 +1,17 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ScrollView } from 'react-native';
-import { LoginInput } from '../components/input';
-import { Button } from '../components/button';
-import { UserStore } from '../stores/UserStore';
-import { styleConstants } from '../config/constants';
+import { LoginInput } from '../../components/input';
+import { Button } from '../../components/button';
+import { UserStore } from '../../stores/UserStore';
+import { styleConstants } from '../../config/constants';
+import AddPhoneModal from './AddPhoneModal';
+import { AppleRequestResponse } from '@invertase/react-native-apple-authentication';
 import {
   requiredFieldsEmpty,
   ValidationObject,
   ObjectToValidate,
-} from '../utilities/FormValidation';
-import { copy } from '../config/static.copy';
+} from '../../utilities/FormValidation';
+import { copy } from '../../config/static.copy';
 
 interface Props {
   userStore: UserStore;
@@ -22,6 +24,9 @@ interface State {
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
+  loggingInWithGoogle: boolean;
+  showPhotoModal: boolean;
+  showPhoneModal: boolean;
 }
 export class SignUp extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -33,8 +38,39 @@ export class SignUp extends React.Component<Props, State> {
       firstName: '',
       lastName: '',
       phoneNumber: '',
+      loggingInWithGoogle: false,
+      showPhotoModal: false,
+      showPhoneModal: false,
     };
   }
+  private userStore = this.props.userStore;
+  private navigateToLogin = () => {
+    this.props.navigation.navigate('Login');
+  };
+  private navigateToLanding = (): void => {
+    this.props.navigation.navigate('HomePage');
+  };
+
+  private onAppleButtonPress = async () => {
+    try {
+      const userInfo: AppleRequestResponse = await this.userStore.getAppleCredential();
+      if (await this.userStore.authUserHasExistingProfile()) {
+        await this.userStore.getCurrentUser();
+        if (this.userStore.isAuthenticated) {
+          this.navigateToLanding();
+        }
+      } else {
+        this.setState({
+          firstName: userInfo.fullName.givenName,
+          lastName: userInfo.fullName.familyName,
+          email: userInfo.email,
+          showPhoneModal: true,
+        });
+      }
+    } catch (errors) {
+      Alert.alert('Login Error', JSON.stringify(errors.message));
+    }
+  };
 
   private onPressSignUpButton = async (): Promise<void> => {
     const { email, password, firstName, lastName, phoneNumber } = this.state;
@@ -60,13 +96,24 @@ export class SignUp extends React.Component<Props, State> {
       Alert.alert('Sign Up Error', JSON.stringify(errors));
     }
 
-    if (this.props.userStore.isAuthenticated) {
+    if (userStore.isAuthenticated) {
       this.props.navigation.navigate('Map');
     }
   };
 
+  public componentWillUnmount(): void {
+    this.setState({ showPhotoModal: false }); //this is a bug fix for clicking to fast on signup because it does happen -- CTP
+  }
+
   public render(): JSX.Element {
-    const { email, password, firstName, lastName } = this.state;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      showPhoneModal,
+      showPhotoModal,
+    } = this.state;
     const validationFields: ObjectToValidate[] = [
       { key: 'email', value: email },
       { key: 'password', value: password },

@@ -62,9 +62,8 @@ export enum TimeFormat {
 }
 
 //Human To Unix time
-export const humanToUnixTime = (date: DateType = new Date()): number => {
-  return moment(date).unix();
-};
+export const humanToUnixTime = (date: DateType = new Date()): number =>
+  moment(date).unix();
 export const stringToDate = (
   strDate: string,
   format: DateTimeType,
@@ -74,12 +73,11 @@ export const stringToDate = (
   return toDateOrMoment ? date.toDate() : date;
 };
 //Date to date format for region
-export const dateToLocale = (date: DateType = new Date()): string => {
-  return moment(date).format('L');
-};
-export const dateTimeToLocale = (date: DateType = new Date()): string => {
-  return moment(date).format('LLLL');
-};
+export const dateToLocale = (date: DateType = new Date()): string =>
+  moment(date).format('L');
+
+export const dateTimeToLocale = (date: DateType = new Date()): string =>
+  moment(date).format('LLLL');
 //Unix time to human time and date
 export const unixTimeToHumanDateTime = (
   unixTime: number,
@@ -199,9 +197,9 @@ export const monthSorting = {
   november: 10,
   december: 11,
 };
-export const simpleWeekDaySort = (a: WeekDaysFullType, b: WeekDaysFullType) => {
-  return weekDaySorting[a] - weekDaySorting[b];
-};
-export const simpleMonthSort = (a: MonthsFullType, b: MonthsFullType) => {
-  return monthSorting[a] - monthSorting[b];
-};
+export const simpleWeekDaySort = (
+  a: WeekDaysFullType,
+  b: WeekDaysFullType
+): number => weekDaySorting[a] - weekDaySorting[b];
+export const simpleMonthSort = (a: MonthsFullType, b: MonthsFullType): number =>
+  monthSorting[a] - monthSorting[b];

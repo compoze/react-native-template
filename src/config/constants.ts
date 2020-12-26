@@ -35,7 +35,10 @@ export const styleConstants = {
     INPUT_BACKGROUND: '#F6F8FB',
     INPUT_BACKGROUND_BORDER: '#757E99',
   },
-  fontFamily: { DEFAULT: 'Arial' }, // May have to change this
+  fontFamily: {
+    DEFAULT: 'Arial',
+    DEFAULT_BOLD: 'Arial-Bold',
+  }, // May have to change this
   fontWeight: {
     LIGHT: '300' as FontWeight,
     NORMAL: '400' as FontWeight,

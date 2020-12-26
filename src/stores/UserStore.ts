@@ -1,9 +1,17 @@
 import firebase, { RNFirebase } from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 import { User } from '../model/User';
 import { UserService } from '../services/UserService';
+import { GoogleSignin } from '@react-native-community/google-signin';
+import {
+  isHardenPassword,
+  isValidEmail,
+  PasswordHardeningLevels,
+} from '../utilities/ValidationUtils';
+import { appleAuth } from '@invertase/react-native-apple-authentication';
+
 export const Firebase = firebase;
 export const Auth = firebase.auth();
-import { GoogleSignin } from '@react-native-community/google-signin';
 
 export class UserStore {
   private userService: UserService = new UserService();
@@ -24,7 +32,15 @@ export class UserStore {
     return this.user;
   }
 
-  public getAuthUser(): RNFirebase.User {
+  public getFullName = (): string => {
+    if (this.user) {
+      return this.user.firstName + ' ' + this.user.lastName;
+    } else {
+      return '';
+    }
+  };
+
+  public static getAuthUser(): RNFirebase.User {
     return Auth.currentUser;
   }
 
@@ -85,6 +101,12 @@ export class UserStore {
     lastName: string,
     phoneNumber?: string
   ): Promise<User> {
+    if (!isValidEmail(email)) {
+      return Promise.reject('Error: Invalid email format');
+    }
+    if (!isHardenPassword(password, PasswordHardeningLevels.second)) {
+      return Promise.reject('Error: Invalid Password format');
+    }
     const user: User = await this.userService.signUpUser(
       email,
       firstName,
@@ -96,4 +118,36 @@ export class UserStore {
 
     return user;
   }
+
+  public forgotPassword = (email: string) => {
+    return Auth.sendPasswordResetEmail(email);
+  };
+
+  public getAppleCredential = async () => {
+    try {
+      // Start the sign-in request
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+
+      // Ensure Apple returned a user identityToken
+      if (!appleAuthRequestResponse.identityToken) {
+        throw 'Apple Sign-In failed - no identify token returned';
+      }
+
+      // Create a Firebase credential from the response
+      const { identityToken, nonce } = appleAuthRequestResponse;
+      const credential = auth.AppleAuthProvider.credential(
+        identityToken,
+        nonce
+      );
+      // use Apple credential to create/sign in on firebase
+      await auth().signInWithCredential(credential);
+      return appleAuthRequestResponse;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
 }

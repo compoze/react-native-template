@@ -1,8 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Login } from '../pages/LoginPage';
-import { SignUp } from '../pages/SignUpPage';
+import { Login } from '../pages/Auth/LoginPage';
+import { SignUp } from '../pages/Auth/SignUpPage';
 import { AccountPage } from '../pages/AccountPage';
 import { AboutPage } from '../pages/AboutPage';
 import { AppHeader } from '../components/header/Header';

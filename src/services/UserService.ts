@@ -2,6 +2,7 @@ import { User } from '../model/User';
 import { request } from 'graphql-request';
 import { ApiService } from './ApiService';
 import { Auth } from '../stores/UserStore';
+// @ts-ignore
 import { BASE_URL } from 'react-native-dotenv';
 
 const BASE_API: string = BASE_URL;
@@ -117,5 +118,8 @@ export class UserService {
     }
 
     return new User(response.getUserByFirebaseId.user);
+  }
+  public async uploadUserProfilePhoto(userId: number, env: string) {
+    //  http://localhost:4000/upload/uploadUserProfilePhoto/dev/0 default local url
   }
 }

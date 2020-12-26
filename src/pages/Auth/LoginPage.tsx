@@ -7,16 +7,16 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
-import { LoginInput } from '../components/input';
-import { Button } from '../components/button';
-import { UserStore } from '../stores/UserStore';
-import { styleConstants } from '../config/constants';
+import { LoginInput } from '../../components/input';
+import { Button } from '../../components/button';
+import { UserStore } from '../../stores/UserStore';
+import { styleConstants } from '../../config/constants';
 import {
   requiredFieldsEmpty,
   ObjectToValidate,
   ValidationObject,
-} from '../utilities/FormValidation';
-import { copy } from '../config/static.copy';
+} from '../../utilities/FormValidation';
+import { copy } from '../../config/static.copy';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { Icon } from 'react-native-elements';
 
@@ -46,7 +46,7 @@ export class Login extends React.Component<Props, State> {
 
   componentDidMount = () => {
     this.props.setStackNavigation(this.props.navigation);
-    if (this.props.userStore.isAuthenticated) {
+    if (UserStore.isAuthenticated) {
       this.props.navigation.navigate('Map');
     }
   };
@@ -65,7 +65,7 @@ export class Login extends React.Component<Props, State> {
       Alert.alert('Login Error', JSON.stringify(errors));
     }
 
-    if (this.props.userStore.isAuthenticated) {
+    if (UserStore.isAuthenticated) {
       this.navigateToMap();
     }
   };
@@ -91,7 +91,7 @@ export class Login extends React.Component<Props, State> {
       Alert.alert('Login Error', JSON.stringify(errors));
     }
 
-    if (this.props.userStore.isAuthenticated) {
+    if (UserStore.isAuthenticated) {
       this.navigateToMap();
     }
   };
@@ -101,7 +101,7 @@ export class Login extends React.Component<Props, State> {
       <View style={styles.container}>
         <ImageBackground
           style={styles.imageBackground}
-          source={require('../images/BackgroundOverlay.png')}
+          source={require('../../images/BackgroundOverlay.png')}
         >
           <View
             style={{
@@ -114,7 +114,7 @@ export class Login extends React.Component<Props, State> {
           >
             <Image
               style={{ resizeMode: 'contain' }}
-              source={require('../images/DefaultHeaderLogo.png')}
+              source={require('../../images/DefaultHeaderLogo.png')}
             />
           </View>
           <LoginInput

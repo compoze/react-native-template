@@ -50,7 +50,7 @@ export default class Menu extends React.Component<Props> {
               <Text style={styles.menuOption}>Invite Friends</Text>
             </TouchableOpacity>
 
-            {userStore.isAuthenticated && (
+            {UserStore.isAuthenticated && (
               <>
                 <TouchableOpacity
                   onPress={() => this.navigateToRoute('AccountPage')}
@@ -81,7 +81,7 @@ export default class Menu extends React.Component<Props> {
               <Text style={styles.menuOption}>Need Help?</Text>
             </TouchableOpacity>
 
-            {userStore.isAuthenticated ? (
+            {UserStore.isAuthenticated ? (
               <TouchableOpacity onPress={this.onLogout}>
                 <Text style={styles.menuOption}>Logout</Text>
               </TouchableOpacity>

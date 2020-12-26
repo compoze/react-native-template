@@ -5,6 +5,8 @@ import {
   randomNumber,
   generateRandomNumber,
   randomNumberRange,
+  isMultipleOfTen,
+  isMultipleOf100,
 } from '../NumberUtils';
 describe('NumberUtils', () => {
   describe('numberIsInteger', () => {
@@ -44,6 +46,18 @@ describe('NumberUtils', () => {
     it('randomNumber', async () => {
       const num = randomNumber(0, 100);
       expect(num).toBeLessThanOrEqual(100);
+    });
+  });
+  describe('isMultipleOf100', () => {
+    it('isMultipleOf100 false', async () => {
+      const num = isMultipleOf100(200);
+      expect(num).toEqual(true);
+    });
+  });
+  describe('isMultipleOfTen', () => {
+    it('isMultipleOfTen false', async () => {
+      const num = isMultipleOfTen(20);
+      expect(num).toEqual(true);
     });
   });
   describe('randomNumberRange', () => {

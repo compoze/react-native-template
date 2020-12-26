@@ -127,3 +127,14 @@ Temporary Items
 .apdisk
 
 
+#NodeJS General
+/dist
+node_modules/
+/code/
+#IDE's
+/.idea/
+/.vscode
+*.log
+#Keys
+*.pem
+*.crt

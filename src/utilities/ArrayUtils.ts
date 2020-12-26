@@ -41,7 +41,10 @@ export const reduceToBoolean = (
 //Simple sort array function
 //used as array.sort(simpleSort)
 export const simpleSort = (a: SortableType, b: SortableType): number => {
-  const simpleCompare = (a: string | object, b: string | object) => {
+  const simpleCompare = (
+    a: string | object | any,
+    b: string | object | any
+  ) => {
     if (a > b) return 1;
     else if (b < a) return -1;
     else return 0;
@@ -51,6 +54,8 @@ export const simpleSort = (a: SortableType, b: SortableType): number => {
   } else if (typeof a === 'string' && typeof b === 'string') {
     return a.localeCompare(b);
   } else if (typeof a === 'object' && typeof b === 'object') {
+    return simpleCompare(a, b);
+  } else {
     return simpleCompare(a, b);
   }
 };
