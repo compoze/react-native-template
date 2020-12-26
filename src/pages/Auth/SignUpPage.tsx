@@ -11,7 +11,6 @@ import { LoginInput } from '../../components/input';
 import { Button } from '../../components/button';
 import { UserStore } from '../../stores/UserStore';
 import { styleConstants } from '../../config/constants';
-import AddPhoneModal from './AddPhoneModal';
 import { AppleRequestResponse } from '@invertase/react-native-apple-authentication';
 import {
   requiredFieldsEmpty,
