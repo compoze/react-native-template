@@ -18,7 +18,6 @@ interface Props {
 interface State {
   email: string;
   showInputScreen: boolean;
-  showPhotoModal: boolean;
 }
 
 export class ResetPasswordPage extends React.Component<Props, State> {
@@ -28,7 +27,6 @@ export class ResetPasswordPage extends React.Component<Props, State> {
     this.state = {
       email: '',
       showInputScreen: true,
-      showPhotoModal: false,
     };
   }
   private userStore: UserStore = new UserStore();
@@ -53,7 +51,6 @@ export class ResetPasswordPage extends React.Component<Props, State> {
       await this.userStore.forgotPassword(email);
       this.setState({
         showInputScreen: false,
-        showPhotoModal: true,
       });
     } catch (errors) {
       Alert.alert('Firebase Error', JSON.stringify(errors.message));

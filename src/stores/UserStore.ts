@@ -58,6 +58,69 @@ export class UserStore {
     return user;
   }
 
+  public authUserHasExistingProfile = async (): Promise<boolean> => {
+    try {
+      await this.userService.getAuthenticatedUser();
+      return true;
+    } catch (error) {
+      if (error[0] && error[0].message === 'User Not Found') {
+        return false;
+      } else {
+        console.log(error);
+        throw error;
+      }
+    }
+  };
+  public getCurrentUser = async (
+    firstName?: string,
+    lastName?: string,
+    email?: string,
+    phoneNumber?: string
+  ): Promise<void> => {
+    let existingUser: User | null = null;
+    if (Auth) {
+      try {
+        existingUser = await this.userService.getAuthenticatedUser();
+        this.user = existingUser;
+        return;
+      } catch (error) {
+        if (error[0] && error[0].message === 'User Not Found') {
+          try {
+            this.signUpUserThroughAuth(firstName, lastName, email, phoneNumber);
+          } catch (error) {
+            console.log(error);
+            throw error;
+          }
+        } else {
+          console.log(error);
+          throw error;
+        }
+      }
+    } else {
+      this._user = null;
+      return;
+    }
+  };
+  public async signUpUserThroughAuth(
+    firstName: string,
+    lastName: string,
+    email: string,
+    phoneNumber?: string
+  ): Promise<User> {
+    if (phoneNumber) {
+      this.user = await this.userService.signUpAuthUser(
+        email,
+        firstName,
+        lastName,
+        Auth.currentUser.uid,
+        phoneNumber
+      );
+    } else {
+      this._user = null;
+      return;
+    }
+  }
+
   public googleLogin = async (): Promise<User> => {
     try {
       await GoogleSignin.hasPlayServices();

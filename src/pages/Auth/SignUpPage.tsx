@@ -1,5 +1,12 @@
 import React from 'react';
-import { Alert, StyleSheet, Text, ScrollView } from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  Platform,
+} from 'react-native';
 import { LoginInput } from '../../components/input';
 import { Button } from '../../components/button';
 import { UserStore } from '../../stores/UserStore';
@@ -12,6 +19,7 @@ import {
   ObjectToValidate,
 } from '../../utilities/FormValidation';
 import { copy } from '../../config/static.copy';
+import { Icon } from 'react-native-vector-icons/Icon';
 
 interface Props {
   userStore: UserStore;
@@ -166,6 +174,43 @@ export class SignUp extends React.Component<Props, State> {
           onPress={this.onPressSignUpButton}
         >
           <Text>{copy.signUpUIStrings.SIGN_UP}</Text>
+          <Text style={{ alignSelf: 'center' }}>or</Text>
+          <Button
+            onPress={this.userStore.googleLogin()}
+            invalid={false}
+            style={styles.continueWithGoogleButton}
+          >
+            <View style={styles.continueWithGoogleContent}>
+              <Icon name="google" type="font-awesome" color="#4285F4" />
+              <Text
+                style={{
+                  fontWeight: styleConstants.fontWeight.BOLD,
+                  fontSize: styleConstants.fontSize.MEDIUM,
+                }}
+              >
+                Sign up with Google
+              </Text>
+            </View>
+          </Button>
+          {Platform.OS === 'ios' && (
+            <Button
+              onPress={this.onAppleButtonPress}
+              invalid={false}
+              style={styles.continueWithAppleButton}
+            >
+              <View style={styles.continueWithGoogleContent}>
+                <Icon name="apple" type="font-awesome" />
+                <Text
+                  style={{
+                    fontWeight: styleConstants.fontWeight.BOLD,
+                    fontSize: styleConstants.fontSize.LARGE,
+                  }}
+                >
+                  Sign in with Apple
+                </Text>
+              </View>
+            </Button>
+          )}
         </Button>
       </ScrollView>
     );
@@ -182,5 +227,27 @@ const styles = StyleSheet.create({
     color: styleConstants.colors.TITLE_PRIMARY,
     fontWeight: styleConstants.fontWeight.BOLD,
     width: '100%',
+  },
+  continueWithAppleButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 0,
+    borderColor: '#000',
+    borderWidth: 1,
+  },
+  continueWithGoogleButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#F6F8FB',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 0,
+    borderColor: styleConstants.colors.PRIMARY_BUTTON,
+    borderWidth: 1,
   },
 });
