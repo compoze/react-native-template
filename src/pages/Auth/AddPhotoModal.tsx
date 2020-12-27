@@ -3,11 +3,16 @@ import { StyleSheet, View, Text } from 'react-native';
 import { styleConstants } from '../../config/constants';
 import { Icon } from 'react-native-elements';
 import { Button } from '../../components/button';
+import { UserStore } from '../../stores/UserStore';
+import { ImagePicker } from '../../components/documentPicker/ImagePicker';
 
 interface Props {
   navigation: any;
   showGooglePhoto: boolean;
+
   togglePhotoModal(): void;
+
+  userStore: UserStore;
 }
 
 export default class AddPhotoModal extends React.Component<Props> {
@@ -15,6 +20,12 @@ export default class AddPhotoModal extends React.Component<Props> {
     this.props.navigation.push('Login');
     this.props.togglePhotoModal();
   };
+
+  private async uploadPhoto() {
+    const fileUri = await ImagePicker();
+    const userId: number = this.props.userStore.user.userID;
+    await this.props.userStore.uploadUserProfilePhoto(userId, fileUri);
+  }
 
   render(): JSX.Element {
     return (
@@ -56,7 +67,11 @@ export default class AddPhotoModal extends React.Component<Props> {
               color="#D8DBE1"
               size={120}
             />
-            <Button invalid={false} onPress={() => {}} style={{ width: '80%' }}>
+            <Button
+              invalid={false}
+              onPress={async () => await this.uploadPhoto}
+              style={{ width: '80%' }}
+            >
               <Text style={{ color: '#ffffff', fontSize: 18 }}>
                 Upload photo
               </Text>

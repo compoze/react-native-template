@@ -4,6 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Login } from '../pages/Auth/LoginPage';
 import { SignUp } from '../pages/Auth/SignUpPage';
 import { AccountPage } from '../pages/AccountPage';
+import { ResetPasswordPage } from '../pages/Auth/ResetPasswordPage';
+import { HomePage } from '../pages/HomePage';
 import { AboutPage } from '../pages/AboutPage';
 import { AppHeader } from '../components/header/Header';
 import { UserStore } from '../stores/UserStore';
@@ -16,6 +18,7 @@ interface Props {
   navigation: any;
   userStore: UserStore;
   locationService: LocationService;
+
   setStackNavigation(stackNavigation: any): void;
 }
 
@@ -56,6 +59,44 @@ export default class AppNavigator extends React.Component<Props> {
           }}
         >
           {(props) => <SignUp userStore={this.props.userStore} {...props} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="HomePage"
+          options={{
+            header: (props) => (
+              <AppHeader
+                {...props}
+                toggleSideMenu={this.props.navigation.toggleDrawer}
+              />
+            ),
+          }}
+        >
+          {(props) => (
+            <HomePage
+              userStore={this.props.userStore}
+              setStackNavigation={this.props.setStackNavigation}
+              {...props}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="ResetPasswordPage"
+          options={{
+            header: (props) => (
+              <AppHeader
+                {...props}
+                toggleSideMenu={this.props.navigation.toggleDrawer}
+              />
+            ),
+          }}
+        >
+          {(props) => (
+            <ResetPasswordPage
+              userStore={this.props.userStore}
+              setStackNavigation={this.props.setStackNavigation}
+              {...props}
+            />
+          )}
         </Stack.Screen>
         <Stack.Screen
           name="AccountPage"

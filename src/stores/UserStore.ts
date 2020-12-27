@@ -86,7 +86,12 @@ export class UserStore {
       } catch (error) {
         if (error[0] && error[0].message === 'User Not Found') {
           try {
-            this.signUpUserThroughAuth(firstName, lastName, email, phoneNumber);
+            await this.signUpUserThroughAuth(
+              firstName,
+              lastName,
+              email,
+              phoneNumber
+            );
           } catch (error) {
             console.log(error);
             throw error;
@@ -97,7 +102,7 @@ export class UserStore {
         }
       }
     } else {
-      this._user = null;
+      this.user = null;
       return;
     }
   };
@@ -116,7 +121,7 @@ export class UserStore {
         phoneNumber
       );
     } else {
-      this._user = null;
+      this.user = null;
       return;
     }
   }
@@ -213,4 +218,7 @@ export class UserStore {
       throw error;
     }
   };
+  public async uploadUserProfilePhoto(userId: number, filePath: string) {
+    await this.userService.uploadUserProfilePhoto(userId, filePath);
+  }
 }

@@ -2,19 +2,19 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
-  TouchableOpacityProperties,
   StyleSheet,
   ViewStyle,
   StyleProp,
+  TouchableOpacityProps,
 } from 'react-native';
 import { styleConstants } from '../../config/constants';
 
-export interface ButtonProps extends TouchableOpacityProperties {
+export interface ButtonProps extends TouchableOpacityProps {
   contentContainerStyle?: ViewStyle;
   invalid: boolean;
 }
 
-const UpdateAccountButton: React.SFC<ButtonProps> = ({
+const UpdateAccountButton: React.FunctionComponent<ButtonProps> = ({
   style,
   contentContainerStyle,
   children,

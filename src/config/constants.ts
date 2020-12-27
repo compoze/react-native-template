@@ -34,6 +34,8 @@ export const styleConstants = {
     APP_BACKGROUND: '#FFF',
     INPUT_BACKGROUND: '#F6F8FB',
     INPUT_BACKGROUND_BORDER: '#757E99',
+    BLACK: '#000',
+    ERROR: '#F00',
   },
   fontFamily: {
     DEFAULT: 'Arial',
@@ -53,6 +55,9 @@ export const styleConstants = {
     X_LARGE: 22,
     XX_LARGE: 24,
     MASSIVE: 48,
+  },
+  other: {
+    defaultCornerRadius: 2,
   },
 };
 

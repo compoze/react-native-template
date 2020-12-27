@@ -6,6 +6,7 @@ import {
   View,
   ImageBackground,
   Image,
+  Platform,
 } from 'react-native';
 import { LoginInput } from '../../components/input';
 import { Button } from '../../components/button';
@@ -19,6 +20,7 @@ import {
 import { copy } from '../../config/static.copy';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import { Icon } from 'react-native-elements';
+import { AppleRequestResponse } from '@invertase/react-native-apple-authentication';
 
 GoogleSignin.configure({
   webClientId: '<GOOGLE_WEB_CLIENT_ID>',
@@ -27,6 +29,7 @@ GoogleSignin.configure({
 interface Props {
   userStore: UserStore;
   navigation: any;
+
   setStackNavigation(stackNavigation: any): void;
 }
 
@@ -34,6 +37,7 @@ interface State {
   email?: string;
   password?: string;
 }
+
 export class Login extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -46,10 +50,11 @@ export class Login extends React.Component<Props, State> {
 
   componentDidMount = () => {
     this.props.setStackNavigation(this.props.navigation);
-    if (UserStore.isAuthenticated) {
-      this.props.navigation.navigate('Map');
+    if (this.userStore.isAuthenticated) {
+      this.navigateToLanding();
     }
   };
+  private userStore = this.props.userStore;
 
   private navigateToSignUp = (): void => {
     this.props.navigation.navigate('SignUp');
@@ -58,15 +63,20 @@ export class Login extends React.Component<Props, State> {
     this.props.navigation.navigate('Map', { showDestinations: false });
   };
 
-  private googleLogin = async (): Promise<void> => {
+  private navigateToLanding = (): void => {
+    this.props.navigation.navigate('HomePage');
+    this.navigateToMap();
+  };
+
+  private onGoogleButtonPress = async (): Promise<void> => {
     try {
-      await this.props.userStore.googleLogin();
+      await this.userStore.googleLogin();
     } catch (errors) {
       Alert.alert('Login Error', JSON.stringify(errors));
     }
 
-    if (UserStore.isAuthenticated) {
-      this.navigateToMap();
+    if (this.userStore.isAuthenticated) {
+      this.navigateToLanding();
     }
   };
 
@@ -86,13 +96,34 @@ export class Login extends React.Component<Props, State> {
 
     //TODO: Hack this just to make progress on automation
     try {
-      await this.props.userStore.login(email!, password!);
+      await this.userStore.login(email!, password!);
     } catch (errors) {
       Alert.alert('Login Error', JSON.stringify(errors));
     }
 
-    if (UserStore.isAuthenticated) {
-      this.navigateToMap();
+    if (this.userStore.isAuthenticated) {
+      this.navigateToLanding();
+    }
+  };
+  private onAppleButtonPress = async () => {
+    try {
+      const userInfo: AppleRequestResponse | null = await this.userStore.getAppleCredential();
+      const { email, fullName } = userInfo;
+      if (email && fullName.familyName && fullName.givenName) {
+        if (await this.userStore.isAuthenticated) {
+          this.navigateToLanding();
+        } else {
+          this.setState({
+            email: userInfo.email,
+          });
+        }
+      } else if (await this.userStore.isAuthenticated) {
+        this.navigateToLanding();
+      } else {
+        Alert.alert('There was an issue signing in with apple');
+      }
+    } catch (errors) {
+      Alert.alert('Login Error', JSON.stringify(errors.message));
     }
   };
 
@@ -134,11 +165,16 @@ export class Login extends React.Component<Props, State> {
           <Button invalid={false} onPress={this.onPressLoginButton}>
             <Text style={{ color: 'white' }}>Login</Text>
           </Button>
-
+          <Text
+            style={[styles.signUp, { marginVertical: 20 }]}
+            onPress={() => this.props.navigation.navigate('ResetPasswordPage')}
+          >
+            Forgot Password?
+          </Text>
           <Text>Or</Text>
 
           <Button
-            onPress={this.googleLogin}
+            onPress={this.onGoogleButtonPress}
             invalid={false}
             style={styles.continueWithGoogleButton}
           >
@@ -154,6 +190,25 @@ export class Login extends React.Component<Props, State> {
               </Text>
             </View>
           </Button>
+          {Platform.OS === 'ios' && (
+            <Button
+              onPress={this.onAppleButtonPress}
+              invalid={false}
+              style={styles.continueWithAppleButton}
+            >
+              <View style={styles.continueWithGoogleContent}>
+                <Icon name="apple" type="font-awesome" />
+                <Text
+                  style={{
+                    fontWeight: styleConstants.fontWeight.BOLD,
+                    fontSize: styleConstants.fontSize.LARGE,
+                  }}
+                >
+                  Sign in with Apple
+                </Text>
+              </View>
+            </Button>
+          )}
           <Text>
             Don't have an account?{' '}
             <Text style={styles.signUp} onPress={this.navigateToSignUp}>
@@ -223,5 +278,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '80%',
     height: '100%',
+  },
+  continueWithAppleButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 0,
+    borderColor: '#000',
+    borderWidth: 1,
   },
 });

@@ -2,14 +2,14 @@ import React from 'react';
 import {
   StyleSheet,
   TextInput,
-  TextInputProperties,
   TextStyle,
   View,
   Text,
+  TextInputProps,
 } from 'react-native';
 import { styleConstants } from '../../config/constants';
 
-interface Props extends TextInputProperties {
+interface Props extends TextInputProps {
   title?: string;
 }
 
@@ -17,7 +17,7 @@ function getPlaceholderStyle(props: Props): TextStyle {
   return props.value ? {} : styles.placeholderFont;
 }
 
-const Input: React.SFC<Props> = ({ style, ...props }) => {
+const Input: React.FunctionComponent<Props> = ({ style, ...props }) => {
   return (
     <View style={styles.maxWidth}>
       <Text style={styles.title}>{props.title}</Text>

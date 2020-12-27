@@ -1,6 +1,6 @@
 export class User {
   public readonly userID: number;
-  public readonly email: number;
+  public readonly email: string;
   public readonly firstName: string;
   public readonly lastName: string;
   public readonly phoneNumber: string;

@@ -19,6 +19,8 @@ import {
 } from '../../utilities/FormValidation';
 import { copy } from '../../config/static.copy';
 import { Icon } from 'react-native-vector-icons/Icon';
+import AddPhotoModal from './AddPhotoModal';
+import { User } from '../../model/User';
 
 interface Props {
   userStore: UserStore;
@@ -35,6 +37,7 @@ interface State {
   showPhotoModal: boolean;
   showPhoneModal: boolean;
 }
+
 export class SignUp extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -50,6 +53,10 @@ export class SignUp extends React.Component<Props, State> {
       showPhoneModal: false,
     };
   }
+
+  private closePhoneModal = () => {
+    this.setState({ showPhoneModal: false });
+  };
   private userStore = this.props.userStore;
   private navigateToLogin = () => {
     this.props.navigation.navigate('Login');
@@ -57,7 +64,6 @@ export class SignUp extends React.Component<Props, State> {
   private navigateToLanding = (): void => {
     this.props.navigation.navigate('HomePage');
   };
-
   private onAppleButtonPress = async () => {
     try {
       const userInfo: AppleRequestResponse = await this.userStore.getAppleCredential();
@@ -72,13 +78,34 @@ export class SignUp extends React.Component<Props, State> {
           lastName: userInfo.fullName.familyName,
           email: userInfo.email,
           showPhoneModal: true,
+          showPhotoModal: true,
         });
       }
     } catch (errors) {
       Alert.alert('Login Error', JSON.stringify(errors.message));
     }
   };
-
+  private onGoogleButtonPress = async () => {
+    try {
+      const user: User = await this.userStore.googleLogin();
+      if (await this.userStore.authUserHasExistingProfile()) {
+        await this.userStore.getCurrentUser();
+        if (this.userStore.isAuthenticated) {
+          this.navigateToLanding();
+        }
+      } else {
+        this.setState({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          showPhoneModal: true,
+          showPhotoModal: true,
+        });
+      }
+    } catch (errors) {
+      Alert.alert('Login Error', JSON.stringify(errors.message));
+    }
+  };
   private onPressSignUpButton = async (): Promise<void> => {
     const { email, password, firstName, lastName, phoneNumber } = this.state;
     const validationFields: ObjectToValidate[] = [
@@ -104,7 +131,7 @@ export class SignUp extends React.Component<Props, State> {
     }
 
     if (userStore.isAuthenticated) {
-      this.props.navigation.navigate('Map');
+      this.navigateToLanding();
     }
   };
 
@@ -113,14 +140,7 @@ export class SignUp extends React.Component<Props, State> {
   }
 
   public render(): JSX.Element {
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      showPhoneModal,
-      showPhotoModal,
-    } = this.state;
+    const { email, password, firstName, lastName } = this.state;
     const validationFields: ObjectToValidate[] = [
       { key: 'email', value: email },
       { key: 'password', value: password },
@@ -130,6 +150,14 @@ export class SignUp extends React.Component<Props, State> {
     return (
       <ScrollView style={styles.scroll}>
         <Text style={styles.title}>{copy.signUpUIStrings.SIGN_UP_TITLE}</Text>
+        {this.state.showPhotoModal ? (
+          <AddPhotoModal
+            navigation={this.props.navigation}
+            showGooglePhoto={}
+            togglePhotoModal={this.closePhoneModal}
+            userStore={this.props.userStore}
+          />
+        ) : undefined}
         <LoginInput
           title="First Name*"
           placeholder={copy.signUpUIStrings.FIRST_NAME_INPUT_PLACEHOLDER}
@@ -175,7 +203,7 @@ export class SignUp extends React.Component<Props, State> {
           <Text>{copy.signUpUIStrings.SIGN_UP}</Text>
           <Text style={{ alignSelf: 'center' }}>or</Text>
           <Button
-            onPress={this.userStore.googleLogin()}
+            onPress={this.onGoogleButtonPress()}
             invalid={false}
             style={styles.continueWithGoogleButton}
           >
@@ -226,27 +254,5 @@ const styles = StyleSheet.create({
     color: styleConstants.colors.TITLE_PRIMARY,
     fontWeight: styleConstants.fontWeight.BOLD,
     width: '100%',
-  },
-  continueWithAppleButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#FFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 0,
-    borderColor: '#000',
-    borderWidth: 1,
-  },
-  continueWithGoogleButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#F6F8FB',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 0,
-    borderColor: styleConstants.colors.PRIMARY_BUTTON,
-    borderWidth: 1,
   },
 });
