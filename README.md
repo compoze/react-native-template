@@ -6,7 +6,7 @@ Template repo for React-Native application
 1. Ensure that both XCode and Android Studio are set up correctly
 2. Obtain Elko auth config via Keeper. Add the base64-encoded value as an env variable called `AUTH_CONFIG`
 3. Run `npm install` to install dependencies
-
+4. Configure the [default styles](./src/config/constants.ts) and [elko styles options](./src/config/elko.style.options.ts) according to how the app styling should be. NOTE!! Use these styles globally to make the app consistent 
 ## Running Android and IOS
 
 ### Changing Environments

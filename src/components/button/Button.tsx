@@ -11,7 +11,7 @@ import { styleConstants } from '../../config/constants';
 import {
   elkoStylePropsSetup,
   ElkoStyleOptions,
-} from '../../config/default.style.options';
+} from '../../config/elko.style.options';
 
 export interface ButtonProps extends TouchableOpacityProps, ElkoStyleOptions {
   contentContainerStyle?: ViewStyle;

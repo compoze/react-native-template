@@ -13,7 +13,7 @@ import { styleConstants } from '../../config/constants';
 import {
   ElkoStyleOptions,
   elkoStylePropsSetup,
-} from '../../config/default.style.options';
+} from '../../config/elko.style.options';
 
 interface Props extends TextInputProps, ElkoStyleOptions {
   title?: string;

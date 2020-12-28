@@ -4,8 +4,8 @@ export interface ElkoStyleOptions {
   disabledButton?: boolean;
   invalidError?: boolean;
   invalidButton?: boolean;
-  rounderCorners?: boolean | number;
   invalidErrorBorder?: boolean;
+  rounderCorners?: boolean | number;
   leftSideRadius?: boolean | number;
   rightSideRadius?: boolean | number;
   bottomRadius?: boolean | number;
@@ -53,27 +53,27 @@ export function elkoStylePropsSetup(
   props: ElkoStyleOptions
 ): StyleProp<ViewStyle>[] {
   const styles: StyleProp<ViewStyle>[] = [];
-  if (!!props.invalidError || false) {
+  if (!!props.invalidError || !!props.invalidButton) {
     styles.push(stylesOptions.invalidError);
   }
-  if (!!props.invalidErrorBorder || false) {
+  if (!!props.invalidErrorBorder) {
     styles.push(stylesOptions.invalidErrorBorder);
   }
-  if (!!props.disabledButton || false) {
+  if (!!props.disabledButton) {
     styles.push(stylesOptions.disabledButton);
   }
-  if (!!props.hasShadow || false) {
+  if (!!props.hasShadow) {
     // Change false if you want the default to use shadows -- Charlie Porth
     styles.push(stylesOptions.shadow);
   }
-  if (!!props.rounderCorners || false) {
+  if (!!props.rounderCorners) {
     // Change false if you want the default to use rounded Corners -- Charlie Porth
     if (typeof props.rounderCorners === 'number')
       stylesOptions.defaultCorner.borderRadius = props.rounderCorners;
 
     styles.push(stylesOptions.defaultCorner);
   }
-  if (!!props.leftSideRadius || false) {
+  if (!!props.leftSideRadius) {
     if (typeof props.leftSideRadius === 'number') {
       stylesOptions.leftCorners.borderBottomLeftRadius = props.leftSideRadius;
       stylesOptions.leftCorners.borderTopLeftRadius = props.leftSideRadius;
@@ -81,7 +81,7 @@ export function elkoStylePropsSetup(
 
     styles.push(stylesOptions.leftCorners);
   }
-  if (!!props.rightSideRadius || false) {
+  if (!!props.rightSideRadius) {
     if (typeof props.rightSideRadius === 'number') {
       stylesOptions.rightCorners.borderBottomRightRadius =
         props.rightSideRadius;
@@ -90,7 +90,7 @@ export function elkoStylePropsSetup(
 
     styles.push(stylesOptions.rightCorners);
   }
-  if (!!props.bottomRadius || false) {
+  if (!!props.bottomRadius) {
     if (typeof props.bottomRadius === 'number') {
       stylesOptions.bottomCorners.borderBottomRightRadius = props.bottomRadius;
       stylesOptions.bottomCorners.borderBottomLeftRadius = props.bottomRadius;

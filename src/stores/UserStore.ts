@@ -9,6 +9,7 @@ import {
   PasswordHardeningLevels,
 } from '../utilities/ValidationUtils';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
+import Log from '../utilities/Logger';
 
 export const Firebase = firebase;
 export const Auth = firebase.auth();
@@ -34,7 +35,7 @@ export class UserStore {
 
   public getFullName = (): string => {
     if (this.user) {
-      return this.user.firstName + ' ' + this.user.lastName;
+      return this.user.getFullName();
     } else {
       return '';
     }
@@ -66,7 +67,7 @@ export class UserStore {
       if (error[0] && error[0].message === 'User Not Found') {
         return false;
       } else {
-        console.log(error);
+        Log.log(error);
         throw error;
       }
     }
@@ -93,11 +94,11 @@ export class UserStore {
               phoneNumber
             );
           } catch (error) {
-            console.log(error);
+            Log.log(error);
             throw error;
           }
         } else {
-          console.log(error);
+          Log.log(error);
           throw error;
         }
       }
@@ -157,7 +158,7 @@ export class UserStore {
         }
       }
     } catch (error) {
-      console.log(error);
+      Log.log(error);
       throw error;
     }
   };
@@ -214,7 +215,7 @@ export class UserStore {
       await auth().signInWithCredential(credential);
       return appleAuthRequestResponse;
     } catch (error) {
-      console.log(error);
+      Log.log(error);
       throw error;
     }
   };

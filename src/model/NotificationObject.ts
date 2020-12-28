@@ -14,7 +14,7 @@ export default class NotificationObject {
       message,
       topic = '',
       pushIconUrl = '',
-      sound = '',
+      sound = false,
       androidColor = '',
       androidImageUrl = '',
       androidNotificationChannel = '',

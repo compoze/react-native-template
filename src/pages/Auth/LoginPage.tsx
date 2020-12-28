@@ -64,7 +64,7 @@ export class Login extends React.Component<Props, State> {
   };
 
   private navigateToLanding = (): void => {
-    this.props.navigation.navigate('HomePage');
+    // this.props.navigation.navigate('HomePage');
     this.navigateToMap();
   };
 
