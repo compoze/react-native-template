@@ -70,7 +70,7 @@ export const isHardenPassword = (
     } else if (strongMatch) {
       return PasswordHardeningLevels.third;
     } else {
-      return PasswordHardeningLevels.zero.valueOf();
+      return PasswordHardeningLevels.zero;
     }
   };
   if (typeof passwordHardeningLevel === 'undefined') {
