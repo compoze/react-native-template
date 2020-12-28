@@ -71,7 +71,7 @@ export default class Log {
   ): Promise<string | void> => {
     if (Log.isLoggingEnabled) {
       const stamp: string = new Date().toDateString();
-      return `${logLevel.toString()}: ${stamp}: ` + JSON.stringify(...msg);
+      return `${logLevel.toString()}: ${stamp}: ${JSON.stringify(...msg)}`;
     }
   };
   private static backgroundTask = async (data) => {
