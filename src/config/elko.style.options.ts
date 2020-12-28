@@ -98,7 +98,7 @@ export function elkoStylePropsSetup(
 
     styles.push(stylesOptions.bottomCorners);
   }
-  if (!!props.topRadius || false) {
+  if (!!props.topRadius) {
     if (typeof props.topRadius === 'number') {
       stylesOptions.topCorners.borderTopLeftRadius = props.topRadius;
       stylesOptions.topCorners.borderTopRightRadius = props.topRadius;

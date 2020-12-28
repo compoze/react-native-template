@@ -1,7 +1,11 @@
 import DocumentPicker from 'react-native-document-picker';
 import Log from '../../utilities/Logger';
 import { filterNil, onlyUnique } from '../../utilities/ArrayUtils';
+/*
 
+This is from 'react-native-document-picker' libs directly so we can use this typings which are not exported therefore not typescript friendly
+Replace this typing if this fails
+ */
 type UTI = 'public.png' | 'public.jpeg' | 'com.adobe.pdf';
 type MimeType = 'image/jpg' | 'image/jpeg' | 'image/png' | 'application/pdf';
 type Extension = '.jpeg' | '.jpg' | '.png' | '.txt' | '.pdf';
@@ -73,10 +77,13 @@ interface DocumentPickerOptions<OS extends keyof PlatformTypes> {
   mode?: 'import' | 'open';
   copyTo?: 'cachesDirectory' | 'documentDirectory';
 }
-
+/*
+End of typings from lib
+EOF
+ */
 export const fileUriPicker = async (
   options: DocumentPickerOptions
-): Promise<string | undefined> => {
+): Promise<string> => {
   try {
     const res = await DocumentPicker.pick(options);
     Log.log(
@@ -89,15 +96,17 @@ export const fileUriPicker = async (
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {
       // User cancelled the picker, exit any dialogs or menus and move on
-      return undefined;
+      return '';
     } else {
       throw err;
     }
   }
 };
+
+
 export const filesUriPicker = async (
   options: DocumentPickerOptions
-): Promise<string[] | undefined> => {
+): Promise<string[]> => {
   try {
     const results = await DocumentPicker.pickMultiple(options);
     let uriMap: string[] = await results.map((res) => {
@@ -109,7 +118,7 @@ export const filesUriPicker = async (
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {
       // User cancelled the picker, exit any dialogs or menus and move on
-      return undefined;
+      return [];
     } else {
       throw err;
     }

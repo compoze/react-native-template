@@ -1,11 +1,12 @@
 import DocumentPicker from 'react-native-document-picker';
 import { filesUriPicker, fileUriPicker } from './PickerRoot';
 import Log from '../../utilities/Logger';
-export const ImagePicker = async (): Promise<string | undefined> => {
+
+export const ImagePicker = async (): Promise<string> => {
   // Pick a single file
-  return await fileUriPicker({ type: [DocumentPicker.types.images] });
+  return await fileUriPicker({ type: [DocumentPicker.types.images] }).then((str) => str);
 };
-export const ImagesPicker = async (): Promise<string[] | undefined> => {
+export const ImagesPicker = async (): Promise<string[]> => {
   // Pick multiple files
-  return await filesUriPicker({ type: [DocumentPicker.types.images] }).catch((e:Error)=>Log.err(e));
+  return await filesUriPicker({ type: [DocumentPicker.types.images] }).then((str) => str);
 };
