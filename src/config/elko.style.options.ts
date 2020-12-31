@@ -56,24 +56,24 @@ export function elkoStylePropsSetup(
   if (!!props.invalidError || !!props.invalidButton) {
     styles.push(stylesOptions.invalidError);
   }
-  if (!!props.invalidErrorBorder) {
+  if (props.invalidErrorBorder) {
     styles.push(stylesOptions.invalidErrorBorder);
   }
-  if (!!props.disabledButton) {
+  if (props.disabledButton) {
     styles.push(stylesOptions.disabledButton);
   }
-  if (!!props.hasShadow) {
+  if (props.hasShadow) {
     // Change false if you want the default to use shadows -- Charlie Porth
     styles.push(stylesOptions.shadow);
   }
-  if (!!props.rounderCorners) {
+  if (props.rounderCorners) {
     // Change false if you want the default to use rounded Corners -- Charlie Porth
     if (typeof props.rounderCorners === 'number')
       stylesOptions.defaultCorner.borderRadius = props.rounderCorners;
 
     styles.push(stylesOptions.defaultCorner);
   }
-  if (!!props.leftSideRadius) {
+  if (props.leftSideRadius) {
     if (typeof props.leftSideRadius === 'number') {
       stylesOptions.leftCorners.borderBottomLeftRadius = props.leftSideRadius;
       stylesOptions.leftCorners.borderTopLeftRadius = props.leftSideRadius;
@@ -81,7 +81,7 @@ export function elkoStylePropsSetup(
 
     styles.push(stylesOptions.leftCorners);
   }
-  if (!!props.rightSideRadius) {
+  if (props.rightSideRadius) {
     if (typeof props.rightSideRadius === 'number') {
       stylesOptions.rightCorners.borderBottomRightRadius =
         props.rightSideRadius;
@@ -90,7 +90,7 @@ export function elkoStylePropsSetup(
 
     styles.push(stylesOptions.rightCorners);
   }
-  if (!!props.bottomRadius) {
+  if (props.bottomRadius) {
     if (typeof props.bottomRadius === 'number') {
       stylesOptions.bottomCorners.borderBottomRightRadius = props.bottomRadius;
       stylesOptions.bottomCorners.borderBottomLeftRadius = props.bottomRadius;
@@ -98,7 +98,7 @@ export function elkoStylePropsSetup(
 
     styles.push(stylesOptions.bottomCorners);
   }
-  if (!!props.topRadius) {
+  if (props.topRadius) {
     if (typeof props.topRadius === 'number') {
       stylesOptions.topCorners.borderTopLeftRadius = props.topRadius;
       stylesOptions.topCorners.borderTopRightRadius = props.topRadius;

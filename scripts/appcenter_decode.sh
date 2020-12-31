@@ -4,6 +4,11 @@ set -eo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$SCRIPT_DIR/.."
+DOT_ENV_FILE="$PROJECT_DIR/.env"
+
+if [[ -f ${DOT_ENV_FILE} ]]; then
+    source ${DOT_ENV_FILE}
+fi
 
 if [[ -z "${AUTH_CONFIG}" ]]; then
   echo "Not in appcenter, ignoring..."

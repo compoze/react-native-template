@@ -5,8 +5,6 @@ import { Auth } from '../stores/UserStore';
 import fetch from 'node-fetch';
 // @ts-ignore
 import { BASE_URL, ENVIRONMENT } from 'react-native-dotenv';
-import * as http from 'http';
-import env = require('react-native-dotenv');
 
 const BASE_API: string = BASE_URL;
 
@@ -127,9 +125,10 @@ export class UserService {
   public async uploadUserProfilePhoto(userId: number, filePath: string) {
     const env = ENVIRONMENT.toString().toLowerCase();
     //  http://localhost:4000/upload/uploadUserProfilePhoto/dev/0 default local url
-    const uri = !BASE_URL.toString().includes('http')
-      ? `https://${BASE_URL}/upload/uploadUserProfilePhoto/${env}/${userId}`
-      : `${BASE_URL}/upload/uploadUserProfilePhoto/${env}/${userId}`;
+    let uri = !BASE_URL.toString().includes('http')
+      ? `https://${BASE_URL.toString()}`
+      : `${BASE_URL.toString()}`;
+    uri = `${uri}/upload/uploadUserProfilePhoto/${env}/${userId}`;
     const options = {
       method: 'POST',
       json: {

@@ -11,6 +11,7 @@ PROJECT_DIR="$SCRIPT_DIR/.."
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+
 if [ "$ENV" != "$PROD" ] && [ "$ENV" != "$DEV" ] && [ "$ENV" != "$STAGE" ]
 then
     echo "$ENV is not a valid environment, must be either $DEV, $STAGE, or $PROD"

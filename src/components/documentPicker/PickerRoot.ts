@@ -103,7 +103,6 @@ export const fileUriPicker = async (
   }
 };
 
-
 export const filesUriPicker = async (
   options: DocumentPickerOptions
 ): Promise<string[]> => {

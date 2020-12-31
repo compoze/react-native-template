@@ -219,6 +219,7 @@ export class UserStore {
       throw error;
     }
   };
+
   public async uploadUserProfilePhoto(userId: number, filePath: string) {
     await this.userService.uploadUserProfilePhoto(userId, filePath);
   }
