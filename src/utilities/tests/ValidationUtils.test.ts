@@ -35,8 +35,8 @@ describe('ValidationUtils', () => {
     });
   });
   describe('isHardenPassword', () => {
-    it('weak password', async () => {
-      const expected = PasswordHardeningLevels.first;
+    it('medium password', async () => {
+      const expected = PasswordHardeningLevels.second;
       const resault: PasswordHardeningLevels | boolean = isHardenPassword(
         `MonkeyDontSayWhatMonkyWontDo`
       );
@@ -45,12 +45,38 @@ describe('ValidationUtils', () => {
     });
   });
   describe('isHardenPassword', () => {
-    it('medium password', async () => {
-      const expected = PasswordHardeningLevels.second;
+    it('Strong password', async () => {
+      const expected = PasswordHardeningLevels.third;
       const resault: PasswordHardeningLevels | boolean = isHardenPassword(
         `MonkeyDont0ayWhatMonkeyW0ntD0`
       );
-
+      expect(resault).toEqual(expected);
+    });
+  });
+  describe('isHardenPassword', () => {
+    it('weak password', async () => {
+      const expected = PasswordHardeningLevels.first;
+      const resault: PasswordHardeningLevels | boolean = isHardenPassword(
+        `aaaaaaaaaaaaaaa`
+      );
+      expect(resault).toEqual(expected);
+    });
+  });
+  describe('isHardenPassword', () => {
+    it('medium password Aa' , async () => {
+      const expected = PasswordHardeningLevels.second;
+      const resault: PasswordHardeningLevels | boolean = isHardenPassword(
+        `AaAaAaAaAaAaAaAaAaAa`
+      );
+      expect(resault).toEqual(expected);
+    });
+  });
+  describe('isHardenPassword', () => {
+    it('invalid password a', async () => {
+      const expected = PasswordHardeningLevels.zero;
+      const resault: PasswordHardeningLevels | boolean = isHardenPassword(
+        `aaaaaa`
+      );
       expect(resault).toEqual(expected);
     });
   });

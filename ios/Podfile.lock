@@ -283,14 +283,14 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
-  - react-native-camera (3.40.0):
-    - React-Core
-    - react-native-camera/RCT (= 3.40.0)
-    - react-native-camera/RN (= 3.40.0)
-  - react-native-camera/RCT (3.40.0):
-    - React-Core
-  - react-native-camera/RN (3.40.0):
-    - React-Core
+  - react-native-camera (3.24.1):
+    - React
+    - react-native-camera/RCT (= 3.24.1)
+    - react-native-camera/RN (= 3.24.1)
+  - react-native-camera/RCT (3.24.1):
+    - React
+  - react-native-camera/RN (3.24.1):
+    - React
   - react-native-document-picker (4.2.0):
     - React-Core
   - react-native-geolocation (2.0.2):
@@ -338,12 +338,12 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.5)
   - RNAppleAuthentication (2.1.0):
     - React-Core
-  - RNCMaskedView (0.1.10):
+  - RNCMaskedView (0.1.7):
     - React
-  - RNFBApp (10.3.0):
+  - RNFBApp (10.4.0):
     - Firebase/CoreOnly (~> 7.3.0)
     - React-Core
-  - RNFBAuth (10.3.1):
+  - RNFBAuth (10.4.0):
     - Firebase/Auth (~> 7.3.0)
     - React-Core
     - RNFBApp
@@ -356,16 +356,16 @@ PODS:
     - Fabric
     - Firebase/Core
     - React
-  - RNGestureHandler (1.9.0):
-    - React-Core
-  - RNGoogleSignin (4.0.3):
+  - RNGestureHandler (1.6.0):
+    - React
+  - RNGoogleSignin (4.0.0):
     - GoogleSignIn (~> 5.0.0)
     - React
-  - RNReanimated (1.13.2):
-    - React-Core
-  - RNScreens (2.15.0):
-    - React-Core
-  - RNVectorIcons (6.7.0):
+  - RNReanimated (1.7.0):
+    - React
+  - RNScreens (2.3.0):
+    - React
+  - RNVectorIcons (6.6.0):
     - React
   - UMBarCodeScannerInterface (5.0.0)
   - UMCameraInterface (5.0.0)
@@ -607,10 +607,10 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
-  EXAppLoaderProvider: ebdb6bc2632c1ccadbe49f5e4104d8d690969c49
-  EXConstants: 4051b16c17ef3defa03c541d42811dc92b249146
-  EXFileSystem: 6e0d9bb6cc4ea404dbb8f583c1a8a2dcdf4b83b6
-  EXPermissions: 9bc08859a675d291e89be9a0870155c27c16ac35
+  EXAppLoaderProvider: f6aeb45ee81887811b34eee5c5f235a6111d58d0
+  EXConstants: e287774d0d32634ddaef614f2e488c550c6deefc
+  EXFileSystem: fa8ecad925ad984681910a2273930f7255a0a9b5
+  EXPermissions: 3e58e0fbb2e9539ad1ef5617ff02c2356447421e
   Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
   FBLazyVector: aaeaf388755e4f29cd74acbc9e3b8da6d807c37f
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
@@ -639,11 +639,11 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-camera: 35854c4f764a4a6cf61c1c3525888b92f0fe4b31
-  react-native-document-picker: 44ecae7103090b6789cca010f06f5205fd1cb66e
-  react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
+  react-native-camera: cee386e852c0623ce3451173c0fcc90f92da4c24
+  react-native-document-picker: 47d2771fc553c60a9f2a7c4c4e6f14ec542b9603
+  react-native-geolocation: cbd9d6bd06bac411eed2671810f454d4908484a8
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
-  react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
+  react-native-safe-area-context: 8260e5157617df4b72865f44006797f895b2ada7
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
@@ -656,27 +656,27 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RNAppleAuthentication: 46cbc67739bae83ca229497f9b0038f3f5431443
-  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNFBApp: d5bc110403b55ba26ac441716259bd514d559cc5
-  RNFBAuth: 4bf9e2c84d2e42651030eb80acf6b32f966f847a
+  RNCMaskedView: 90dd32f5b786bd562e876e1421ea77c700cbf71e
+  RNFBApp: a9af8372c9c2b2135ffa78817fd2d8baf3ee632e
+  RNFBAuth: 6a466af92b0b091a58e059ffac2a101764a5379a
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
-  RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
-  RNGoogleSignin: ccf71ee4b6cfd324fd788a41e457e2043838c0d9
-  RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: 2ad555d4d9fa10b91bb765ca07fe9b29d59573f0
-  RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
-  UMBarCodeScannerInterface: 3802c8574ef119c150701d679ab386e2266d6a54
-  UMCameraInterface: 985d301f688ed392f815728f0dd906ca34b7ccb1
-  UMConstantsInterface: bda5f8bd3403ad99e663eb3c4da685d063c5653c
-  UMCore: 7ab08669a8bb2e61f557c1fe9784521cb5aa28e3
-  UMFaceDetectorInterface: ce14e8e597f6a52aa66e4ab956cb5bff4fa8acf8
-  UMFileSystemInterface: 2ed004c9620f43f0b36b33c42ce668500850d6a4
-  UMFontInterface: 24fbc0a02ade6c60ad3ee3e2b5d597c8dcfc3208
-  UMImageLoaderInterface: 3976a14c588341228881ff75970fbabf122efca4
-  UMPermissionsInterface: 2abf9f7f4aa7110e27beaf634a7deda2d50ff3d7
-  UMReactNativeAdapter: 230406e3335a8dbd4c9c0e654488a1cf3b44552f
-  UMSensorsInterface: d708a892ef1500bdd9fc3ff03f7836c66d1634d3
-  UMTaskManagerInterface: a98e37a576a5220bf43b8faf33cfdc129d2f441d
+  RNGestureHandler: dde546180bf24af0b5f737c8ad04b6f3fa51609a
+  RNGoogleSignin: 068788c1e83e5e05ef0bad090ba67fd8f963a2a3
+  RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
+  RNScreens: 03bf608b92ac0acf323f47d8f5b63a8f829340c8
+  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  UMBarCodeScannerInterface: 550e7ffd7a789289260bde3d547be29407e75437
+  UMCameraInterface: 51e4568d64e77615557afaad9a3acdaad5d32d9f
+  UMConstantsInterface: 23d658b73efc2b8090519b32007c3de725339492
+  UMCore: 70ffbb181a04d87b029b0235873e59090690b7ab
+  UMFaceDetectorInterface: b29febb6c855acb2891d024bb8059f5a8feb37d0
+  UMFileSystemInterface: 31b0a8461d0c635940b70618f82524e321b55d7c
+  UMFontInterface: c82a5e8e17d1578f0b76745535a5f4dc43971970
+  UMImageLoaderInterface: bd64d84e5772165a13575f7ddd43b489f51e5694
+  UMPermissionsInterface: 907d0112f59b172550fe36174432024a4d5f0cd7
+  UMReactNativeAdapter: 7ec3c2da240e767df8257bc487251ae03447d1b0
+  UMSensorsInterface: 1b36739f5241fa88ba483be9520d0a30e4d6f84c
+  UMTaskManagerInterface: ee5b1ee1056eb338ff2d521ba79460d8cd0bae7d
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: 517c747324a50579edffebc80625a8e935a26a10

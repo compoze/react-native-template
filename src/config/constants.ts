@@ -1,5 +1,6 @@
 import { KeyboardType } from 'react-native';
-
+// @ts-ignore
+import { ENVIRONMENT } from 'react-native-dotenv';
 type FontWeight =
   | '300'
   | '400'

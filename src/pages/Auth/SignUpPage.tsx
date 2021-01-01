@@ -5,7 +5,7 @@ import {
   Text,
   ScrollView,
   View,
-  Platform,
+  Platform
 } from 'react-native';
 import { LoginInput } from '../../components/input';
 import { Button } from '../../components/button';
@@ -15,10 +15,10 @@ import { AppleRequestResponse } from '@invertase/react-native-apple-authenticati
 import {
   requiredFieldsEmpty,
   ValidationObject,
-  ObjectToValidate,
+  ObjectToValidate
 } from '../../utilities/FormValidation';
 import { copy } from '../../config/static.copy';
-import { Icon } from 'react-native-vector-icons/Icon';
+import { Icon } from 'react-native-elements';
 import AddPhotoModal from './AddPhotoModal';
 import { User } from '../../model/User';
 
@@ -50,7 +50,7 @@ export class SignUp extends React.Component<Props, State> {
       phoneNumber: '',
       loggingInWithGoogle: false,
       showPhotoModal: false,
-      showPhoneModal: false,
+      showPhoneModal: false
     };
   }
 
@@ -78,7 +78,7 @@ export class SignUp extends React.Component<Props, State> {
           lastName: userInfo.fullName.familyName,
           email: userInfo.email,
           showPhoneModal: true,
-          showPhotoModal: true,
+          showPhotoModal: true
         });
       }
     } catch (errors) {
@@ -99,7 +99,7 @@ export class SignUp extends React.Component<Props, State> {
           lastName: user.lastName,
           email: user.email,
           showPhoneModal: true,
-          showPhotoModal: true,
+          showPhotoModal: true
         });
       }
     } catch (errors) {
@@ -112,7 +112,7 @@ export class SignUp extends React.Component<Props, State> {
       { key: 'First Name', value: firstName },
       { key: 'Last Name', value: lastName },
       { key: 'email', value: email },
-      { key: 'password', value: password },
+      { key: 'password', value: password }
     ];
     const validationErrors: ValidationObject[] = requiredFieldsEmpty(
       ...validationFields
@@ -145,7 +145,7 @@ export class SignUp extends React.Component<Props, State> {
       { key: 'email', value: email },
       { key: 'password', value: password },
       { key: 'First Name', value: firstName },
-      { key: 'Last Name', value: lastName },
+      { key: 'Last Name', value: lastName }
     ];
     return (
       <ScrollView style={styles.scroll}>
@@ -153,9 +153,9 @@ export class SignUp extends React.Component<Props, State> {
         {this.state.showPhotoModal ? (
           <AddPhotoModal
             navigation={this.props.navigation}
-            showGooglePhoto={}
+            showGooglePhoto={false}
             togglePhotoModal={this.closePhoneModal}
-            userStore={this.props.userStore}
+            userStore={this.userStore}
           />
         ) : undefined}
         <LoginInput
@@ -174,6 +174,7 @@ export class SignUp extends React.Component<Props, State> {
         />
         <LoginInput
           title="Email*"
+          autoCompleteType='email'
           placeholder={copy.signUpUIStrings.EMAIL_INPUT_PLACEHOLDER}
           onChangeText={(email: string) => {
             this.setState({ email: email });
@@ -182,6 +183,7 @@ export class SignUp extends React.Component<Props, State> {
         />
         <LoginInput
           title="Password*"
+          autoCompleteType='password'
           secureTextEntry={true}
           placeholder={copy.signUpUIStrings.PASSWORD_INPUT_PLACEHOLDER}
           onChangeText={(password: string) => {
@@ -190,6 +192,7 @@ export class SignUp extends React.Component<Props, State> {
         />
         <LoginInput
           title="Phone Number"
+          autoCompleteType='tel'
           placeholder={copy.signUpUIStrings.PHONE_NUMBER_INPUT_PLACEHOLDER}
           onChangeText={(phoneNumber: string) => {
             this.setState({ phoneNumber: phoneNumber });
@@ -201,18 +204,20 @@ export class SignUp extends React.Component<Props, State> {
           onPress={this.onPressSignUpButton}
         >
           <Text>{copy.signUpUIStrings.SIGN_UP}</Text>
+        </Button>
           <Text style={{ alignSelf: 'center' }}>or</Text>
           <Button
-            onPress={this.onGoogleButtonPress()}
+            onPress={this.onGoogleButtonPress}
             invalid={false}
+            hasShadow={true}
             style={styles.continueWithGoogleButton}
           >
             <View style={styles.continueWithGoogleContent}>
-              <Icon name="google" type="font-awesome" color="#4285F4" />
+              <Icon name="google" type="font-awesome" color="#4285F4"/>
               <Text
                 style={{
                   fontWeight: styleConstants.fontWeight.BOLD,
-                  fontSize: styleConstants.fontSize.MEDIUM,
+                  fontSize: styleConstants.fontSize.MEDIUM
                 }}
               >
                 Sign up with Google
@@ -226,11 +231,11 @@ export class SignUp extends React.Component<Props, State> {
               style={styles.continueWithAppleButton}
             >
               <View style={styles.continueWithGoogleContent}>
-                <Icon name="apple" type="font-awesome" />
+                <Icon name="apple" type="font-awesome"/>
                 <Text
                   style={{
                     fontWeight: styleConstants.fontWeight.BOLD,
-                    fontSize: styleConstants.fontSize.LARGE,
+                    fontSize: styleConstants.fontSize.LARGE
                   }}
                 >
                   Sign in with Apple
@@ -238,7 +243,7 @@ export class SignUp extends React.Component<Props, State> {
               </View>
             </Button>
           )}
-        </Button>
+        <Text style={styles.alreadyAccount} onPress={this.navigateToLogin}>Already have an account?</Text>
       </ScrollView>
     );
   }
@@ -247,12 +252,49 @@ export class SignUp extends React.Component<Props, State> {
 const styles = StyleSheet.create({
   scroll: {
     backgroundColor: styleConstants.colors.APP_BACKGROUND,
-    paddingHorizontal: '7.5%',
+    paddingHorizontal: '7.5%'
+  },
+  alreadyAccount: {
+    color: styleConstants.colors.PRIMARY,
+    backgroundColor: styleConstants.colors.TRANSPARENT
   },
   title: {
     fontSize: styleConstants.fontSize.XX_LARGE,
     color: styleConstants.colors.TITLE_PRIMARY,
     fontWeight: styleConstants.fontWeight.BOLD,
-    width: '100%',
+    width: '100%'
   },
+  continueWithGoogleContent: {
+    paddingHorizontal: '7.5%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '80%',
+    height: '100%'
+  },
+  continueWithAppleButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 0,
+    borderColor: '#000',
+    borderWidth: 1
+  },
+  continueWithGoogleButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+    borderRadius: 6,
+    borderColor: 'white',
+    borderWidth: 1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: 'black',
+    shadowOpacity: 0.14
+  }
 });

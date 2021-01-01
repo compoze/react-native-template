@@ -1,10 +1,9 @@
 import { GraphQLClient } from 'graphql-request';
 import { Auth } from '../stores/UserStore';
-// @ts-ignore
-import { BASE_URL } from 'react-native-dotenv';
+import { baseUrl } from '../config/global.vars';
 
 export class ApiService {
-  protected basePath: string = BASE_URL;
+  protected basePath: string = baseUrl;
   protected authToken: string = '';
   private graphQLClient = new GraphQLClient(this.basePath);
 

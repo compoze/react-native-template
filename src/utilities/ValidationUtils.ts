@@ -1,3 +1,5 @@
+import Log from './Logger';
+
 export const isValidEmail = (email: string): boolean => {
   if (email) {
     const regex: RegExp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
@@ -21,7 +23,8 @@ export const isHardenPassword = (
   psswd: string,
   passwordHardeningLevel?: PasswordHardeningLevels
 ): PasswordHardeningLevels | boolean => {
-  const minLowerCaseCharCount = 8;
+
+  const minLowerCaseCharCount = 6;
   const minUpperCaseCharCount = 2;
   const minSpecialCharCount = 2;
   const minNumberCharCount = 2;
@@ -30,21 +33,21 @@ export const isHardenPassword = (
     minUpperCaseCharCount +
     minSpecialCharCount +
     minNumberCharCount;
-  // const specialChars = `~!@#$%^&*()|/;:"'><,.?-_=+{}`;
+  const maxPsswdLength = minPasswordCharLength * 3;
   const lowercaseCharRegex: RegExp = new RegExp(
-    `(?=.{${minLowerCaseCharCount},66}[a-z])`,
+    `(?=.{${minLowerCaseCharCount},${maxPsswdLength}}[a-z])`,
     'g'
   );
   const uppercaseCharRegex: RegExp = new RegExp(
-    `(?=.{${minUpperCaseCharCount},66}[A-Z])`,
+    `(?=.{${minUpperCaseCharCount},${maxPsswdLength}}[A-Z])`,
     'g'
   );
   const numberCharRegex: RegExp = new RegExp(
-    `(?=.{${minSpecialCharCount},66}[0-9])`,
+    `(?=.{${minNumberCharCount},${maxPsswdLength}}[0-9])`,
     'g'
   );
   const specialCharRegex: RegExp = new RegExp(
-    `(?=.{${minNumberCharCount},66}[~!@#$%^&*|\\/;:"'><,.?-_=+{}()])`,
+    `(?=.{${minSpecialCharCount},${maxPsswdLength}}[~!@#$%^&*|\\/;:"'><,.?\-_=+{}()\`])`,
     'g'
   );
   const string: string = String(psswd || '').trim();
@@ -59,23 +62,36 @@ export const isHardenPassword = (
   const mediumMatch: boolean =
     lowercaseMatch && uppercaseMatch && (numberMatch || specialMatch);
   const weakMatch: boolean = lowercaseMatch || uppercaseMatch;
+
+  //Eval function
   const evaluate = (): PasswordHardeningLevels => {
     if (string.length < minPasswordCharLength) {
       // if less than required amount it should be an invalid password
+      Log.debug("isHardenPassword: zero 0");
       return PasswordHardeningLevels.zero;
     } else if (weakMatch && !mediumMatch && !strongMatch) {
+      //Weak Password
+      Log.debug("isHardenPassword: first");
       return PasswordHardeningLevels.first;
-    } else if (mediumMatch && !strongMatch) {
+    } else if (weakMatch && mediumMatch && !strongMatch) {
+      //Medium Password
+      Log.debug("isHardenPassword: second");
       return PasswordHardeningLevels.second;
-    } else if (strongMatch) {
+    } else if (weakMatch && mediumMatch && strongMatch) {
+      //Strong Password
+      Log.debug("isHardenPassword: third");
       return PasswordHardeningLevels.third;
     } else {
+      //Invalid Password
+      Log.debug("isHardenPassword: zero 1");
       return PasswordHardeningLevels.zero;
     }
   };
   if (typeof passwordHardeningLevel === 'undefined') {
+    //return password level
     return evaluate();
   } else {
-    return evaluate() === passwordHardeningLevel;
+    //Does the password meet this level??? return value boolean;
+    return evaluate() >= passwordHardeningLevel;
   }
 };

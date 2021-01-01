@@ -3,10 +3,9 @@ import { request } from 'graphql-request';
 import { ApiService } from './ApiService';
 import { Auth } from '../stores/UserStore';
 import fetch from 'node-fetch';
-// @ts-ignore
-import { BASE_URL, ENVIRONMENT } from 'react-native-dotenv';
+import { baseUrl, environment } from '../config/global.vars';
 
-const BASE_API: string = BASE_URL;
+const BASE_API: string = baseUrl;
 
 export class UserService {
   private apiService = new ApiService();
@@ -123,11 +122,11 @@ export class UserService {
   }
 
   public async uploadUserProfilePhoto(userId: number, filePath: string) {
-    const env = ENVIRONMENT.toString().toLowerCase();
+    const env = environment.toString().toLowerCase();
     //  http://localhost:4000/upload/uploadUserProfilePhoto/dev/0 default local url
-    let uri = !BASE_URL.toString().includes('http')
-      ? `https://${BASE_URL.toString()}`
-      : `${BASE_URL.toString()}`;
+    let uri = !BASE_API.toString().includes('http')
+      ? `https://${BASE_API.toString()}`
+      : `${BASE_API.toString()}`;
     uri = `${uri}/upload/uploadUserProfilePhoto/${env}/${userId}`;
     const options = {
       method: 'POST',

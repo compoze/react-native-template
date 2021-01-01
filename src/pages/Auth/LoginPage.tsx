@@ -6,7 +6,7 @@ import {
   View,
   ImageBackground,
   Image,
-  Platform,
+  Platform
 } from 'react-native';
 import { LoginInput } from '../../components/input';
 import { Button } from '../../components/button';
@@ -29,7 +29,6 @@ GoogleSignin.configure({
 interface Props {
   userStore: UserStore;
   navigation: any;
-
   setStackNavigation(stackNavigation: any): void;
 }
 
@@ -141,14 +140,14 @@ export class Login extends React.Component<Props, State> {
               marginBottom: 30,
               justifyContent: 'flex-end',
               alignContent: 'flex-end',
-            }}
-          >
+            }}>
             <Image
               style={{ resizeMode: 'contain' }}
               source={require('../../images/DefaultHeaderLogo.png')}
             />
           </View>
           <LoginInput
+            autoCompleteType='email'
             placeholder={copy.loginUIStrings.EMAIL_INPUT_PLACEHOLDER}
             onChangeText={(email: string) => {
               this.setState({ email: email });
@@ -156,19 +155,19 @@ export class Login extends React.Component<Props, State> {
             keyboardType="email-address"
           />
           <LoginInput
+            autoCompleteType='password'
             secureTextEntry={true}
             placeholder={copy.loginUIStrings.PASSWORD_INPUT_PLACEHOLDER}
             onChangeText={(password: string) => {
               this.setState({ password: password });
             }}
           />
-          <Button invalid={false} onPress={this.onPressLoginButton}>
-            <Text style={{ color: 'white' }}>Login</Text>
+          <Button hasShadow={true} invalid={false} onPress={this.onPressLoginButton}>
+            <Text style={{ color: 'black' }}>Login</Text>
           </Button>
           <Text
             style={[styles.signUp, { marginVertical: 20 }]}
-            onPress={() => this.props.navigation.navigate('ResetPasswordPage')}
-          >
+            onPress={() => this.props.navigation.navigate('ResetPasswordPage')}>
             Forgot Password?
           </Text>
           <Text>Or</Text>
@@ -176,16 +175,14 @@ export class Login extends React.Component<Props, State> {
           <Button
             onPress={this.onGoogleButtonPress}
             invalid={false}
-            style={styles.continueWithGoogleButton}
-          >
+            style={styles.continueWithGoogleButton}>
             <View style={styles.continueWithGoogleContent}>
               <Icon name="google" type="font-awesome" color="#4285F4" />
               <Text
                 style={{
                   fontWeight: styleConstants.fontWeight.BOLD,
                   fontSize: styleConstants.fontSize.LARGE,
-                }}
-              >
+                }}>
                 Continue with Google
               </Text>
             </View>
@@ -194,22 +191,21 @@ export class Login extends React.Component<Props, State> {
             <Button
               onPress={this.onAppleButtonPress}
               invalid={false}
-              style={styles.continueWithAppleButton}
-            >
+              hasShadow={true}
+              style={styles.continueWithAppleButton}>
               <View style={styles.continueWithGoogleContent}>
                 <Icon name="apple" type="font-awesome" />
                 <Text
                   style={{
                     fontWeight: styleConstants.fontWeight.BOLD,
                     fontSize: styleConstants.fontSize.LARGE,
-                  }}
-                >
+                  }}>
                   Sign in with Apple
                 </Text>
               </View>
             </Button>
           )}
-          <Text>
+          <Text style={{paddingBottom: 15}}>
             Don't have an account?{' '}
             <Text style={styles.signUp} onPress={this.navigateToSignUp}>
               Sign Up
@@ -225,6 +221,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: styleConstants.colors.APP_BACKGROUND,
+    width: '100%',
+    height: '100%'
   },
   imageBackground: {
     flex: 1,

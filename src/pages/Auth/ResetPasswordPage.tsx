@@ -99,7 +99,7 @@ export class ResetPasswordPage extends React.Component<Props, State> {
           <View style={{ width: '100%', alignItems: 'center' }}>
             <Image
               style={{ height: 190, width: 220 }}
-              source={require('../images/PasswordBike.png')}
+              source={require('../../images/DefaultHeaderLogo.png')}
             />
             <Text style={styles.title}>Reset instructions sent</Text>
             <Text style={{ textAlign: 'center', paddingHorizontal: 20 }}>
