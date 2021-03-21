@@ -1,23 +1,11 @@
 export class User {
-  public readonly userID: number;
+  public readonly id: number;
   public readonly email: number;
-  public readonly firstName: string;
-  public readonly lastName: string;
-  public readonly phoneNumber: string;
 
   public constructor(params: Partial<User> = {}) {
-    const {
-      userID,
-      email,
-      firstName = '',
-      lastName = '',
-      phoneNumber = '',
-    } = params;
+    const { id, email } = params;
 
-    this.userID = userID!;
+    this.id = id!;
     this.email = email!;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phoneNumber = phoneNumber;
   }
 }

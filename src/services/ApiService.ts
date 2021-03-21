@@ -1,4 +1,4 @@
-import { GraphQLClient, request } from 'graphql-request';
+import { GraphQLClient } from 'graphql-request';
 import { Auth } from '../stores/UserStore';
 import { BASE_URL } from 'react-native-dotenv';
 

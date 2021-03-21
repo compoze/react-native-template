@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, StyleSheet, Text, ScrollView } from 'react-native';
 import { LoginInput } from '../components/input';
 import { Button } from '../components/button';
-import { UserStore } from '../stores/UserStore';
+// import { UserStore } from '../stores/UserStore';
 import { styleConstants } from '../config/constants';
 import {
   requiredFieldsEmpty,
@@ -12,7 +12,6 @@ import {
 import { copy } from '../config/static.copy';
 
 interface Props {
-  userStore: UserStore;
   navigation: any;
 }
 
@@ -52,17 +51,17 @@ export class SignUp extends React.Component<Props, State> {
       return;
     }
 
-    const userStore: UserStore = new UserStore();
+    // const userStore: UserStore = new UserStore();
     try {
-      await userStore.signUp(email, password, firstName, lastName, phoneNumber);
+      // await userStore.signUp(email, password, firstName, lastName, phoneNumber);
       Alert.alert('User signed up successfully');
     } catch (errors) {
       Alert.alert('Sign Up Error', JSON.stringify(errors));
     }
 
-    if (this.props.userStore.isAuthenticated) {
-      this.props.navigation.navigate('Map');
-    }
+    // if (this.props.userStore.isAuthenticated) {
+    //   this.props.navigation.navigate('Map');
+    // }
   };
 
   public render(): JSX.Element {
