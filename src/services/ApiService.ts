@@ -1,31 +1,33 @@
-import { GraphQLClient } from 'graphql-request';
-import { Auth } from '../stores/UserStore';
-import { BASE_URL } from 'react-native-dotenv';
+import { AxiosInstance } from 'axios';
+import AuthService from './AuthService';
 
-export class ApiService {
-  protected basePath: string = BASE_URL;
-  protected authToken: string = '';
-  private graphQLClient = new GraphQLClient(this.basePath);
+export default class ApiService {
+  constructor(
+    protected readonly http: AxiosInstance,
+    protected readonly authService: AuthService,
+    protected readonly baseUri: string
+  ) {}
 
-  public async authenticatedGqlQuery(query: string): Promise<any> {
-    const authToken = await this.getAuthToken();
-
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: authToken,
-    };
-
-    this.graphQLClient.setHeaders(headers);
-
-    const response = await this.graphQLClient.request(query);
-    return response;
+  public async get<T>(urlPath: string, headers: any = {}): Promise<T> {
+    const url = this.createURL(urlPath);
+    Object.assign(headers, await this.getHeaeders());
+    const response = await this.http.get<T>(url, { headers });
+    return response.data;
   }
 
-  private async getAuthToken(): Promise<string> {
-    if (null !== Auth.currentUser) {
-      return await Auth.currentUser.getIdToken();
-    } else {
-      return '';
-    }
+  public async post<T>(path: string, body: any, headers: any = {}): Promise<T> {
+    const url = this.createURL(path);
+    Object.assign(headers, await this.getHeaeders());
+    const response = await this.http.post<T>(url, body, { headers });
+    return response.data;
+  }
+
+  private createURL(urlPath: string): string {
+    return this.baseUri + urlPath;
+  }
+
+  private async getHeaeders(): Promise<any> {
+    const Authorization = await this.authService.getAuthToken();
+    return Authorization ? { Authorization } : {};
   }
 }

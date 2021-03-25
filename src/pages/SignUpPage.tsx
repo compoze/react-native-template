@@ -16,11 +16,8 @@ interface Props {
 }
 
 interface State {
-  email?: string;
-  password?: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
+  email: string;
+  password: string;
 }
 export class SignUp extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -29,17 +26,12 @@ export class SignUp extends React.Component<Props, State> {
     this.state = {
       email: '',
       password: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
     };
   }
 
   private onPressSignUpButton = async (): Promise<void> => {
-    const { email, password, firstName, lastName, phoneNumber } = this.state;
+    const { email, password } = this.state;
     const validationFields: ObjectToValidate[] = [
-      { key: 'First Name', value: firstName },
-      { key: 'Last Name', value: lastName },
       { key: 'email', value: email },
       { key: 'password', value: password },
     ];
@@ -53,7 +45,7 @@ export class SignUp extends React.Component<Props, State> {
 
     // const userStore: UserStore = new UserStore();
     try {
-      // await userStore.signUp(email, password, firstName, lastName, phoneNumber);
+      // await userStore.signUp(email, password);
       Alert.alert('User signed up successfully');
     } catch (errors) {
       Alert.alert('Sign Up Error', JSON.stringify(errors));
