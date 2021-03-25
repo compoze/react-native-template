@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { LoginInput } from '../components/input';
 import { Button } from '../components/button';
-import { UserStore } from '../stores/UserStore';
 import { styleConstants } from '../config/constants';
 import {
   requiredFieldsEmpty,
@@ -25,9 +24,7 @@ GoogleSignin.configure({
 });
 
 interface Props {
-  userStore: UserStore;
   navigation: any;
-  setStackNavigation(stackNavigation: any): void;
 }
 
 interface State {
@@ -45,29 +42,25 @@ export class Login extends React.Component<Props, State> {
   }
 
   componentDidMount = () => {
-    this.props.setStackNavigation(this.props.navigation);
-    if (this.props.userStore.isAuthenticated) {
-      this.props.navigation.navigate('Map');
-    }
+    // if (this.props.userStore.isAuthenticated) {
+    //   this.props.navigation.navigate('Map');
+    // }
   };
 
   private navigateToSignUp = (): void => {
     this.props.navigation.navigate('SignUp');
   };
-  private navigateToMap = (): void => {
-    this.props.navigation.navigate('Map', { showDestinations: false });
-  };
 
   private googleLogin = async (): Promise<void> => {
     try {
-      await this.props.userStore.googleLogin();
+      // await this.props.userStore.googleLogin();
     } catch (errors) {
       Alert.alert('Login Error', JSON.stringify(errors));
     }
 
-    if (this.props.userStore.isAuthenticated) {
-      this.navigateToMap();
-    }
+    // if (this.props.userStore.isAuthenticated) {
+    //   this.navigateToMap();
+    // }
   };
 
   private onPressLoginButton = async (): Promise<void> => {
@@ -85,15 +78,15 @@ export class Login extends React.Component<Props, State> {
     }
 
     //TODO: Hack this just to make progress on automation
-    try {
-      await this.props.userStore.login(email!, password!);
-    } catch (errors) {
-      Alert.alert('Login Error', JSON.stringify(errors));
-    }
+    // try {
+    //   await this.props.userStore.login(email!, password!);
+    // } catch (errors) {
+    //   Alert.alert('Login Error', JSON.stringify(errors));
+    // }
 
-    if (this.props.userStore.isAuthenticated) {
-      this.navigateToMap();
-    }
+    // if (this.props.userStore.isAuthenticated) {
+    //   this.navigateToMap();
+    // }
   };
 
   public render(): JSX.Element {

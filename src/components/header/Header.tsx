@@ -1,18 +1,14 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { Header, Icon } from 'react-native-elements';
+import { Header } from 'react-native-elements';
 
-interface Props {
-  toggleSideMenu(): void;
-}
+interface Props {}
 
 export class AppHeader extends React.Component<Props> {
   public render(): JSX.Element {
     return (
       <Header containerStyle={{ backgroundColor: '#FFFFFF' }}>
-        <Icon name="menu" onPress={this.props.toggleSideMenu} />
         <Image source={require('../../images/DefaultHeaderLogo.png')} />
-        <Icon name="shopping-bag" type="font-awesome" />
       </Header>
     );
   }

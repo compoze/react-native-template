@@ -1,49 +1,46 @@
 import { User } from '../model/User';
-import { request } from 'graphql-request';
 import { ApiService } from './ApiService';
 import { Auth } from '../stores/UserStore';
-import { BASE_URL } from 'react-native-dotenv';
 
-const BASE_API: string = BASE_URL;
 export class UserService {
   private apiService = new ApiService();
 
-  public async signUpUser(
-    email: string,
-    firstName: string,
-    lastName: string,
-    phoneNumber: string,
-    password: string
-  ): Promise<User> {
-    const mutationString: string = `
-        mutation { signUpUser(
-            email: "${email}"
-            firstName: "${firstName}"
-            lastName: "${lastName}"
-            phoneNumber: "${phoneNumber}"
-            password: "${password}"
-          ) {
-                user {
-                    id
-                    email
-                    firstName
-                    lastName
-                    phoneNumber
-                }
-                errors {
-                    message
-                }
-            }
-        }
-      `;
+  // public async signUpUser(
+  //   email: string,
+  //   firstName: string,
+  //   lastName: string,
+  //   phoneNumber: string,
+  //   password: string
+  // ): Promise<User> {
+  //   const mutationString: string = `
+  //       mutation { signUpUser(
+  //           email: "${email}"
+  //           firstName: "${firstName}"
+  //           lastName: "${lastName}"
+  //           phoneNumber: "${phoneNumber}"
+  //           password: "${password}"
+  //         ) {
+  //               user {
+  //                   id
+  //                   email
+  //                   firstName
+  //                   lastName
+  //                   phoneNumber
+  //               }
+  //               errors {
+  //                   message
+  //               }
+  //           }
+  //       }
+  //     `;
 
-    return request(BASE_API, mutationString).then((data) => {
-      if (data.signUpUser.user === null || data.signUpUser.errors.length > 0) {
-        throw data.signUpUser.errors;
-      }
-      return new User(data.signUpUser.user);
-    });
-  }
+  //   return request(BASE_API, mutationString).then((data) => {
+  //     if (data.signUpUser.user === null || data.signUpUser.errors.length > 0) {
+  //       throw data.signUpUser.errors;
+  //     }
+  //     return new User(data.signUpUser.user);
+  //   });
+  // }
 
   public async getAuthenticatedUser(): Promise<User> {
     const query: string = `

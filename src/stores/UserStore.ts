@@ -78,22 +78,22 @@ export class UserStore {
     }
   };
 
-  public async signUp(
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string,
-    phoneNumber?: string
-  ): Promise<User> {
-    const user: User = await this.userService.signUpUser(
-      email,
-      firstName,
-      lastName,
-      phoneNumber,
-      password
-    );
-    await this.login(email, password);
+  // public async signUp(
+  //   email: string,
+  //   password: string,
+  //   firstName: string,
+  //   lastName: string,
+  //   phoneNumber?: string
+  // ): Promise<User> {
+  // const user: User = await this.userService.signUpUser(
+  //   email,
+  //   firstName,
+  //   lastName,
+  //   phoneNumber,
+  //   password
+  // );
+  // await this.login(email, password);
 
-    return user;
-  }
+  //   return user;
+  // }
 }
