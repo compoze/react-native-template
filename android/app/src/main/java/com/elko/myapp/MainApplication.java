@@ -6,8 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
@@ -25,7 +23,6 @@ import org.unimodules.adapters.react.ModuleRegistryAdapter;
 import org.unimodules.adapters.react.ReactModuleRegistryProvider;
 import org.unimodules.core.interfaces.Package;
 import org.unimodules.core.interfaces.SingletonModule;
-import org.reactnative.camera.RNCameraPackage;
 
 import expo.modules.constants.ConstantsPackage;
 import expo.modules.permissions.PermissionsPackage;
@@ -54,18 +51,15 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
                     new VectorIconsPackage(),
-                    new RNFirebasePackage(),
                     new GeolocationPackage(),
                     new MapsPackage(),
                     new SafeAreaContextPackage(),
-                    new RNFirebaseAuthPackage(),
                     new ReanimatedPackage(),
                     new RNGestureHandlerPackage(),
                     new RNGoogleSigninPackage(),
                     new RNScreensPackage(),
                     new SplashScreenReactPackage(),
-                    new ModuleRegistryAdapter(mModuleRegistryProvider),
-                    new RNCameraPackage()
+                    new ModuleRegistryAdapter(mModuleRegistryProvider)
             );
         }
 
