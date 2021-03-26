@@ -24,7 +24,7 @@
     "prettier:base": "prettier --parser typescript",
     "prettier": "npm run prettier:base -- --list-different \"src/**/*.{js,ts,tsx}\"",
     "prettier:fix": "npm run prettier:base -- --loglevel warn --write \"src/**/*.{js,ts,tsx}\"",
-    "lint": "npx eslint 'src/**/*.{js,ts,tsx}' -c ./eslintconfig.json",
+    "lint": "npx eslint 'src/**/*.{js,ts,tsx}' -c ./eslintconfig.json --no-error-on-unmatched-pattern",
     "lint:fix": "npm run lint -- --fix"
   },
   "husky": {
