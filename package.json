@@ -19,7 +19,7 @@
     "create-config-files": "node create.config.files.js $npm_package_config_iosProjectName $npm_package_config_androidProjectName",
     "test": "jest --config jestconfig.json",
     "decode-appcenter-config": "./scripts/appcenter_decode.sh",
-    "clean": "rm -rf node_modules/ && cd ios  && rm -rf Pods/ && cd ..",
+    "clean": "rm -rf node_modules/ && cd ios  && rm -rf Pods/ Podfile.lock && cd ..",
     "clean-start": "npm run clean && npm i && npm start",
     "prettier:base": "prettier --parser typescript",
     "prettier": "npm run prettier:base -- --list-different \"src/**/*.{js,ts,tsx}\"",
@@ -56,10 +56,8 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "~0.61.4",
-    "react-native-camera": "^3.43.0",
     "react-native-dotenv": "^0.2.0",
     "react-native-elements": "^1.2.7",
-    "react-native-firebase": "~5.6.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-maps": "^0.27.1",
     "react-native-maps-directions": "^1.8.0",
@@ -69,7 +67,7 @@
     "react-native-screens": "^2.18.1",
     "react-native-splash-screen": "^3.2.0",
     "react-native-unimodules": "~0.7.0",
-    "react-native-vector-icons": "^6.7.0",
+    "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.11.7"
   },
   "devDependencies": {

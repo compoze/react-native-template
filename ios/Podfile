@@ -54,7 +54,6 @@ target 'myapp' do
   pod 'GoogleSignIn', '~> 5.0.2'
 
   # Automatically detect installed unimodules
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'

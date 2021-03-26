@@ -50,8 +50,6 @@
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Allow myapp to access your calendar</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow myapp to use the camera</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Allow myapp experiences to access your contacts</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
