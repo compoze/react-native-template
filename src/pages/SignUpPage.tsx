@@ -1,7 +1,5 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, ScrollView } from 'react-native';
-import { LoginInput } from '../components/input';
-import { Button } from '../components/button';
 // import { UserStore } from '../stores/UserStore';
 import { styleConstants } from '../config/constants';
 import {
@@ -10,6 +8,8 @@ import {
   ObjectToValidate,
 } from '../utilities/FormValidation';
 import { copy } from '../config/static.copy';
+import LoginInput from '../components/input/LoginInput';
+import Button from '../components/button/Button';
 
 interface Props {
   navigation: any;
@@ -18,6 +18,8 @@ interface Props {
 interface State {
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
 }
 export class SignUp extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -26,6 +28,8 @@ export class SignUp extends React.Component<Props, State> {
     this.state = {
       email: '',
       password: '',
+      firstName: '',
+      lastName: '',
     };
   }
 
@@ -96,14 +100,6 @@ export class SignUp extends React.Component<Props, State> {
           onChangeText={(password: string) => {
             this.setState({ password: password });
           }}
-        />
-        <LoginInput
-          title="Phone Number"
-          placeholder={copy.signUpUIStrings.PHONE_NUMBER_INPUT_PLACEHOLDER}
-          onChangeText={(phoneNumber: string) => {
-            this.setState({ phoneNumber: phoneNumber });
-          }}
-          keyboardType="phone-pad"
         />
         <Button
           invalid={requiredFieldsEmpty(...validationFields).length !== 0}

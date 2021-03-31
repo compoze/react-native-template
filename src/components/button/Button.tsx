@@ -2,14 +2,14 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
-  TouchableOpacityProperties,
+  TouchableOpacityProps,
   StyleSheet,
   ViewStyle,
   StyleProp,
 } from 'react-native';
 import { styleConstants } from '../../config/constants';
 
-export interface ButtonProps extends TouchableOpacityProperties {
+export interface ButtonProps extends TouchableOpacityProps {
   contentContainerStyle?: ViewStyle;
   invalid: boolean;
   rounderCorners?: boolean | number;

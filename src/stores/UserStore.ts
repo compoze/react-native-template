@@ -1,9 +1,8 @@
-import firebase, { RNFirebase } from 'react-native-firebase';
+import { firebase, FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { User } from '../model/User';
 import { UserService } from '../services/UserService';
-export const Firebase = firebase;
-export const Auth = firebase.auth();
 import { GoogleSignin } from '@react-native-community/google-signin';
+import { Auth } from '../services/AuthService';
 
 export class UserStore {
   private userService: UserService = new UserService();
@@ -24,7 +23,7 @@ export class UserStore {
     return this.user;
   }
 
-  public getAuthUser(): RNFirebase.User {
+  public getAuthUser(): FirebaseAuthTypes.User {
     return Auth.currentUser;
   }
 

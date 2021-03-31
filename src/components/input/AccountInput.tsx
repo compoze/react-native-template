@@ -2,14 +2,14 @@ import React from 'react';
 import {
   StyleSheet,
   TextInput,
-  TextInputProperties,
+  TextInputProps,
   TextStyle,
   View,
   Text,
 } from 'react-native';
 import { styleConstants } from '../../config/constants';
 
-interface Props extends TextInputProperties {
+interface Props extends TextInputProps {
   title?: string;
 }
 
